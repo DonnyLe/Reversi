@@ -1,6 +1,6 @@
 package Model;
 
-public enum HexagonColor {
+public enum HexState {
     WHITE,
     BLACK,
     EMPTY
