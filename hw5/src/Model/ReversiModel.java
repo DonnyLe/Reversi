@@ -19,8 +19,8 @@ public class ReversiModel implements IReversi{
   public void startGame(int sideLen) {
     this.isGameStarted = true;
     int startNull = 0;
-    int endNull = this.board.length - 1 - sideLen;
     this.board = new Hexagon[2*sideLen - 1][2 * sideLen - 1];
+    int endNull = this.board.length - 1 - sideLen;
     for(int q = 0; q<sideLen; q++) {
       for(int i = startNull; i <= endNull; i++) {
         this.board[q][i] = null;
