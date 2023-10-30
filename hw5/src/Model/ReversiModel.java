@@ -29,7 +29,7 @@ public class ReversiModel implements IReversi{
         this.board[q][r] = new Hexagon(HexState.EMPTY);
       }
       endNull--;
-      }
+    }
 
     endNull = this.board.length - 1;
     startNull = endNull;
