@@ -190,6 +190,12 @@ public class ReversiTests {
     Assert.assertEquals(expectedMessage, actualMessage);
   }
 
+  @Test
+  public void testTurns(){
+    
+  }
+
+
 
 
 

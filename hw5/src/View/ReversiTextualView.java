@@ -13,7 +13,8 @@ public class ReversiTextualView implements IView{
 
 
   /**
-   * <p>Produces textual representation of the Reversi board model</p>
+   * Produces textual representation of the Reversi board model
+   * <p>X represents Black hexes, O represents white hexes, _ represents empty hexes</p>
    *
    * @return Textual representation of the current state of Reversi board
    */
