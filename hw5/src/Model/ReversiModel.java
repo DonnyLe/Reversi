@@ -40,6 +40,8 @@ public class ReversiModel implements IReversi {
     int startNullIndex = 0;
     int endNullIndex = this.board.length - 1 - sideLen;
     for (int q = 0; q < sideLen; q++) {
+      //hexagonal shape of board does not completely fill 2D array
+      //INVARIANT: unused spaces are always null
       for (int i = startNullIndex; i <= endNullIndex; i++) {
         this.board[q][i] = null;
       }
@@ -75,6 +77,7 @@ public class ReversiModel implements IReversi {
   @Override
   public void placeMove(int q, int r, int who) {
     gameStartedCheck();
+    gameOverCheck();
     moveAllowedCheck(q, r, who);
     ArrayList<int[]> directions = getListDirectionsToSearch(q, r, who);
     for (int[] directionsPair : directions) {
@@ -91,9 +94,6 @@ public class ReversiModel implements IReversi {
   }
 
   private void doMove(int q, int r, int dq, int dr, int who) {
-    if (this.isGameOver()){
-      throw new IllegalStateException("Cannot place move while game is over");
-    }
     Hexagon newHex = new Hexagon(this.playerColors.get(who));
     int s = q + dq;
     int t = r + dr;
@@ -143,6 +143,8 @@ public class ReversiModel implements IReversi {
   }
 
   private boolean isOutOfBounds(int q, int r) {
+    //preserves variant, out of bounds of q, r is null,
+    //therefore, placeMove cannot occur
     if (q < 0 || q >= this.board.length || r < 0 || r >= this.board[0].length
             || this.board[q][r] == null) {
       return true;
@@ -168,7 +170,9 @@ public class ReversiModel implements IReversi {
 
   @Override
   public Hexagon[][] getBoard() {
+    gameOverCheck();
     gameStartedCheck();
+
     Hexagon[][] res = new Hexagon[this.board.length][this.board[0].length];
     for(int q = 0; q < this.board.length; q++) {
       for(int r = 0; r < this.board[0].length; r++) {
@@ -188,6 +192,12 @@ public class ReversiModel implements IReversi {
 
   }
 
+  private void gameOverCheck() {
+    if (this.isGameOver()){
+      throw new IllegalStateException("Cannot place move while game is over");
+    }
+  }
+
 
   @Override
   public boolean isGameOver() {
@@ -200,5 +210,7 @@ public class ReversiModel implements IReversi {
     gameStartedCheck();
     return this.turn;
   }
+
+
   
 }

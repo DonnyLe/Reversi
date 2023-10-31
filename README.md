@@ -8,7 +8,7 @@ In addition, instead of square tiles, each tile will be hexagons (pointy-top). H
 since the view has not be fully-implemented, this version of the codebase will use a
 textual implementation of the view, as shown below. 
 
-![img_8.png](img_8.png)
+![img_8.png](images/img_8.png)
 
 Due to the hexagonal shape compared to the square shape of the board in the standard 
 version of Reversi, a different coordinate system was chosen. The coordinate system chosen in this 
@@ -16,12 +16,12 @@ implementation is the axial coordinate system. You can learn about axial coordin
 https://www.redblobgames.com/grids/hexagons/. The picture below 
 shows how the axial coordinate work.
 
-![img_2.png](img_2.png)
+![img_2.png](images/img_2.png)
 
 Since we are unable to use negative coordinates in Java, the following array representation was used
-store the board. 
+store the board. __
 
-![img_6.png](img_6.png)
+![img_6.png](images/img_6.png)
 
 We decided to do an array of array over an array of arraylist to store the board since the size of the board does not change
 during the game (and arrays cannot change in size). This would allow for retrieval of a specific 
@@ -50,7 +50,8 @@ System.out.println(rtv.toString()); //prints the current state of the game
 
 ## Key Components
 The code base follows the Model, View, Controller framework (controller not yet implemented).
-The model contains all the rules
+The model contains all rules and the actions that can be done in Reversi. To use the view, 
+the model is passed into the view. 
 
 
 
