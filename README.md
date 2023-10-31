@@ -73,7 +73,6 @@ Within the src directory, there are two packages, Model and View.
 * IReversi.java : Interface for Reversi Model
 * ReversiModel.java : Model Implementation
 * Player.java: Player (not yet implemented)
-* Main.java : Main
 
 2. View includes :
 
