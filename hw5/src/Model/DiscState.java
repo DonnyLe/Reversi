@@ -1,7 +1,7 @@
 package Model;
 
-public enum HexState {
+public enum DiscState {
     WHITE,
     BLACK,
-    EMPTY
+    NONE
 }

@@ -1,13 +1,21 @@
 package View;
 
 
-import Model.HexState;
+import Model.DiscState;
+import Model.DiscState;
 import Model.Hexagon;
 import Model.IReversi;
 
 public class ReversiTextualView implements IView{
+  IReversi model;
+  public ReversiTextualView(IReversi model) {
+    this.model = model;
 
-  public void render(IReversi model){
+  }
+
+
+  @Override
+  public String toString(){
     String view = "";
     Hexagon[][] board = null;
 
@@ -15,8 +23,6 @@ public class ReversiTextualView implements IView{
 
     int afterHalf = 1;
     for (int i = 0; i < board.length; i++) {
-
-
       if (i > (board.length / 2)) {
         for (int b = 0; b < afterHalf; b++){
           view += " ";
@@ -27,24 +33,18 @@ public class ReversiTextualView implements IView{
       for (int j = 0; j < board.length; j++) {
 
 
-
         if (board[i][j] == null) {
           view += " ";
-        } else if (board[i][j].isEmpty()) {
+        } else if (board[i][j].hasNoDisk()) {
           view += "_ ";
-        } else if (board[i][j].getDiscOnHex() == HexState.BLACK) {
+        } else if (board[i][j].getDiscOnHex() == DiscState.BLACK) {
           view += "X ";
-        } else if (board[i][j].getDiscOnHex() == HexState.WHITE) {
+        } else if (board[i][j].getDiscOnHex() == DiscState.WHITE) {
           view += "O ";
         }
       }
       view += "\n";
     }
-
-    System.out.print(view);
-
-
-
+    return view;
   }
-
 }
