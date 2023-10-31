@@ -30,11 +30,11 @@ public class ReversiTextualView implements IView{
 
         if (board[i][j] == null) {
           view += " ";
-        } else if (board[i][j].isEmpty()) {
+        } else if (board[j][i].isEmpty()) {
           view += "_ ";
-        } else if (board[i][j].getDiscOnHex() == HexState.BLACK) {
+        } else if (board[j][i].getDiscOnHex() == HexState.BLACK) {
           view += "X ";
-        } else if (board[i][j].getDiscOnHex() == HexState.WHITE) {
+        } else if (board[j][i].getDiscOnHex() == HexState.WHITE) {
           view += "O ";
         }
       }

@@ -52,6 +52,8 @@ public class ReversiModel implements IReversi{
     this.board[center - 1][center] = new Hexagon(HexState.WHITE);
     this.board[center][center + 1] = new Hexagon(HexState.WHITE);
 
+
+
   }
 
 
