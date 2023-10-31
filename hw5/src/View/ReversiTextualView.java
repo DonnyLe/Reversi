@@ -2,7 +2,6 @@ package View;
 
 
 import Model.DiscState;
-import Model.DiscState;
 import Model.Hexagon;
 import Model.IReversi;
 
@@ -10,10 +9,14 @@ public class ReversiTextualView implements IView{
   IReversi model;
   public ReversiTextualView(IReversi model) {
     this.model = model;
-
   }
 
 
+  /**
+   * <p>Produces textual representation of the Reversi board model</p>
+   *
+   * @return Textual representation of the current state of Reversi board
+   */
   @Override
   public String toString(){
     String view = "";

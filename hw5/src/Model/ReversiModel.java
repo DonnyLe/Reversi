@@ -20,7 +20,7 @@ public class ReversiModel implements IReversi {
     this.numSkips = 0;
     this.playerColors = new HashMap<>();
     DiscState[] colorList = DiscState.values();
-    for(int i = 0; i<this.numPlayers; i++) {
+    for(int i = 0; i < this.numPlayers; i++) {
       if(colorList[i] != DiscState.NONE) {
         this.playerColors.put(i, colorList[i]);
       }
@@ -35,6 +35,9 @@ public class ReversiModel implements IReversi {
   }
 
   private void initializeBoard(int sideLen) {
+    if (sideLen < 4) {
+      throw new IllegalArgumentException("Side length must be at least 4");
+    }
     this.board = new Hexagon[2 * sideLen - 1][2 * sideLen - 1];
     int startNullIndex = 0;
     int endNullIndex = this.board.length - 1 - sideLen;
@@ -90,6 +93,9 @@ public class ReversiModel implements IReversi {
   }
 
   private void doMove(int q, int r, int dq, int dr, int who) {
+    if (this.isGameOver()){
+      throw new IllegalStateException("Cannot place move while game is over");
+    }
     Hexagon newHex = new Hexagon(this.playerColors.get(who));
     int s = q + dq;
     int t = r + dr;
