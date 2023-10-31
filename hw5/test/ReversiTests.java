@@ -9,14 +9,15 @@ public class ReversiTests {
   public void test(){
     ReversiModel m1 = new ReversiModel();
     m1.startGame(6);
-    ReversiTextualView v1 = new ReversiTextualView();
-    v1.render(m1);
+    ReversiTextualView v1 = new ReversiTextualView(m1);
+    System.out.print(v1.toString());
 
     ReversiModel m2 = new ReversiModel();
     m2.startGame(4);
-    ReversiTextualView v2 = new ReversiTextualView();
-    v2.render(m2);
+    ReversiTextualView v2 = new ReversiTextualView(m2);
+    System.out.print(v2.toString());
   }
 
 
 }
+
