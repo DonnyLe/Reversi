@@ -81,6 +81,61 @@ public class ReversiTests {
     Assert.assertTrue(m1.isGameOver());
   }
 
+  @Test(expected = IllegalStateException.class)
+  public void testCannotMoveWhileGameOver(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+
+    m1.passTurn();
+    m1.passTurn();
+
+    m1.placeMove(2, 2, 1);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testCannotMoveBeforeGameStarted(){
+    ReversiModel m1 = new ReversiModel();
+    m1.placeMove(2, 2, 1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidSideLength(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(3);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testOutOfBoundsMove(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    m1.placeMove(0, 0, 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidInBoundsMove(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    m1.placeMove(3, 0, 0);
+  }
+
+  @Test //(expected = IllegalArgumentException.class)
+  public void testInvalidInBoundsMove2(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    m1.placeMove(5, 2, 0);
+
+    Exception exception = Assert.assertThrows(IllegalArgumentException.class,
+            () -> m1.placeMove(6, 1, 0));
+
+    String expectedMessage = "Chosen move coordinates has no adjacent " +
+            "discs of the opposite player. Move not allowed";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+
+
+  }
+
 
 
 

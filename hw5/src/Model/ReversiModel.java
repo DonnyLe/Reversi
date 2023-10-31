@@ -202,8 +202,5 @@ public class ReversiModel implements IReversi {
     gameStartedCheck();
     return this.turn;
   }
-
-
-
-
+  
 }
