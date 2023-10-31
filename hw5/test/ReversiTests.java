@@ -118,7 +118,7 @@ public class ReversiTests {
 
 
     Exception exception = Assert.assertThrows(IllegalArgumentException.class,
-            () -> m1.startGame(3));
+            () -> m1.startGame(2));
 
     String expectedMessage = "Side length must be at least 4";
     String actualMessage = exception.getMessage();
@@ -192,7 +192,7 @@ public class ReversiTests {
 
   @Test
   public void testTurns(){
-    
+
   }
 
 

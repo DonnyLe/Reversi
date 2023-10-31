@@ -5,7 +5,7 @@ You can play the normal version of the game here: https://cardgames.io/reversi/ 
 Compared to the normal version, this implementation of the game (as depicted in ReversiModel)  
 contains a hexagonal shaped board (flat-top shaped) instead of a square shaped board.
 In addition, instead of square tiles, each tile will be hexagons (pointy-top). However,
-since the view has not be fully-implemented, this version of the codebase will use a
+since the view has not been fully-implemented, this version of the codebase will use a
 textual implementation of the view, as shown below. 
 
 ![img_8.png](images/img_8.png)
@@ -23,7 +23,7 @@ store the board. __
 
 ![img_6.png](images/img_6.png)
 
-We decided to do an array of array over an array of arraylist to store the board since the size of the board does not change
+We decided to do a 2d array over an array of arraylist to store the board since the size of the board does not change
 during the game (and arrays cannot change in size). This would allow for retrieval of a specific 
 hexagon using its q and r coordinates (this wouldn't work if we chose an array of arraylist). Using an array 
 of array also allows for more efficient replacement of an item at index q, r (it would be O(n) for an array of arraylist 
@@ -51,12 +51,34 @@ System.out.println(rtv.toString()); //prints the current state of the game
 ## Key Components
 The code base follows the Model, View, Controller framework (controller not yet implemented).
 The model contains all rules and the actions that can be done in Reversi. To use the view, 
-the model is passed into the view. 
+a copy of the model is passed into the view.
+
+### Key Subcomponents
+#### Model
+The Model consists of a board, represented as a 2d array of Hexagon Objects, a turn counter, skip counter
+and a HashMap of the colors corresponding to the players.
+
+* A Hexagon object represents a single hex on the board, and has a DiscState field.
+
+* The DiscState is an enum that can either be NONE, BLACK or WHITE
 
 
+## Source Organization
+Within the src directory, there are two packages, Model and View.
 
+1. Model includes :
 
+* DiscState.java : Enum DiscState used in the Hexagon object
+* Hexagon.java : Hexagon object used in Model
+* IReversi.java : Interface for Reversi Model
+* ReversiModel.java : Model Implementation
+* Player.java: Player (not yet implemented)
+* Main.java : Main
 
+2. View includes :
+
+* IView.java : Interface for the view
+* ReversiTextualView : Textual View Implementation
 
 
 
