@@ -81,6 +81,115 @@ public class ReversiTests {
     Assert.assertTrue(m1.isGameOver());
   }
 
+  @Test
+  public void testCannotMoveWhileGameOver(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+
+    m1.passTurn();
+    m1.passTurn();
+
+    Exception exception = Assert.assertThrows(IllegalStateException.class,
+            () -> m1.placeMove(2, 2, 1));
+
+    String expectedMessage = "Cannot place move while game is over";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void testCannotMoveBeforeGameStarted(){
+    ReversiModel m1 = new ReversiModel();
+
+
+    Exception exception = Assert.assertThrows(IllegalStateException.class,
+            () -> m1.placeMove(2, 2, 1));
+
+    String expectedMessage = "Game not started! Cannot make move";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void testInvalidSideLength(){
+    ReversiModel m1 = new ReversiModel();
+
+
+    Exception exception = Assert.assertThrows(IllegalArgumentException.class,
+            () -> m1.startGame(3));
+
+    String expectedMessage = "Side length must be at least 4";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+
+  }
+
+  @Test
+  public void testOutOfBoundsMove(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+
+
+    Exception exception = Assert.assertThrows(IllegalArgumentException.class,
+            () -> m1.placeMove(0, 0, 0));
+
+    String expectedMessage = "Chosen coordinates are out of bounds";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void testInvalidInBoundsMove(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+
+
+    Exception exception = Assert.assertThrows(IllegalArgumentException.class,
+            () -> m1.placeMove(3, 0, 0));
+
+    String expectedMessage = "Chosen move coordinates has no adjacent " +
+            "discs of the opposite player. Move not allowed";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+
+  }
+
+  @Test
+  public void testInvalidInBoundsMove2(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    m1.placeMove(5, 2, 0);
+
+    Exception exception = Assert.assertThrows(IllegalArgumentException.class,
+            () -> m1.placeMove(6, 1, 0));
+
+    String expectedMessage = "Chosen move coordinates has no adjacent " +
+            "discs of the opposite player. Move not allowed";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  public void testInvalidMoveAlreadyFilledHex(){
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+
+    Exception exception = Assert.assertThrows(IllegalStateException.class,
+            () -> m1.placeMove(3, 2, 0));
+
+    String expectedMessage = "Need to choose a place that does"
+            + " not have a disc on it";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+  }
+
 
 
 
