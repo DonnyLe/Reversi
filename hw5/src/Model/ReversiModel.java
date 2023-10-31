@@ -9,8 +9,6 @@ public class ReversiModel implements IReversi {
   private Hexagon[][] board;
   private int numSkips;
   private int turn;
-
-
   private final int numPlayers = 2;
   private final HashMap<Integer, DiscState> playerColors;
 
