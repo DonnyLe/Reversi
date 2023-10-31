@@ -1,23 +1,30 @@
 package Model;
 
 public class Hexagon {
-  private final HexState color;
+  private final DiscState state;
 
-  public Hexagon(HexState color) {
-    this.color = color;
+  public Hexagon(DiscState state) {
+    this.state = state;
   }
 
   public boolean differentColor(Hexagon other) {
-    if(this.color == HexState.EMPTY || other.color == HexState.EMPTY) {
-      throw new IllegalArgumentException();
+    if(this.state == DiscState.NONE || other.state == DiscState.NONE) {
+      return false;
     }
-    return this.color == other.color;
-  }
-  public HexState getDiscOnHex() {
-    return this.color;
+    return !(this.state == other.state);
   }
 
-  public boolean isEmpty() {
-    return HexState.EMPTY == this.color;
+  public boolean sameColor(Hexagon other) {
+    if(this.state == DiscState.NONE || other.state == DiscState.NONE) {
+      return false;
+    }
+    return this.state == other.state;
+  }
+  public DiscState getDiscOnHex() {
+    return this.state;
+  }
+
+  public boolean hasNoDisk() {
+    return DiscState.NONE == this.state;
   }
 }
