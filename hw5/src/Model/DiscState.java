@@ -5,7 +5,7 @@ package Model;
  * DiscState.NONE represents a hexagon without a disc on it.
  */
 public enum DiscState {
-    WHITE,
-    BLACK,
-    NONE
+  WHITE,
+  BLACK,
+  NONE
 }

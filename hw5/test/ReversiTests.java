@@ -9,24 +9,24 @@ public class ReversiTests {
 
 
   @Test
-  public void testVisualize(){
+  public void testVisualize() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(6);
     ReversiTextualView v1 = new ReversiTextualView(m1);
     System.out.print(v1.toString());
 
     Assert.assertEquals(v1.toString(),
-            "     _ _ _ _ _ _ \n" +
-            "    _ _ _ _ _ _ _ \n" +
-            "   _ _ _ _ _ _ _ _ \n" +
-            "  _ _ _ _ _ _ _ _ _ \n" +
-            " _ _ _ _ X O _ _ _ _ \n" +
-            "_ _ _ _ O _ X _ _ _ _ \n" +
-            " _ _ _ _ X O _ _ _ _  \n" +
-            "  _ _ _ _ _ _ _ _ _   \n" +
-            "   _ _ _ _ _ _ _ _    \n" +
-            "    _ _ _ _ _ _ _     \n" +
-            "     _ _ _ _ _ _      \n");
+            "     _ _ _ _ _ _ \n"
+                    + "    _ _ _ _ _ _ _ \n"
+                    + "   _ _ _ _ _ _ _ _ \n"
+                    + "  _ _ _ _ _ _ _ _ _ \n"
+                    + " _ _ _ _ X O _ _ _ _ \n"
+                    + "_ _ _ _ O _ X _ _ _ _ \n"
+                    + " _ _ _ _ X O _ _ _ _  \n"
+                    + "  _ _ _ _ _ _ _ _ _   \n"
+                    + "   _ _ _ _ _ _ _ _    \n"
+                    + "    _ _ _ _ _ _ _     \n"
+                    + "     _ _ _ _ _ _      \n");
 
     ReversiModel m2 = new ReversiModel();
     m2.startGame(4);
@@ -34,17 +34,17 @@ public class ReversiTests {
     System.out.print(v2.toString());
 
     Assert.assertEquals(v2.toString(),
-            "   _ _ _ _ \n" +
-                    "  _ _ _ _ _ \n" +
-                    " _ _ X O _ _ \n" +
-                    "_ _ O _ X _ _ \n" +
-                    " _ _ X O _ _  \n" +
-                    "  _ _ _ _ _   \n" +
-                    "   _ _ _ _    \n");
+            "   _ _ _ _ \n"
+                    + "  _ _ _ _ _ \n"
+                    + " _ _ X O _ _ \n"
+                    + "_ _ O _ X _ _ \n"
+                    + " _ _ X O _ _  \n"
+                    + "  _ _ _ _ _   \n"
+                    + "   _ _ _ _    \n");
   }
 
   @Test
-  public void testMove(){
+  public void testMove() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
 
@@ -71,7 +71,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testPassGameOver(){
+  public void testPassGameOver() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
 
@@ -82,7 +82,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testCannotMoveWhileGameOver(){
+  public void testCannotMoveWhileGameOver() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
 
@@ -92,14 +92,14 @@ public class ReversiTests {
     Exception exception = Assert.assertThrows(IllegalStateException.class,
             () -> m1.placeMove(2, 2, 1));
 
-    String expectedMessage = "Cannot place move while game is over";
+    String expectedMessage = "Game is over! Cannot do anything.";
     String actualMessage = exception.getMessage();
 
     Assert.assertEquals(expectedMessage, actualMessage);
   }
 
   @Test
-  public void testCannotMoveBeforeGameStarted(){
+  public void testCannotMoveBeforeGameStarted() {
     ReversiModel m1 = new ReversiModel();
 
 
@@ -113,14 +113,14 @@ public class ReversiTests {
   }
 
   @Test
-  public void testInvalidSideLength(){
+  public void testInvalidSideLength() {
     ReversiModel m1 = new ReversiModel();
 
 
     Exception exception = Assert.assertThrows(IllegalArgumentException.class,
             () -> m1.startGame(2));
 
-    String expectedMessage = "Side length must be at least 4";
+    String expectedMessage = "Side length must be at least 3";
     String actualMessage = exception.getMessage();
 
     Assert.assertEquals(expectedMessage, actualMessage);
@@ -128,7 +128,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testOutOfBoundsMove(){
+  public void testOutOfBoundsMove() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
 
@@ -143,7 +143,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testInvalidInBoundsMove(){
+  public void testInvalidInBoundsMove() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
 
@@ -160,7 +160,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testInvalidInBoundsMove2(){
+  public void testInvalidInBoundsMove2() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
     m1.placeMove(5, 2, 0);
@@ -176,7 +176,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testInvalidMoveAlreadyFilledHex(){
+  public void testInvalidMoveAlreadyFilledHex() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
 
@@ -191,13 +191,15 @@ public class ReversiTests {
   }
 
   @Test
-  public void testTurns(){
-
+  public void testTurns() {
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    m1.passTurn(); //turn = 0
+    m1.passTurn(); //turn = 1
+    m1.passTurn(); //turn = 0
+    m1.passTurn(); //turn = 1
+    Assert.assertEquals(m1.getTurn(), 0); //turn = 0
   }
-
-
-
-
 
 
 }

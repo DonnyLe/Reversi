@@ -37,6 +37,7 @@ public class ReversiModel implements IReversi {
   /**
    * Starts the ReversiModel game and produces a 2D array representation of the board based on the
    * sideLen.
+   *
    * @param sideLen side length of Hexagonal board
    */
   @Override
@@ -99,8 +100,9 @@ public class ReversiModel implements IReversi {
 
   /**
    * Place a move based on rules of Reversi.
-   * @param q q coord for current players move
-   * @param r r coord for current players move
+   *
+   * @param q   q coord for current players move
+   * @param r   r coord for current players move
    * @param who integer representing current player
    */
   @Override
@@ -215,20 +217,17 @@ public class ReversiModel implements IReversi {
   private boolean isOutOfBounds(int q, int r) {
     //preserves variant, out of bounds of q, r is null,
     //therefore, placeMove cannot occur
-    if (q < 0 || q >= this.board.length || r < 0 || r >= this.board[0].length
-            || this.board[q][r] == null) {
-      return true;
-    }
-    return false;
+    return q < 0 || q >= this.board.length || r < 0 || r >= this.board[0].length
+            || this.board[q][r] == null;
   }
 
   /**
    * Checks if chosen coordinates for move is out of bounds. Makes sure chosen move doesn't already
    * have a disc on it. Make sure that chosen move
    *
-   * @param q
-   * @param r
-   * @param who
+   * @param q q coord
+   * @param r r coord
+   * @param who integer representing player
    */
   private void moveAllowedCheck(int q, int r, int who) {
     if (isOutOfBounds(q, r)) {
@@ -288,7 +287,7 @@ public class ReversiModel implements IReversi {
   }
 
   /**
-   * Returns if true if two skips in a row occur (numSkips resets everytime a player makes a move).
+   * Returns true if two skips in a row occur (numSkips resets everytime a player makes a move).
    *
    * @return boolean for if game is over.
    */

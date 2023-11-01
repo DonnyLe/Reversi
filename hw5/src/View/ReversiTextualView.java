@@ -22,7 +22,8 @@ public class ReversiTextualView implements IView {
 
   /**
    * Produces textual representation of the Reversi board model
-   * <p>X represents Black hexes, O represents white hexes, _ represents empty hexes</p>
+   * X represents Black hexes, O represents white hexes, _ represents empty hexes
+   *
    * @return Textual representation of the current state of Reversi board
    */
   @Override
