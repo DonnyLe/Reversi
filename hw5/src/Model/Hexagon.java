@@ -10,13 +10,17 @@ package Model;
 public class Hexagon {
   private final DiscState state;
 
+  /**
+   * Constructor for a Hexagon. Takes in a DiscState enum. All hexagons are initialized as
+   * having a DiscState.NONE when game is initially started.
+   * @param state DiscState object
+   */
   public Hexagon(DiscState state) {
     this.state = state;
   }
 
   /**
-   * Checks whether two non-empty hexagons are different colors
-   *
+   * Checks whether two non-empty hexagons have discs of different colors.
    * @param other Hexagon
    * @return true if one hexagon is black and the other is white
    */
@@ -28,10 +32,9 @@ public class Hexagon {
   }
 
   /**
-   * Checks whether two non-empty hexagons are the same color
-   *
+   * Checks whether two non-empty Hexagons have discs of the same color.
    * @param other Hexagon
-   * @return true if both hexagons are non-empty and the same color
+   * @return true if both discs on the hexagons are non-empty and the same color
    */
   public boolean sameColor(Hexagon other) {
     if(this.state == DiscState.NONE || other.state == DiscState.NONE) {
@@ -41,8 +44,7 @@ public class Hexagon {
   }
 
   /**
-   * Checks the state of the Hex, whether it is Empty, Black or White
-   *
+   * Checks the state of the Hex, whether it is None, Black or White.
    * @return whether the hex is empty or its color
    */
   public DiscState getDiscOnHex() {
@@ -51,9 +53,8 @@ public class Hexagon {
 
 
   /**
-   * Checks whether the Hexagon is empty
-   *
-   * @return true if Hexagon state is Empty
+   * Checks whether the Hexagon has no disk on top of it.
+   * @return true if Hexagon has no disk on it.
    */
 
   public boolean hasNoDisk() {

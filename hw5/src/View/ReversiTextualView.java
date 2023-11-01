@@ -5,8 +5,16 @@ import Model.DiscState;
 import Model.Hexagon;
 import Model.IReversi;
 
-public class ReversiTextualView implements IView{
-  IReversi model;
+/**
+ * Temporary implementation of the reversi view. Displays ReversiModel as a string.
+ */
+public class ReversiTextualView implements IView {
+  private IReversi model;
+
+  /**
+   * Constructor for reversi textual view.
+   * @param model
+   */
   public ReversiTextualView(IReversi model) {
     this.model = model;
   }
@@ -15,11 +23,10 @@ public class ReversiTextualView implements IView{
   /**
    * Produces textual representation of the Reversi board model
    * <p>X represents Black hexes, O represents white hexes, _ represents empty hexes</p>
-   *
    * @return Textual representation of the current state of Reversi board
    */
   @Override
-  public String toString(){
+  public String toString() {
     String view = "";
     Hexagon[][] board = null;
 
@@ -28,7 +35,7 @@ public class ReversiTextualView implements IView{
     int afterHalf = 1;
     for (int i = 0; i < board.length; i++) {
       if (i > (board.length / 2)) {
-        for (int b = 0; b < afterHalf; b++){
+        for (int b = 0; b < afterHalf; b++) {
           view += " ";
         }
         afterHalf++;
