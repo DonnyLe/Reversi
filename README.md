@@ -72,7 +72,6 @@ Within the src directory, there are two packages, Model and View.
 * Hexagon.java : Hexagon object used in Model
 * IReversi.java : Interface for Reversi Model
 * ReversiModel.java : Model Implementation
-* Player.java: Player (not yet implemented)
 
 2. View includes :
 
