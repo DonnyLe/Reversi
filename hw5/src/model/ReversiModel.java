@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,9 @@ import java.util.HashMap;
  */
 public class ReversiModel implements IReversi {
   private boolean isGameStarted;
-  //uses the axial coordinate system (see README for more information)
+  //uses the axial coordinate system (see README for visual)
+  //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
+  //origin/center of the hexagonal board is the (sideLen - 1, sideLen - 1)
   private Hexagon[][] board;
   private int numSkips;
   private int turn;
@@ -50,10 +52,10 @@ public class ReversiModel implements IReversi {
    * Helper function for initializing board. Side length must be at least 3 (since the initial
    * state shown in assignment page requires a board with a side length of at least 3 for it
    * to playable). Since the hexagonal shape of board does not completely fill 2D array,
-   * all unused spaces will be always null (INVARIANT). For each used space, they will be initalized
-   * as hexagons with DiscState.NONE.
+   * all unused spaces will be always null (INVARIANT). For each used space, they will be
+   * initialized as hexagons with DiscState.NONE.
    *
-   * @param sideLen number of hexagon
+   * @param sideLen number of hexagons in the side length of the hexagonal board
    * @throws IllegalArgumentException if side length is less than 3
    */
   private void initializeBoard(int sideLen) {
@@ -111,21 +113,19 @@ public class ReversiModel implements IReversi {
     gameOverCheck();
     moveAllowedCheck(q, r, who);
     ArrayList<int[]> directions = getListDirectionsToSearch(q, r, who);
-    boolean found = false;
-    for (int[] directionsPair : directions) {
-      int dq = directionsPair[0];
-      int dr = directionsPair[1];
-      //found a valid straight line to parse
-      found = doMove(q, r, dq, dr, who);
-      //if doMove did not find a straight line to parse for all 4
+    ArrayList<int[]> validStraightLines = findValidStraightLines(directions, q, r, who);
+    flipDiscs(q, r, validStraightLines, who);
+    this.nextPlayer();
+  }
 
+  /**
+   * Helper function that increments the player and makes sure after the last player does action,
+   * it returns to the first player.
+   */
+  private void nextPlayer() {
+    turn++;
+    turn %= this.numPlayers;
 
-    }
-    //if doMove did not find a straight line to parse for all directions, move is not valid
-    //therefore throw IllegalStateException
-    if (!found) {
-      throw new IllegalStateException("Move has no valid paths");
-    }
   }
 
   /**
@@ -140,41 +140,63 @@ public class ReversiModel implements IReversi {
   }
 
   /**
-   * Goes through a straight line based on dq, dr and flips discs if move is allowable.
+   * Finds pairs of dx, dy that allow the player to flip pieces.
    *
-   * @param q   q coord for current players move
-   * @param r   r coord for current players move
-   * @param dq  change in q (direction to look in the q plane)
-   * @param dr  change in r (direction to look in the r plane)
-   * @param who integer representing current player
+   * @param validDirections adjacent directions that have the opposite player's disc
+   *                        (return value of getListDirectionsToSearch)
+   * @param q q coordinate of move
+   * @param r r coordinate of move
+   * @param who integer representing the player
+   * @return a list of dx, dy pairs that point to directions where the player will be able
+   *         to flip discs (therefore, the move is valid).
    */
-  private boolean doMove(int q, int r, int dq, int dr, int who) {
+  private ArrayList<int[]> findValidStraightLines(ArrayList<int[]> validDirections,
+                                                  int q, int r, int who) {
     Hexagon newHex = new Hexagon(this.playerColors.get(who));
-    int s = q + dq;
-    int t = r + dr;
-    boolean foundSameColorDisc = false;
-    while (!this.isOutOfBounds(s, t)) {
-      if (this.board[s][t].getDiscOnHex() == DiscState.NONE) {
-        break;
-      } else if (this.board[s][t].sameColor(newHex)) {
-        foundSameColorDisc = true;
-        break;
+    ArrayList<int[]> validStraightLines = new ArrayList<>();
+    for (int[] validDirectionPair : validDirections) {
+      int dq = validDirectionPair[0];
+      int dr = validDirectionPair[1];
+      int s = q + dq;
+      int t = r + dr;
+      while (!this.isOutOfBounds(s, t)) {
+        if (this.board[s][t].getDiscOnHex() == DiscState.NONE) {
+          break;
+        } else if (this.board[s][t].sameColor(newHex)) {
+          validStraightLines.add(validDirectionPair);
+          break;
+        }
+        s += dq;
+        t += dr;
       }
-      s += dq;
-      t += dr;
+    }
+    return validStraightLines;
+  }
+
+
+  /**
+   * Flips discs in the directions where discs COULD be flipped.
+   *
+   * @param q                  q coordinate of move
+   * @param r                  r coordinate of move
+   * @param validStraightLines directions where discs could be flipped
+   * @param who                integer representing the player.
+   */
+  private void flipDiscs(int q, int r, ArrayList<int[]> validStraightLines, int who) {
+    Hexagon newHex = new Hexagon(this.playerColors.get(who));
+    this.board[q][r] = newHex;
+    for (int[] dqdr : validStraightLines) {
+      int dq = dqdr[0];
+      int dr = dqdr[1];
+      int s = q + dq;
+      int t = r + dr;
+      while (!this.board[s][t].sameColor(newHex)) {
+        this.board[s][t] = new Hexagon(newHex.getDiscOnHex());
+        s += dq;
+        t += dr;
+      }
     }
 
-    if (foundSameColorDisc) {
-      this.board[q][r] = newHex;
-      q += dq;
-      r += dr;
-      while (s != q || t != r) {
-        this.board[q][r] = new Hexagon(newHex.getDiscOnHex());
-        q += dq;
-        r += dr;
-      }
-    }
-    return foundSameColorDisc;
   }
 
   /**
@@ -222,12 +244,17 @@ public class ReversiModel implements IReversi {
   }
 
   /**
-   * Checks if chosen coordinates for move is out of bounds. Makes sure chosen move doesn't already
-   * have a disc on it. Make sure that chosen move
+   * Throws exceptions if chosen move is illegal.
    *
-   * @param q q coord
-   * @param r r coord
+   * @param q   q coord
+   * @param r   r coord
    * @param who integer representing player
+   * @throws IllegalArgumentException if chosen coordinates are out of bounds
+   * @throws IllegalStateException    if chosen hexagon does not have adjacent
+   *                                  that belong that to the opposite player, if the chosen
+   *                                  hexagon has no valid straight lines
+   *                                  (that allow the player to flip pieces), and if the
+   *                                  chosen hexagon already has a disc on it
    */
   private void moveAllowedCheck(int q, int r, int who) {
     if (isOutOfBounds(q, r)) {
@@ -237,12 +264,23 @@ public class ReversiModel implements IReversi {
       throw new IllegalStateException("Need to choose a place that does"
               + " not have a disc on it");
     }
-    ArrayList<int[]> dxdyList = getListDirectionsToSearch(q, r, who);
-    if (dxdyList.size() == 0) {
-      throw new IllegalArgumentException("Chosen move coordinates has no adjacent "
+    ArrayList<int[]> validDirections = getListDirectionsToSearch(q, r, who);
+    if (validDirections.size() == 0) {
+      throw new IllegalStateException("Chosen move coordinates has no adjacent "
               + "discs of the opposite player. Move not allowed");
+    } else {
+      ArrayList<int[]> validStraightLines = findValidStraightLines(validDirections, q, r, who);
+      if (validStraightLines.size() == 0) {
+        throw new IllegalStateException("Chosen move coordinates has no straights lines "
+                + "that allow player to flip pieces. ");
+      }
+    }
+
+    if (who != this.getTurn()) {
+      throw new IllegalStateException("Not your turn. Choose the other player.");
     }
   }
+
 
   /**
    * Returns a copy of the board.
@@ -272,8 +310,7 @@ public class ReversiModel implements IReversi {
   public void passTurn() {
     gameStartedCheck();
     numSkips++;
-    turn++;
-    turn %= this.numPlayers;
+    this.nextPlayer();
 
   }
 

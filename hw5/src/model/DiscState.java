@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * Enum representing the disc on top of a Hexagon. Hexagon objects store DiscStates.

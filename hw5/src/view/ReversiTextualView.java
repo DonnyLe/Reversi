@@ -1,9 +1,9 @@
-package View;
+package view;
 
 
-import Model.DiscState;
-import Model.Hexagon;
-import Model.IReversi;
+import model.DiscState;
+import model.Hexagon;
+import model.IReversi;
 
 /**
  * Temporary implementation of the reversi view. Displays ReversiModel as a string.
@@ -13,7 +13,7 @@ public class ReversiTextualView implements IView {
 
   /**
    * Constructor for reversi textual view.
-   * @param model
+   * @param model an IReversi object (the model)
    */
   public ReversiTextualView(IReversi model) {
     this.model = model;
@@ -21,8 +21,8 @@ public class ReversiTextualView implements IView {
 
 
   /**
-   * Produces textual representation of the Reversi board model
-   * X represents Black hexes, O represents white hexes, _ represents empty hexes
+   * Produces textual representation of the Reversi board model.
+   * X represents Black hexes, O represents white hexes, _ represents empty hexes.
    *
    * @return Textual representation of the current state of Reversi board
    */

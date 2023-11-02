@@ -1,7 +1,7 @@
-package Model;
+package model;
 
 /**
- * This class represents an individual Hexagon on the Reversi board
+ * This class represents an individual Hexagon on the Reversi board.
  * <p>
  * A Hexagon is characterised by a DiscState, which represents whether the hex
  * has a disc on it and what color it is if it does.
@@ -30,7 +30,7 @@ public class Hexagon {
     if (this.state == DiscState.NONE || other.state == DiscState.NONE) {
       return false;
     }
-    return !(this.state == other.state);
+    return this.state != other.state;
   }
 
   /**

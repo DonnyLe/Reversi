@@ -49,13 +49,13 @@ System.out.println(rtv.toString()); //prints the current state of the game
 .
 
 ## Key Components
-The code base follows the Model, View, Controller framework (controller not yet implemented).
+The code base follows the model, view, Controller framework (controller not yet implemented).
 The model contains all rules and the actions that can be done in Reversi. To use the view, 
 a copy of the model is passed into the view.
 
 ### Key Subcomponents
-#### Model
-The Model consists of a board, represented as a 2d array of Hexagon Objects, a turn counter, skip counter
+#### model
+The model consists of a board, represented as a 2d array of Hexagon Objects, a turn counter, skip counter
 and a HashMap of the colors corresponding to the players.
 
 * A Hexagon object represents a single hex on the board, and has a DiscState field.
@@ -64,19 +64,19 @@ and a HashMap of the colors corresponding to the players.
 
 
 ## Source Organization
-Within the src directory, there are two packages, Model and View.
+Within the src directory, there are two packages, model and view.
 
-1. Model includes :
+1. model includes :
 
 * DiscState.java : Enum DiscState used in the Hexagon object
-* Hexagon.java : Hexagon object used in Model
-* IReversi.java : Interface for Reversi Model
-* ReversiModel.java : Model Implementation
+* Hexagon.java : Hexagon object used in model
+* IReversi.java : Interface for Reversi model
+* ReversiModel.java : model Implementation
 
-2. View includes :
+2. view includes :
 
 * IView.java : Interface for the view
-* ReversiTextualView : Textual View Implementation
+* ReversiTextualView : Textual view Implementation
 
 
 

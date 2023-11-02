@@ -1,10 +1,16 @@
-import org.junit.*;
 
-import Model.DiscState;
-import Model.Hexagon;
-import Model.ReversiModel;
-import View.ReversiTextualView;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import model.DiscState;
+import model.Hexagon;
+import model.ReversiModel;
+import view.ReversiTextualView;
+
+/**
+ * Tests for ReversiModel.
+ */
 public class ReversiTests {
 
 
@@ -47,7 +53,7 @@ public class ReversiTests {
   public void testMove() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
-
+    m1.passTurn();
     m1.placeMove(2, 2, 1);
 
     Hexagon[][] currentState = m1.getBoard();
@@ -82,6 +88,20 @@ public class ReversiTests {
   }
 
   @Test
+  public void testWrongTurn() {
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+
+    Exception exception = Assert.assertThrows(IllegalStateException.class,
+        () -> m1.placeMove(2, 2, 1));
+
+    String expectedMessage = "Not your turn. Choose the other player.";
+    String actualMessage = exception.getMessage();
+
+    Assert.assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
   public void testCannotMoveWhileGameOver() {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(4);
@@ -90,7 +110,7 @@ public class ReversiTests {
     m1.passTurn();
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
-            () -> m1.placeMove(2, 2, 1));
+        () -> m1.placeMove(2, 2, 1));
 
     String expectedMessage = "Game is over! Cannot do anything.";
     String actualMessage = exception.getMessage();
@@ -104,7 +124,7 @@ public class ReversiTests {
 
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
-            () -> m1.placeMove(2, 2, 1));
+        () -> m1.placeMove(2, 2, 1));
 
     String expectedMessage = "Game not started! Cannot make move";
     String actualMessage = exception.getMessage();
@@ -118,7 +138,7 @@ public class ReversiTests {
 
 
     Exception exception = Assert.assertThrows(IllegalArgumentException.class,
-            () -> m1.startGame(2));
+        () -> m1.startGame(2));
 
     String expectedMessage = "Side length must be at least 3";
     String actualMessage = exception.getMessage();
@@ -134,7 +154,7 @@ public class ReversiTests {
 
 
     Exception exception = Assert.assertThrows(IllegalArgumentException.class,
-            () -> m1.placeMove(0, 0, 0));
+        () -> m1.placeMove(0, 0, 0));
 
     String expectedMessage = "Chosen coordinates are out of bounds";
     String actualMessage = exception.getMessage();
@@ -148,8 +168,8 @@ public class ReversiTests {
     m1.startGame(4);
 
 
-    Exception exception = Assert.assertThrows(IllegalArgumentException.class,
-            () -> m1.placeMove(3, 0, 0));
+    Exception exception = Assert.assertThrows(IllegalStateException.class,
+        () -> m1.placeMove(3, 0, 0));
 
     String expectedMessage = "Chosen move coordinates has no adjacent " +
             "discs of the opposite player. Move not allowed";
@@ -165,11 +185,11 @@ public class ReversiTests {
     m1.startGame(4);
     m1.placeMove(5, 2, 0);
 
-    Exception exception = Assert.assertThrows(IllegalArgumentException.class,
-            () -> m1.placeMove(6, 1, 0));
+    Exception exception = Assert.assertThrows(IllegalStateException.class,
+        () -> m1.placeMove(6, 1, 0));
 
-    String expectedMessage = "Chosen move coordinates has no adjacent " +
-            "discs of the opposite player. Move not allowed";
+    String expectedMessage = "Chosen move coordinates has no adjacent "
+            + "discs of the opposite player. Move not allowed";
     String actualMessage = exception.getMessage();
 
     Assert.assertEquals(expectedMessage, actualMessage);
@@ -181,7 +201,7 @@ public class ReversiTests {
     m1.startGame(4);
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
-            () -> m1.placeMove(3, 2, 0));
+        () -> m1.placeMove(3, 2, 0));
 
     String expectedMessage = "Need to choose a place that does"
             + " not have a disc on it";
@@ -199,6 +219,18 @@ public class ReversiTests {
     m1.passTurn(); //turn = 0
     m1.passTurn(); //turn = 1
     Assert.assertEquals(m1.getTurn(), 0); //turn = 0
+  }
+
+  @Test
+  public void testMoveWithNoValidStraightLines() {
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    Exception exception = Assert.assertThrows(IllegalStateException.class,
+        () -> m1.placeMove(5, 3, 0));
+    String expectedMessage = "Chosen move coordinates has no straights lines "
+            + "that allow player to flip pieces. ";
+    String actualMessage = exception.getMessage();
+    Assert.assertEquals(expectedMessage, actualMessage);
   }
 
 
