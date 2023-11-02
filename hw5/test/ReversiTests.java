@@ -144,8 +144,9 @@ public class ReversiTests {
     String actualMessage = exception.getMessage();
 
     Assert.assertEquals(expectedMessage, actualMessage);
-
   }
+
+
 
   @Test
   public void testOutOfBoundsMove() {
@@ -161,6 +162,17 @@ public class ReversiTests {
 
     Assert.assertEquals(expectedMessage, actualMessage);
   }
+
+  @Test
+  public void testCannotMutateUsingGetBoard() {
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    Hexagon[][] board = m1.getBoard();
+    board[0][0] = new Hexagon(DiscState.BLACK);
+    Assert.assertNull(m1.getBoard()[0][0]);
+  }
+
+
 
   @Test
   public void testInvalidInBoundsMove() {

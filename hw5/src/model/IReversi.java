@@ -6,7 +6,14 @@ package model;
  */
 public interface IReversi {
 
-  void placeMove(int r, int s, int who);
+  /**
+   * Place a move based on rules of Reversi.
+   *
+   * @param q   q coord for current players move
+   * @param r   r coord for current players move
+   * @param who integer representing current player
+   */
+  void placeMove(int q, int r, int who);
 
   /**
    * Starts the ReversiModel game and produces a 2D array representation of the board based on the
@@ -16,12 +23,31 @@ public interface IReversi {
    */
   void startGame(int sideLen);
 
+  /**
+   * Returns a copy of the board.
+   *
+   * @return a copy of the board
+   */
   Hexagon[][] getBoard();
 
+  /**
+   * Returns true if two skips in a row occur (numSkips resets everytime a player makes a move).
+   *
+   * @return boolean for if game is over.
+   */
   boolean isGameOver();
 
+  /**
+   * Returns an integer for the player turn. Player 1 starts at 0.
+   *
+   * @return integer
+   */
   int getTurn();
 
+  /**
+   * Function to allow player to pass. Passing is the only move if there are no legal moves for
+   * the player.
+   */
   void passTurn();
 
 }

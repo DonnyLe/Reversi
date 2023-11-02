@@ -11,8 +11,9 @@ public class ReversiModel implements IReversi {
   private boolean isGameStarted;
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
-  //origin/center of the hexagonal board is the (sideLen - 1, sideLen - 1)
+  //origin or center of the hexagonal board is the (sideLen - 1, sideLen - 1)
   private Hexagon[][] board;
+
   private int numSkips;
   private int turn;
   private final int numPlayers = 2;
@@ -28,12 +29,10 @@ public class ReversiModel implements IReversi {
     this.numSkips = 0;
     this.playerColors = new HashMap<>();
     DiscState[] colorList = DiscState.values();
-    for (int i = 0; i < this.numPlayers; i++) {
-      if (colorList[i] != DiscState.NONE) {
-        this.playerColors.put(i, colorList[i]);
-      }
-    }
 
+    for (int i = 0; i < this.numPlayers; i++) {
+      this.playerColors.put(i, colorList[i]);
+    }
   }
 
   /**

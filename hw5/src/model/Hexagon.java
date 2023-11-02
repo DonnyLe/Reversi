@@ -56,6 +56,7 @@ public class Hexagon {
   }
 
 
+
   /**
    * Checks whether the Hexagon has no disk on top of it.
    *
