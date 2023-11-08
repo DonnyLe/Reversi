@@ -245,6 +245,14 @@ public class ReversiTests {
     Assert.assertEquals(expectedMessage, actualMessage);
   }
 
+  @Test
+  public  void testMiscFunctionality() {
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    Assert.assertEquals(m1.getBoardSize(), 4);
+    Assert.assertEquals(m1.getPlayerScore(1), 3);
+  }
+
 
 }
 

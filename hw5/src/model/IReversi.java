@@ -50,4 +50,20 @@ public interface IReversi {
    */
   void passTurn();
 
+  /**
+   * Returns size of board edge as int
+   *
+   * @return integer
+   */
+  int getBoardSize();
+
+  /**
+   * Calculates the current score of the inputted player
+   * @param player player id
+   * @return integer of the total number of hexes the player has his color on
+   */
+  int getPlayerScore(int who);
+
+
+
 }

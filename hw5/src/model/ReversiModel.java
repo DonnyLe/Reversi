@@ -19,6 +19,7 @@ public class ReversiModel implements IReversi {
   private final int numPlayers = 2;
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
+  private int boardSize;
 
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
@@ -26,6 +27,7 @@ public class ReversiModel implements IReversi {
   public ReversiModel() {
     this.isGameStarted = false;
     this.board = new Hexagon[0][0];
+    this.boardSize = 0;
     this.numSkips = 0;
     this.playerColors = new HashMap<>();
     DiscState[] colorList = DiscState.values();
@@ -61,6 +63,7 @@ public class ReversiModel implements IReversi {
     if (sideLen < 3) {
       throw new IllegalArgumentException("Side length must be at least 3");
     }
+    this.boardSize = sideLen;
     this.board = new Hexagon[2 * sideLen - 1][2 * sideLen - 1];
     int startNullIndex = 0;
     int endNullIndex = this.board.length - 1 - sideLen;
@@ -343,6 +346,37 @@ public class ReversiModel implements IReversi {
     gameStartedCheck();
     return this.turn;
   }
+
+  /**
+   * Returns size of board edge as int
+   *
+   * @return integer
+   */
+  @Override
+  public int getBoardSize(){
+    return this.boardSize;
+  }
+
+  /**
+   * Calculates the current score of the inputted player
+   * @param player player id
+   * @return integer of the total number of hexes the player has his color on
+   */
+  @Override
+  public int getPlayerScore(int who) {
+    int score = 0;
+    for (Hexagon[] hexagons : this.board) {
+      for (int j = 0; j < this.board.length; j++) {
+        if (hexagons[j] != null &&
+                hexagons[j].getDiscOnHex().equals(this.playerColors.get(who))) {
+          score++;
+        }
+      }
+    }
+    return score;
+  }
+
+
 
 
 }
