@@ -14,6 +14,4 @@ public interface IView {
    */
   public String toString();
 
-
-
 }
