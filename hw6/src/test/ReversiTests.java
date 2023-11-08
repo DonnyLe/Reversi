@@ -5,9 +5,8 @@ import org.junit.Test;
 
 
 import model.DiscState;
-import model.Hexagon;
 import model.ReversiModel;
-import view.ReversiTextualView;
+import textview.ReversiTextualView;
 
 /**
  * Tests for ReversiModel.

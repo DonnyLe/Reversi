@@ -1,8 +1,7 @@
-package view;
+package textview;
 
 
 import model.DiscState;
-import model.Hexagon;
 import model.IReversi;
 
 /**
