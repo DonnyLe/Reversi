@@ -16,18 +16,15 @@ public class ReversiGraphicsView extends JFrame implements IGraphicsView{
   public ReversiGraphicsView(IReversi model) {
     super("Reversi");
     this.model = model;
-    setSize(500, 300);
-    setLocation(200, 200);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setLayout(new BorderLayout());
-
-    //reversi board panel
     reversiBoard = new ReversiPanel(model);
-    reversiBoard.setPreferredSize(new Dimension(500, 300));
-    JScrollPane scrollPane = new JScrollPane(reversiBoard);
-    this.add(reversiBoard, BorderLayout.CENTER);
-
+    this.add(reversiBoard);
     pack();
     setVisible(true);
   }
+  public void refresh() {
+    this.reversiBoard.refresh();
+
+  }
+
 }
