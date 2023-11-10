@@ -8,10 +8,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import model.IReversi;
+import model.ReadonlyIReversi;
 
-public class ReversiGraphicsView extends JFrame implements IGraphicsView, ActionListener{
+public class ReversiGraphicsView extends JFrame implements IGraphicsView{
   ReversiPanel reversiBoard;
-  IReversi model;
+  ReadonlyIReversi model;
   public ReversiGraphicsView(IReversi model) {
     super("Reversi");
     this.model = model;
@@ -21,20 +22,12 @@ public class ReversiGraphicsView extends JFrame implements IGraphicsView, Action
     this.setLayout(new BorderLayout());
 
     //reversi board panel
-    reversiBoard = new ReversiPanel();
+    reversiBoard = new ReversiPanel(model);
     reversiBoard.setPreferredSize(new Dimension(500, 300));
     JScrollPane scrollPane = new JScrollPane(reversiBoard);
     this.add(reversiBoard, BorderLayout.CENTER);
 
     pack();
     setVisible(true);
-
   }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-
-
-  }
-
 }

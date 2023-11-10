@@ -28,7 +28,6 @@ public class ReversiTextualView implements IView {
   @Override
   public String toString() {
     String view = "";
-
     int boardLength = this.model.getBoardArrayLength();
     int afterHalf = 1;
     for (int i = 0; i < boardLength; i++) {

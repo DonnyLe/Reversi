@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
+/**`
  * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
@@ -13,6 +13,7 @@ public class ReversiModel implements IReversi {
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
   //origin or center of the hexagonal board is the (sideLen - 1, sideLen - 1)
   private Hexagon[][] board;
+
 
   private int numSkips;
   private int turn;
@@ -100,10 +101,11 @@ public class ReversiModel implements IReversi {
   }
 
   /**
-   * Place a move based on rules of Reversi.
+   * Place a move based on rules of Reversi. Coordinates q and r uses the axial system
+   * where the origin, (0, 0), is the center hexagon of the board.
    *
-   * @param q   q coord for current players move
-   * @param r   r coord for current players move
+   * @param q   q coord
+   * @param r   r coord
    * @param who integer representing current player
    */
   @Override
@@ -119,6 +121,7 @@ public class ReversiModel implements IReversi {
     flipDiscs(q, r, validStraightLines, who);
     this.nextPlayer();
   }
+
 
   /**
    * Helper function that increments the player and makes sure after the last player does action,
@@ -142,8 +145,9 @@ public class ReversiModel implements IReversi {
   }
 
   /**
-   * Finds pairs of dx, dy that allow the player to flip pieces.
-   *
+   * Finds pairs of dx, dy that allow the player to flip pieces. Coordinates q and r uses the
+   * axial system where the origin, (0, 0), represents the top left item in the 2D board array
+   * (always null).
    * @param validDirections adjacent directions that have the opposite player's disc
    *                        (return value of getListDirectionsToSearch)
    * @param q q coordinate of move
@@ -177,7 +181,9 @@ public class ReversiModel implements IReversi {
 
 
   /**
-   * Flips discs in the directions where discs COULD be flipped.
+   * Flips discs in the directions where discs COULD be flipped. Coordinates q and r uses the
+   * axial system where the origin, (0, 0), represents the top left item in the 2D board array
+   * (always null).
    *
    * @param q                  q coordinate of move
    * @param r                  r coordinate of move
@@ -202,7 +208,9 @@ public class ReversiModel implements IReversi {
   }
 
   /**
-   * Checks all adjacent hexagons at hexagon q, r for opposing players discs.
+   * Checks all adjacent hexagons at hexagon q, r for opposing players discs. Coordinates
+   * q and r uses the axial system where the origin, (0, 0), represents the top left item in
+   * the 2D board array (always null).
    *
    * @param q   q coord for current players move
    * @param r   r coord for current players move
@@ -231,8 +239,9 @@ public class ReversiModel implements IReversi {
 
   /**
    * Checks if q and r coordinates are out of bounds (out of bounds for out of the 2D list bounds
-   * or q and r represent the coordinates of a null spot). Used to preseve invariant of all unused
-   * spots are null.
+   * or q and r represent the coordinates of a null spot). Coordinates q and r use the
+   * axial system where the origin, (0, 0), represents the top left, unused item in the 2D board
+   * array. Used to preserve invariant of all unused spots are null.
    *
    * @param q q coord
    * @param r r coord
@@ -306,6 +315,7 @@ public class ReversiModel implements IReversi {
   @Override
   public DiscState getDiscAt(int q, int r) {
     gameStartedCheck();
+
     if(isOutOfBounds(q, r)) {
       throw new IllegalArgumentException("Chosen coordinates are out of bounds");
     }
@@ -314,11 +324,14 @@ public class ReversiModel implements IReversi {
 
   @Override
   public int getBoardArrayLength() {
+    gameStartedCheck();
     return this.board.length;
   }
 
   @Override
   public void hasMovesCheck(int who) {
+    gameStartedCheck();
+
     for (int q = 0; q < this.board.length; q++) {
       for (int r = 0; r < this.board.length; r++) {
         try {
@@ -348,6 +361,8 @@ public class ReversiModel implements IReversi {
    */
   @Override
   public int getScore(int who) {
+    gameStartedCheck();
+
     int counter = 0;
     DiscState color = this.playerColors.get(who);
     for (int q = 0; q < this.board.length; q++) {
