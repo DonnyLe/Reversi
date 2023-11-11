@@ -52,12 +52,10 @@ public class ReversiPanel extends JPanel {
     for(int q = 0; q < this.model.getBoardArrayLength(); q++) {
       DiscState disc = this.model.getDiscAt(q, this.model.getBoardArrayLength()/2);
 
-      Point.Double formattedPoint = getHexagonCenterCoords(q,
-              this.model.getBoardArrayLength()/2);
       HexagonImage hex = new HexagonImage(0.5,
               formattedPoint.getX(),formattedPoint.getY());
       drawHex(g2d, hex);
-        drawDisc(g2d, formattedPoint, disc);
+      drawDisc(g2d, formattedPoint, disc);
 
 
       this.hexImageList.add(hex);
@@ -121,49 +119,6 @@ public class ReversiPanel extends JPanel {
       g2d.setTransform(oldTransform);
     }
   }
-
-  private Point.Double getHexagonCenterCoords(int q, int r) {
-        //translates q and r such that it works with the graphics transformation
-        Point transformedPoint = translateAxialCoords(q, r);
-        //adjusts the center point such that there are no gaps between hexagons
-        Point.Double formattedPoint = this.adjustAxialCoords((int) transformedPoint.getX(),
-                (int) transformedPoint.getY());
-      return formattedPoint;
-    }
-
-
-
-  /**
-   * Translates the axial coords to coordinates that work with AffineTransform from
-   * the method transformPhysicalToLogical. In other words, the inputs, q and r, use a coordinate
-   * system where the origin, (0, 0), is the top left, unused space in the hexagon board array
-   * (will be null based on invariant). The output will be a Point object where the origin,
-   * (0, 0), is the center space of the hexagon board.
-   *
-   * @param q q coordinate
-   * @param r r coordinate
-   * @return translated axial coords
-   */
-  private Point translateAxialCoords(int q, int r) {
-    int centerR = (int) Math.floor(this.model.getBoardArrayLength() / 2);
-    return new Point(q - centerR, r - centerR);
-
-  }
-
-  /**
-   * Adjust the return value of translateAxialCoords to produce a center coord for the hexagons
-   * such that there are no gaps between hexagons (this function is mainly for formatting).
-   * Uses modified code from https://www.redblobgames.com/grids/hexagons/#basics.
-   * @param q x value of the returned point from translatAxialCoords.
-   * @param r y value of the returned point from translateAxialCoords.
-   * @return center point for hexagons.
-   */
-  private Point.Double adjustAxialCoords(int q, int r) {
-    double x = 0.5 * (Math.sqrt(3)) * q + Math.sqrt(3)/2 * r;
-    double y = 0.75 * (3/2) * r;
-    return new Point.Double(x, y);
-  }
-
 
 
   /**
