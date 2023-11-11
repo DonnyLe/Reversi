@@ -276,7 +276,8 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    *                                  (that allow the player to flip pieces), and if the
    *                                  chosen hexagon already has a disc on it
    */
-  private void moveAllowedCheck(int q, int r, int who) {
+  @Override
+  public void moveAllowedCheck(int q, int r, int who) {
     if (isOutOfBounds(q, r)) {
       throw new IllegalArgumentException("Chosen coordinates are out of bounds");
     }
