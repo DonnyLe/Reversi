@@ -110,7 +110,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   }
 
-  
+
 
   /**
    * Place a move based on rules of Reversi. Coordinates q and r uses the axial system
@@ -339,6 +339,12 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   public int getBoardArrayLength() {
     gameStartedCheck();
     return this.board.length;
+  }
+
+  @Override
+  public int getSideLength() {
+    gameStartedCheck();
+    return (this.board.length + 1) / 2;
   }
 
   @Override

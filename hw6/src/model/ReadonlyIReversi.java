@@ -16,6 +16,12 @@ public interface ReadonlyIReversi{
   int getBoardArrayLength();
 
   /**
+   * Returns the side length of the hexagon board.
+   * @return integer for the size of sides
+   */
+  int getSideLength();
+
+  /**
    * Throws an exception is the player has no moves.
    * @param who integer representing the player
    * @throws IllegalStateException if player has no moves. Forces player to pass turn.
