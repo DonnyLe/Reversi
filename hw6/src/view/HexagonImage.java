@@ -15,6 +15,7 @@ public class HexagonImage extends Path2D.Double{
       this.sideLength = sideLength;
       this.centerX = centerX;
       this.centerY = centerY;
+      this.getPath();
   }
   public void getPath() {
     boolean firstEdge = true;

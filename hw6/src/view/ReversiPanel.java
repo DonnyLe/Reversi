@@ -1,18 +1,23 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
 
 import model.DiscState;
 import model.Hexagon;
 import model.ReadonlyIReversi;
 
 public class ReversiPanel extends JPanel {
+  private static final double CIRCLE_RADIUS = 0.2;
   private ArrayList<HexagonImage> hexImageList;
   private final ReadonlyIReversi model;
 
@@ -20,11 +25,9 @@ public class ReversiPanel extends JPanel {
   ReversiPanel(ReadonlyIReversi model) {
     this.model = model;
     this.hexImageList = new ArrayList<>();
-  }
-
-  public void refresh() {
-    this.repaint();
-
+    MouseEventsListener listener = new MouseEventsListener();
+    this.addMouseListener(listener);
+    this.addMouseMotionListener(listener);
   }
   /**
    * This method tells Swing what the "natural" size should be
@@ -39,49 +42,127 @@ public class ReversiPanel extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g){
-
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.transform(transformLogicalToPhysical());
     g2d.setStroke(new BasicStroke((float) 0.03));
+    drawMiddleRow(g2d);
+    drawAllRowsExceptMiddle(g2d);
+  }
+  private void drawMiddleRow(Graphics2D g2d) {
+    for(int q = 0; q < this.model.getBoardArrayLength(); q++) {
+      DiscState disc = this.model.getDiscAt(q, this.model.getBoardArrayLength()/2);
 
-    for(int  q= 0; q < this.model.getBoardArrayLength(); q++) {
-      for (int r = 0; r < this.model.getBoardArrayLength(); r++) {
+      Point.Double formattedPoint = getHexagonCenterCoords(q,
+              this.model.getBoardArrayLength()/2);
+      HexagonImage hex = new HexagonImage(0.5,
+              formattedPoint.getX(),formattedPoint.getY());
+      drawHex(g2d, hex);
+        drawDisc(g2d, formattedPoint, disc);
 
-        try {
-          DiscState disc = this.model.getDiscAt(q, r);
-          Point p = convertToCartesianCoords(q, r);
-          HexagonImage hexImg = new HexagonImage(0.5,
-                  p.getX() - getXCoordHexCorrection(q),p.getY());
-          hexImg.getPath();
-          g2d.draw(hexImg);
-          this.hexImageList.add(hexImg);
+
+      this.hexImageList.add(hex);
+    }
+  }
+
+  private void drawAllRowsExceptMiddle(Graphics2D g2d) {
+    for(int  r = 0; r < this.model.getBoardArrayLength();r++) {
+      if(r != this.model.getBoardArrayLength()/2) {
+        for (int q = 0; q < this.model.getBoardArrayLength(); q++) {
+          try {
+            DiscState disc = this.model.getDiscAt(q, r);
+            Point.Double formattedPoint = getHexagonCenterCoords(q, r);
+
+            Point.Double shiftedFormattedPoint = new Point.Double(formattedPoint.getX()
+                    + Math.sqrt(3) / 2 * 0.5 * (this.model.getBoardArrayLength() / 2 - r),
+                    formattedPoint.getY());
+
+            HexagonImage hex = new HexagonImage(0.5,
+                    shiftedFormattedPoint.getX(), shiftedFormattedPoint.getY() );
+            drawHex(g2d, hex);
+            drawDisc(g2d, shiftedFormattedPoint, disc);
+
+            this.hexImageList.add(hex);
+          }
+          //if getDiscAt throws IllegalArgument exception due to q and r being out of bounds or
+          //equalling null
+          catch (IllegalArgumentException e) {
+            continue;
+          }
         }
-        //if getDiscAt throws IllegalArgument exception due to q and r being out of bounds or
-        //equalling null
-        catch(IllegalArgumentException e) {
-          continue;
-        }
-      }
-
       }
     }
+  }
+
+  private void drawHex(Graphics2D g2d, HexagonImage hex) {
+    g2d.setColor(Color.lightGray);
+    g2d.fill(hex);
+    g2d.setColor(Color.BLACK);
+    g2d.draw(hex);
+  }
+
+  private void drawDisc(Graphics2D g2d, Point.Double center, DiscState disc) {
+    AffineTransform oldTransform = g2d.getTransform();
+    if(disc != DiscState.NONE) {
+      if(disc == DiscState.WHITE) {
+        g2d.setColor(Color.WHITE);
+      }
+      else {
+        g2d.setColor(Color.BLACK);
+      }
+
+      g2d.translate(center.getX(), center.getY());
+      Shape circle = new Ellipse2D.Double(
+              -CIRCLE_RADIUS,     // left
+              -CIRCLE_RADIUS,     // top
+              2 * CIRCLE_RADIUS,  // width
+              2 * CIRCLE_RADIUS); // height
+      g2d.fill(circle);
+
+      g2d.setTransform(oldTransform);
+    }
+  }
+
+  private Point.Double getHexagonCenterCoords(int q, int r) {
+        //translates q and r such that it works with the graphics transformation
+        Point transformedPoint = translateAxialCoords(q, r);
+        //adjusts the center point such that there are no gaps between hexagons
+        Point.Double formattedPoint = this.adjustAxialCoords((int) transformedPoint.getX(),
+                (int) transformedPoint.getY());
+      return formattedPoint;
+    }
+
+
 
   /**
-   * Hexagons are square root of 3 units apart from each other (not 1 unit apart from eachother).
-   * The following math corrects the spacing between hexagons in the x direction.
-   * @param q
-   * @return
+   * Translates the axial coords to coordinates that work with AffineTransform from
+   * the method transformPhysicalToLogical. In other words, the inputs, q and r, use a coordinate
+   * system where the origin, (0, 0), is the top left, unused space in the hexagon board array
+   * (will be null based on invariant). The output will be a Point object where the origin,
+   * (0, 0), is the center space of the hexagon board.
+   *
+   * @param q q coordinate
+   * @param r r coordinate
+   * @return translated axial coords
    */
-  private double getXCoordHexCorrection(int q) {
-    return ((2-Math.sqrt(3)))/2 * (q + 1);
+  private Point translateAxialCoords(int q, int r) {
+    int centerR = (int) Math.floor(this.model.getBoardArrayLength() / 2);
+    return new Point(q - centerR, r - centerR);
 
   }
 
-  private Point convertToCartesianCoords(int q, int r) {
-        int centerR = (int) Math.floor(this.model.getBoardArrayLength()/ 2);
-        return new Point(q - centerR, r - centerR);
-    }
-
+  /**
+   * Adjust the return value of translateAxialCoords to produce a center coord for the hexagons
+   * such that there are no gaps between hexagons (this function is mainly for formatting).
+   * Uses modified code from https://www.redblobgames.com/grids/hexagons/#basics.
+   * @param q x value of the returned point from translatAxialCoords.
+   * @param r y value of the returned point from translateAxialCoords.
+   * @return center point for hexagons.
+   */
+  private Point.Double adjustAxialCoords(int q, int r) {
+    double x = 0.5 * (Math.sqrt(3)) * q + Math.sqrt(3)/2 * r;
+    double y = 0.75 * (3/2) * r;
+    return new Point.Double(x, y);
+  }
 
 
 
@@ -115,9 +196,39 @@ public class ReversiPanel extends JPanel {
     Dimension preferred = new Dimension(this.model.getBoardArrayLength(), this.model.getBoardArrayLength());
     ret.translate(getWidth() / 2., getHeight() / 2.);
     ret.scale(getWidth() / preferred.getWidth(), getHeight() / preferred.getHeight());
-    ret.scale(1, -1);
+    ret.scale(1, 1);
     return ret;
   }
+  private class MouseEventsListener extends MouseInputAdapter {
+//    @Override
+//    public void mousePressed(MouseEvent e) {
+//      for(HexagonImage hex: hexImageList) {
+//        if(hex.contains(e.getPoint())) {
+//            if(ReversiPanel.this.model.moveAllowedCheck())
+//            ReversiPanel.this.drawHex();
+//        }
+//      }
+//      this.mouseDragged(e);
+//    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+      // This point is measured in actual physical pixels
+      Point physicalP = e.getPoint();
+      // For us to figure out which circle it belongs to, we need to transform it
+      // into logical coordinates
+      Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
+
+      // TODO: Figure out whether this location is inside a circle, and if so, which one
+    }
+  }
+
+
 
 
 

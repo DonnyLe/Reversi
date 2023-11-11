@@ -43,6 +43,7 @@ public interface ReadonlyIReversi{
    */
   int getTurn();
 
+  void moveAllowedCheck(int q, int r, int who);
 }
 
 
