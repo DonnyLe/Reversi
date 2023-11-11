@@ -107,7 +107,10 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     this.board[center + 1][center - 1] = new Hexagon(DiscState.WHITE);
     this.board[center - 1][center] = new Hexagon(DiscState.WHITE);
     this.board[center][center + 1] = new Hexagon(DiscState.WHITE);
+
   }
+
+  
 
   /**
    * Place a move based on rules of Reversi. Coordinates q and r uses the axial system

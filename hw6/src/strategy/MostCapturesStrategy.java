@@ -1,5 +1,6 @@
 package strategy;
 
+import model.Posn;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
 

@@ -1,4 +1,4 @@
-package strategy;
+package model;
 
 /**
  * A value object representing coordinates in the board

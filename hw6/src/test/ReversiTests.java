@@ -7,7 +7,7 @@ import org.junit.Test;
 import model.DiscState;
 import model.ReversiModel;
 import strategy.MostCapturesStrategy;
-import strategy.Posn;
+import model.Posn;
 import textview.ReversiTextualView;
 
 /**
