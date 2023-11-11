@@ -1,14 +1,14 @@
 package strategy;
 
-import model.Posn;
+import model.AxialCoord;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
 
 public class MostCapturesStrategy implements ReversiStrategy{
   @Override
-  public Posn chooseMove(ReadonlyIReversi model, int who) {
+  public AxialCoord chooseMove(ReadonlyIReversi model, int who) {
     int maxScore = 0;
-    Posn optimalMove = null;
+    AxialCoord optimalMove = null;
 
 
     for (int r = 0; r < model.getBoardArrayLength(); r++) {
@@ -18,7 +18,7 @@ public class MostCapturesStrategy implements ReversiStrategy{
           copy.placeMove(q, r, who);
           if (copy.getScore(who) > maxScore) {
             maxScore = copy.getScore(who);
-            optimalMove = new Posn(r, q);
+            optimalMove = new AxialCoord(r, q);
           }
         }
         catch (IllegalArgumentException | IllegalStateException ignored){}

@@ -1,8 +1,8 @@
 package strategy;
 
-import model.Posn;
+import model.AxialCoord;
 import model.ReadonlyIReversi;
 
 public interface ReversiStrategy {
-  Posn chooseMove(ReadonlyIReversi model, int who);
+  AxialCoord chooseMove(ReadonlyIReversi model, int who);
 }

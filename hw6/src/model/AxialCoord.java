@@ -3,9 +3,9 @@ package model;
 /**
  * A value object representing coordinates in the board
  */
-public class Posn {
+public class AxialCoord {
   public final int r, q;
-  public Posn(int r, int q) {
+  public AxialCoord(int r, int q) {
     this.r = r;
     this.q = q;
   }
