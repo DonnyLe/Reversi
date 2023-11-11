@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import model.DiscState;
 import model.ReversiModel;
+import strategy.MostCapturesStrategy;
+import strategy.Posn;
 import textview.ReversiTextualView;
 
 /**
@@ -247,6 +249,27 @@ public class ReversiTests {
     String actualMessage = exception.getMessage();
     Assert.assertEquals(expectedMessage, actualMessage);
   }
+
+
+  @Test
+  public void testMostCapturesStrategy() {
+    ReversiModel m1 = new ReversiModel();
+    m1.startGame(4);
+    MostCapturesStrategy strat = new MostCapturesStrategy();
+
+    Posn p = strat.chooseMove(m1, 0);
+    Assert.assertEquals(p.r, 1);
+    Assert.assertEquals(p.q, 4);
+
+    m1.placeMove(4, 1, 0);
+
+    p = strat.chooseMove(m1, 1);
+    Assert.assertEquals(p.r, 0);
+    Assert.assertEquals(p.q, 4);
+
+  }
+
+
 
 
 }

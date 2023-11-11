@@ -31,4 +31,5 @@ public interface IReversi extends ReadonlyIReversi{
   void passTurn();
 
 
+
 }

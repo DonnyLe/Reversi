@@ -1,13 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**`
  * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
-public class ReversiModel implements IReversi {
+public class ReversiModel implements IReversi, ReadonlyIReversi {
   private boolean isGameStarted;
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
@@ -47,6 +48,14 @@ public class ReversiModel implements IReversi {
     this.isGameStarted = true;
     initializeBoard(sideLen);
   }
+
+  protected void startGame(Hexagon[][] board, int turn) {
+    this.isGameStarted = true;
+    this.board = board;
+    this.turn = turn;
+
+  }
+
 
   /**
    * Helper function for initializing board. Side length must be at least 3 (since the initial
@@ -405,6 +414,19 @@ public class ReversiModel implements IReversi {
   public int getTurn() {
     gameStartedCheck();
     return this.turn;
+  }
+
+  @Override
+  public ReversiModel copyBoard() {
+    ReversiModel copy = new ReversiModel();
+    Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];
+    for (int i = 0; i < this.board.length; i++) {
+      copyB[i] = Arrays.copyOf(this.board[i], this.board[i].length);
+
+    }
+
+    copy.startGame(copyB, this.turn);
+    return copy;
   }
 
 
