@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
+import model.AxialCoord;
 import model.DiscState;
 import model.Hexagon;
 import model.ReadonlyIReversi;
@@ -21,6 +22,8 @@ public class ReversiPanel extends JPanel {
   private ArrayList<HexagonImage> hexImageList;
   private final ReadonlyIReversi model;
 
+  private HexagonImage selectedHex;
+
 
   ReversiPanel(ReadonlyIReversi model) {
     this.model = model;
@@ -28,7 +31,16 @@ public class ReversiPanel extends JPanel {
     MouseEventsListener listener = new MouseEventsListener();
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
+    initializeHexImageList();
+    selectedHex = null;
   }
+
+  public void initializeHexImageList() {
+    initalizeMiddleRow();
+    initalizeAllRowsExceptMiddle();
+    this.setBackground(Color.DARK_GRAY);
+  }
+
   /**
    * This method tells Swing what the "natural" size should be
    * for this panel.  Here, we set it to 400x400 pixels.
@@ -42,27 +54,32 @@ public class ReversiPanel extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g){
+
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.transform(transformLogicalToPhysical());
     g2d.setStroke(new BasicStroke((float) 0.03));
-    drawMiddleRow(g2d);
-    drawAllRowsExceptMiddle(g2d);
+
+    for(HexagonImage hex: this.hexImageList) {
+      drawHex(g2d, hex, hex.color);
+      AxialCoord axialCoords = hex.getAxialCoords();
+      drawDisc(g2d, hex.getCenter(), this.model.getDiscAt(axialCoords.q, axialCoords.r));
+    }
+
   }
-  private void drawMiddleRow(Graphics2D g2d) {
+  private void initalizeMiddleRow() {
     for(int q = 0; q < this.model.getBoardArrayLength(); q++) {
-      DiscState disc = this.model.getDiscAt(q, this.model.getBoardArrayLength()/2);
+      int r = this.model.getBoardArrayLength()/2;
+      DiscState disc = this.model.getDiscAt(q, r);
 
-      HexagonImage hex = new HexagonImage(0.5,
-              formattedPoint.getX(),formattedPoint.getY());
-      drawHex(g2d, hex);
-      drawDisc(g2d, formattedPoint, disc);
-
-
+      Point.Double formattedPoint = getHexagonCenterCoords(q,
+              this.model.getBoardArrayLength()/2);
+      HexagonImage hex = new HexagonImage(0.5, new Point.Double(
+              formattedPoint.getX(),formattedPoint.getY()), new AxialCoord(q, r), Color.lightGray);
       this.hexImageList.add(hex);
     }
   }
 
-  private void drawAllRowsExceptMiddle(Graphics2D g2d) {
+  private void initalizeAllRowsExceptMiddle() {
     for(int  r = 0; r < this.model.getBoardArrayLength();r++) {
       if(r != this.model.getBoardArrayLength()/2) {
         for (int q = 0; q < this.model.getBoardArrayLength(); q++) {
@@ -73,11 +90,8 @@ public class ReversiPanel extends JPanel {
             Point.Double shiftedFormattedPoint = new Point.Double(formattedPoint.getX()
                     + Math.sqrt(3) / 2 * 0.5 * (this.model.getBoardArrayLength() / 2 - r),
                     formattedPoint.getY());
-
-            HexagonImage hex = new HexagonImage(0.5,
-                    shiftedFormattedPoint.getX(), shiftedFormattedPoint.getY() );
-            drawHex(g2d, hex);
-            drawDisc(g2d, shiftedFormattedPoint, disc);
+            HexagonImage hex = new HexagonImage(0.5, shiftedFormattedPoint,
+                    new AxialCoord(q, r), Color.lightGray);
 
             this.hexImageList.add(hex);
           }
@@ -91,8 +105,8 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  private void drawHex(Graphics2D g2d, HexagonImage hex) {
-    g2d.setColor(Color.lightGray);
+  private void drawHex(Graphics2D g2d, HexagonImage hex, Color color) {
+    g2d.setColor(color);
     g2d.fill(hex);
     g2d.setColor(Color.BLACK);
     g2d.draw(hex);
@@ -120,6 +134,53 @@ public class ReversiPanel extends JPanel {
     }
   }
 
+  private Point.Double getHexagonCenterCoords(int q, int r) {
+    //translates q and r such that it works with the graphics transformation
+    Point transformedPoint = translateAxialCoords(q, r);
+    //adjusts the center point such that there are no gaps between hexagons
+    Point.Double formattedPoint = this.adjustAxialCoords((int) transformedPoint.getX(),
+            (int) transformedPoint.getY());
+    return formattedPoint;
+  }
+
+
+
+  /**
+   * Translates the axial coords to coordinates that work with AffineTransform from
+   * the method transformPhysicalToLogical. In other words, the inputs, q and r, use a coordinate
+   * system where the origin, (0, 0), is the top left, unused space in the hexagon board array
+   * (will be null based on invariant). The output will be a Point object where the origin,
+   * (0, 0), is the center space of the hexagon board.
+   *
+   * @param q q coordinate
+   * @param r r coordinate
+   * @return translated axial coords
+   */
+  private Point translateAxialCoords(int q, int r) {
+    int centerR = (int) Math.floor(this.model.getBoardArrayLength() / 2);
+    return new Point(q - centerR, r - centerR);
+
+  }
+
+  /**
+   * Adjust the return value of translateAxialCoords to produce a center coord for the hexagons
+   * such that there are no gaps between hexagons (this function is mainly for formatting).
+   * Uses modified code from https://www.redblobgames.com/grids/hexagons/#basics.
+   * @param q x value of the returned point from translatAxialCoords.
+   * @param r y value of the returned point from translateAxialCoords.
+   * @return center point for hexagons.
+   */
+  private Point.Double adjustAxialCoords(int q, int r) {
+    double x = 0.5 * (Math.sqrt(3)) * q + Math.sqrt(3)/2 * r;
+    double y = 0.75 * (3/2) * r;
+    return new Point.Double(x, y);
+  }
+
+  public void refresh() {
+    this.repaint();
+  }
+
+
 
   /**
    * Computes the transformation that converts screen coordinates
@@ -131,8 +192,8 @@ public class ReversiPanel extends JPanel {
    */
   private AffineTransform transformPhysicalToLogical() {
     AffineTransform ret = new AffineTransform();
-    Dimension preferred = new Dimension(this.model.getBoardArrayLength()/2, this.model.getBoardArrayLength()/2);
-    ret.scale(1, -1);
+    Dimension preferred = new Dimension(this.model.getBoardArrayLength() - 1 , this.model.getBoardArrayLength() - 1);
+    ret.scale(1, 1);
     ret.scale(preferred.getWidth() / getWidth(), preferred.getHeight() / getHeight());
     ret.translate(-getWidth() / 2., -getHeight() / 2.);
     return ret;
@@ -148,39 +209,52 @@ public class ReversiPanel extends JPanel {
    */
   private AffineTransform transformLogicalToPhysical() {
     AffineTransform ret = new AffineTransform();
-    Dimension preferred = new Dimension(this.model.getBoardArrayLength(), this.model.getBoardArrayLength());
+    Dimension preferred = new Dimension(this.model.getBoardArrayLength() - 1, this.model.getBoardArrayLength() - 1);
     ret.translate(getWidth() / 2., getHeight() / 2.);
     ret.scale(getWidth() / preferred.getWidth(), getHeight() / preferred.getHeight());
     ret.scale(1, 1);
     return ret;
   }
   private class MouseEventsListener extends MouseInputAdapter {
-//    @Override
-//    public void mousePressed(MouseEvent e) {
-//      for(HexagonImage hex: hexImageList) {
-//        if(hex.contains(e.getPoint())) {
-//            if(ReversiPanel.this.model.moveAllowedCheck())
-//            ReversiPanel.this.drawHex();
-//        }
-//      }
-//      this.mouseDragged(e);
-//    }
-
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
+      boolean foundHex = false;
+      for(HexagonImage hex: hexImageList) {
+        // This point is measured in actual physical pixels
+        Point physicalP = e.getPoint();
+        // For us to figure out which circle it belongs to, we need to transform it
+        // into logical coordinates
+        Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
+        if(hex.contains(logicalP) && ReversiPanel.this.selectedHex == null) {
+          hex.setColor(Color.GREEN);
+          ReversiPanel.this.selectedHex = hex;
+          ReversiPanel.this.repaint();
+          foundHex = true;
+        }
+        else if(hex.contains(logicalP) && ReversiPanel.this.selectedHex == hex) {
+          ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+          ReversiPanel.this.selectedHex = null;
+          ReversiPanel.this.repaint();
+        }
 
+        else if(hex.contains(logicalP) && ReversiPanel.this.selectedHex != null) {
+          ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+          hex.setColor(Color.GREEN);
+          ReversiPanel.this.selectedHex = hex;
+          ReversiPanel.this.repaint();
+          foundHex = true;
+
+        }
+
+        }
+      if(foundHex == false) {
+        ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+        ReversiPanel.this.selectedHex = null;
+        ReversiPanel.this.repaint();
+      }
     }
+    
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-      // This point is measured in actual physical pixels
-      Point physicalP = e.getPoint();
-      // For us to figure out which circle it belongs to, we need to transform it
-      // into logical coordinates
-      Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
-
-      // TODO: Figure out whether this location is inside a circle, and if so, which one
-    }
   }
 
 
