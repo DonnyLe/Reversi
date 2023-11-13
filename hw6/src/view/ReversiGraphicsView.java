@@ -16,6 +16,7 @@ public class ReversiGraphicsView extends JFrame implements IGraphicsView{
   public ReversiGraphicsView(IReversi model) {
     super("Reversi");
     this.model = model;
+    this.setBackground(Color.DARK_GRAY);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     reversiBoard = new ReversiPanel(model);

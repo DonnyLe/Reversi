@@ -38,6 +38,7 @@ public class ReversiPanel extends JPanel {
   public void initializeHexImageList() {
     initalizeMiddleRow();
     initalizeAllRowsExceptMiddle();
+    this.setBackground(Color.DARK_GRAY);
   }
 
   /**
@@ -53,7 +54,6 @@ public class ReversiPanel extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g){
-    this.setBackground(Color.DARK_GRAY);
 
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.transform(transformLogicalToPhysical());
@@ -192,7 +192,7 @@ public class ReversiPanel extends JPanel {
    */
   private AffineTransform transformPhysicalToLogical() {
     AffineTransform ret = new AffineTransform();
-    Dimension preferred = new Dimension(this.model.getBoardArrayLength(), this.model.getBoardArrayLength());
+    Dimension preferred = new Dimension(this.model.getBoardArrayLength() - 1 , this.model.getBoardArrayLength() - 1);
     ret.scale(1, 1);
     ret.scale(preferred.getWidth() / getWidth(), preferred.getHeight() / getHeight());
     ret.translate(-getWidth() / 2., -getHeight() / 2.);
@@ -209,7 +209,7 @@ public class ReversiPanel extends JPanel {
    */
   private AffineTransform transformLogicalToPhysical() {
     AffineTransform ret = new AffineTransform();
-    Dimension preferred = new Dimension(this.model.getBoardArrayLength(), this.model.getBoardArrayLength());
+    Dimension preferred = new Dimension(this.model.getBoardArrayLength() - 1, this.model.getBoardArrayLength() - 1);
     ret.translate(getWidth() / 2., getHeight() / 2.);
     ret.scale(getWidth() / preferred.getWidth(), getHeight() / preferred.getHeight());
     ret.scale(1, 1);
@@ -253,22 +253,8 @@ public class ReversiPanel extends JPanel {
         ReversiPanel.this.repaint();
       }
     }
+    
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-      // This point is measured in actual physical pixels
-      Point physicalP = e.getPoint();
-      // For us to figure out which circle it belongs to, we need to transform it
-      // into logical coordinates
-      Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
-
-      // TODO: Figure out whether this location is inside a circle, and if so, which one
-    }
   }
 
 
