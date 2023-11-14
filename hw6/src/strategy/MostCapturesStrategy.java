@@ -5,6 +5,12 @@ import model.ReadonlyIReversi;
 import model.ReversiModel;
 
 public class MostCapturesStrategy implements ReversiStrategy{
+  /**
+   * Chooses an AxialCoord on the board according to how many pieces are captured given a move.
+   * @param model The model representing the current board state to be analyzed
+   * @param who integer representing which player is moving
+   * @return AxialCoord coordinate of the optimal move for the given strategy
+   */
   @Override
   public AxialCoord chooseMove(ReadonlyIReversi model, int who) {
     int maxScore = 0;

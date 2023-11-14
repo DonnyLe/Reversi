@@ -1,20 +1,24 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
+import java.security.Key;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
+import commands.MoveCommand;
+import commands.PassCommand;
 import model.AxialCoord;
 import model.DiscState;
-import model.Hexagon;
 import model.ReadonlyIReversi;
 
 public class ReversiPanel extends JPanel {
@@ -28,16 +32,27 @@ public class ReversiPanel extends JPanel {
   ReversiPanel(ReadonlyIReversi model) {
     this.model = model;
     this.hexImageList = new ArrayList<>();
+
     MouseEventsListener listener = new MouseEventsListener();
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
+
+
+    KeyboardListener keyboardListener = new KeyboardListener();
+    HashMap<Character, Runnable> controls = new HashMap<Character, Runnable>();
+    controls.put('m', new MoveCommand());
+    controls.put('p', new PassCommand());
+    keyboardListener.setKeyTypedMap(controls);
+    this.addKeyListener(keyboardListener);
+
+
     initializeHexImageList();
     selectedHex = null;
   }
 
   public void initializeHexImageList() {
-    initalizeMiddleRow();
-    initalizeAllRowsExceptMiddle();
+    initializeMiddleRow();
+    initializeAllRowsExceptMiddle();
     this.setBackground(Color.DARK_GRAY);
   }
 
@@ -66,7 +81,7 @@ public class ReversiPanel extends JPanel {
     }
 
   }
-  private void initalizeMiddleRow() {
+  private void initializeMiddleRow() {
     for(int q = 0; q < this.model.getBoardArrayLength(); q++) {
       int r = this.model.getBoardArrayLength()/2;
       DiscState disc = this.model.getDiscAt(q, r);
@@ -79,7 +94,7 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  private void initalizeAllRowsExceptMiddle() {
+  private void initializeAllRowsExceptMiddle() {
     for(int  r = 0; r < this.model.getBoardArrayLength();r++) {
       if(r != this.model.getBoardArrayLength()/2) {
         for (int q = 0; q < this.model.getBoardArrayLength(); q++) {
@@ -138,9 +153,8 @@ public class ReversiPanel extends JPanel {
     //translates q and r such that it works with the graphics transformation
     Point transformedPoint = translateAxialCoords(q, r);
     //adjusts the center point such that there are no gaps between hexagons
-    Point.Double formattedPoint = this.adjustAxialCoords((int) transformedPoint.getX(),
+    return this.adjustAxialCoords((int) transformedPoint.getX(),
             (int) transformedPoint.getY());
-    return formattedPoint;
   }
 
 
@@ -165,8 +179,9 @@ public class ReversiPanel extends JPanel {
   /**
    * Adjust the return value of translateAxialCoords to produce a center coord for the hexagons
    * such that there are no gaps between hexagons (this function is mainly for formatting).
-   * Uses modified code from https://www.redblobgames.com/grids/hexagons/#basics.
-   * @param q x value of the returned point from translatAxialCoords.
+   * Uses modified code from <a href="https://www.redblobgames.com/grids/hexagons/#basics">
+   *   Hexagon tutorial</a>.
+   * @param q x value of the returned point from translateAxialCoords.
    * @param r y value of the returned point from translateAxialCoords.
    * @return center point for hexagons.
    */
@@ -247,19 +262,51 @@ public class ReversiPanel extends JPanel {
         }
 
         }
-      if(foundHex == false) {
+      if(!foundHex) {
         ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
         ReversiPanel.this.selectedHex = null;
         ReversiPanel.this.repaint();
       }
-    }
-    
 
+      if (foundHex) {
+        System.out.println(ReversiPanel.this.selectedHex.getAxialCoords().r
+        + ", " + ReversiPanel.this.selectedHex.getAxialCoords().q);
+      }
+    }
   }
 
+  private class KeyboardListener implements KeyListener {
+
+    private Map<Character, Runnable> keyTypedMap;
+    private Map<Integer, Runnable> keyPressedMap, keyReleasedMap;
+
+    public void setKeyTypedMap(Map<Character, Runnable> map) {
+      keyTypedMap = map;
+    }
+    public void setKeyPressedMap(Map<Integer, Runnable> map) {
+      keyPressedMap = map;
+    }
+    public void setKeyReleasedMap(Map<Integer, Runnable> map) {
+      keyReleasedMap = map;
+    }
 
 
-
+    @Override
+    public void keyTyped(KeyEvent e) {
+      if (keyTypedMap.containsKey(e.getKeyChar()))
+        keyTypedMap.get(e.getKeyChar()).run();
+    }
+    @Override
+    public void keyPressed(KeyEvent e) {
+      if (keyPressedMap.containsKey(e.getKeyCode()))
+        keyPressedMap.get(e.getKeyCode()).run();
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+      if (keyReleasedMap.containsKey(e.getKeyCode()))
+        keyReleasedMap.get(e.getKeyCode()).run();
+    }
+  }
 
 
 }

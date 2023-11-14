@@ -49,7 +49,7 @@ public interface ReadonlyIReversi{
    */
   int getTurn();
 
-  public ReversiModel copyBoard();
+  ReversiModel copyBoard();
 }
 
 

@@ -289,12 +289,12 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
               + " not have a disc on it");
     }
     ArrayList<int[]> validDirections = getListDirectionsToSearch(q, r, who);
-    if (validDirections.size() == 0) {
+    if (validDirections.isEmpty()) {
       throw new IllegalStateException("Chosen move coordinates has no adjacent "
               + "discs of the opposite player. Move not allowed");
     } else {
       ArrayList<int[]> validStraightLines = findValidStraightLines(validDirections, q, r, who);
-      if (validStraightLines.size() == 0) {
+      if (validStraightLines.isEmpty()) {
         throw new IllegalStateException("Chosen move coordinates has no straights lines "
                 + "that allow player to flip pieces. ");
       }
@@ -304,13 +304,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
       throw new IllegalStateException("Not your turn. Choose the other player.");
     }
   }
-
-
-  /**
-   * Returns a copy of the board.
-   *
-   * @return a copy of the board
-   */
 
 
   /**
@@ -325,6 +318,12 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   }
 
+  /**
+   * Returns the status of the disc at the specified axial coordinates.
+   * @param q q coord
+   * @param r r coord
+   * @return DiscState of the specified hex
+   */
   @Override
   public DiscState getDiscAt(int q, int r) {
     gameStartedCheck();
@@ -335,18 +334,31 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     return this.board[q][r].getDiscOnHex();
   }
 
+
+  /**
+   * Gets the length of the board array.
+   * @return int length of board array
+   */
   @Override
   public int getBoardArrayLength() {
     gameStartedCheck();
     return this.board.length;
   }
 
+  /**
+   * Gets the side length of the board.
+   * @return int side length
+   */
   @Override
   public int getSideLength() {
     gameStartedCheck();
     return (this.board.length + 1) / 2;
   }
 
+  /**
+   * Checks whether the given player has any legal moves.
+   * @param who integer representing the player
+   */
   @Override
   public void hasMovesCheck(int who) {
     gameStartedCheck();
@@ -426,6 +438,10 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     return this.turn;
   }
 
+  /**
+   * Returns a copy of the model.
+   * @return ReversiModel deep copy of the model
+   */
   @Override
   public ReversiModel copyBoard() {
     ReversiModel copy = new ReversiModel();
