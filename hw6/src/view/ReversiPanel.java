@@ -82,7 +82,7 @@ public class ReversiPanel extends JPanel {
   }
 
   private void initializeAllRowsExceptMiddle() {
-    for(int  r = 0; r < this.model.getBoardArrayLength();r++) {
+    for(int r = 0; r < this.model.getBoardArrayLength();r++) {
       if(r != this.model.getBoardArrayLength()/2) {
         for (int q = 0; q < this.model.getBoardArrayLength(); q++) {
           try {

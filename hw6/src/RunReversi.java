@@ -9,6 +9,8 @@ public class RunReversi {
     ReversiGraphicsView rv = new ReversiGraphicsView(model);
     model.placeMove(4, 1, 0);
 
+
+
     rv.render();
 
   }

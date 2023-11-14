@@ -24,7 +24,7 @@ public class ReversiTextualView implements IView {
    * Prints a textual representation of the board.
    */
   public void render() {
-    System.out.print(this);
+    System.out.print(this.getString());
   }
 
   /**
@@ -33,8 +33,7 @@ public class ReversiTextualView implements IView {
    *
    * @return Textual representation of the current state of Reversi board
    */
-  @Override
-  public String toString() {
+  public String getString() {
     String view = "";
     int boardLength = this.model.getBoardArrayLength();
     int afterHalf = 1;
