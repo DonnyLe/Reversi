@@ -1,9 +1,13 @@
 package commands;
 
-import model.ReversiModel;
+/**
+ * Placeholder move command.
+ */
+public class MoveCommand implements Runnable {
 
-public class MoveCommand implements Runnable{
-
+  /**
+   * Placeholder move command.
+   */
   @Override
   public void run() {
     //Placeholder

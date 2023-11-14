@@ -4,7 +4,10 @@ import model.AxialCoord;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
 
-public class MostCapturesStrategy implements ReversiStrategy{
+/**
+ * Strategy to capture the maximum number of discs.
+ */
+public class MostCapturesStrategy implements ReversiStrategy {
   /**
    * Chooses an AxialCoord on the board according to how many pieces are captured given a move.
    * @param model The model representing the current board state to be analyzed
@@ -27,7 +30,7 @@ public class MostCapturesStrategy implements ReversiStrategy{
             optimalMove = new AxialCoord(q, r);
           }
         }
-        catch (IllegalArgumentException | IllegalStateException ignored){}
+        catch (IllegalArgumentException | IllegalStateException ignored) { }
 
       }
     }

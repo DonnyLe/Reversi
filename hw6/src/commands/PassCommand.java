@@ -1,8 +1,12 @@
 package commands;
 
-import model.ReversiModel;
-
-public class PassCommand implements Runnable{
+/**
+ * Placeholder pass command.
+ */
+public class PassCommand implements Runnable {
+  /**
+   * Placeholder pass command.
+   */
   @Override
   public void run() {
     //Placeholder

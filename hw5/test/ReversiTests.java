@@ -19,7 +19,7 @@ public class ReversiTests {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(6);
     ReversiTextualView v1 = new ReversiTextualView(m1);
-    System.out.print(v1.toString());
+    System.out.print(v1);
 
     Assert.assertEquals(v1.toString(),
             "     _ _ _ _ _ _ \n"
@@ -37,7 +37,7 @@ public class ReversiTests {
     ReversiModel m2 = new ReversiModel();
     m2.startGame(4);
     ReversiTextualView v2 = new ReversiTextualView(m2);
-    System.out.print(v2.toString());
+    System.out.print(v2);
 
     Assert.assertEquals(v2.toString(),
             "   _ _ _ _ \n"

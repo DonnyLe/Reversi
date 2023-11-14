@@ -1,19 +1,21 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
 import model.AxialCoord;
 
-public class HexagonImage extends Path2D.Double{
-  private double sideLength;
+public class HexagonImage extends Path2D.Double {
+  private final double sideLength;
 
-  private Point.Double centerCoords;
-  private AxialCoord axialCoords;
+  private final Point.Double centerCoords;
+  private final AxialCoord axialCoords;
   private Color color;
 
-  public HexagonImage(double sideLength, Point.Double centerCoords, AxialCoord axialCoords, Color c) {
+  public HexagonImage(double sideLength, Point.Double centerCoords,
+                      AxialCoord axialCoords, Color c) {
     this.sideLength = sideLength;
     this.centerCoords = centerCoords;
     this.axialCoords = axialCoords;
@@ -21,9 +23,10 @@ public class HexagonImage extends Path2D.Double{
     this.color = c;
   }
   public void getPath() {
+
     boolean firstEdge = true;
     Point2D[] pointList = new Point2D[6];
-    for(int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; i++) {
       int angleDegree = 60 * i - 30;
       double angleRadian = Math.PI / 180 * angleDegree;
 

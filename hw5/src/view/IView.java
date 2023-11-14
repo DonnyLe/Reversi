@@ -12,6 +12,6 @@ public interface IView {
    *
    * @return Textual representation of the current state of Reversi board
    */
-  public String toString();
+  String toString();
 
 }

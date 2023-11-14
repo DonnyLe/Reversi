@@ -4,7 +4,10 @@ import model.AxialCoord;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
 
-public class AvoidBeforeCornersStrategy implements ReversiStrategy{
+/**
+ * Strategy to choose move not before corners.
+ */
+public class AvoidBeforeCornersStrategy implements ReversiStrategy {
   /**
    * Chooses an AxialCoord on the board according to the number of captured, but avoiding
    * the hexes adjacent to the corners of the board.
@@ -18,7 +21,7 @@ public class AvoidBeforeCornersStrategy implements ReversiStrategy{
     AxialCoord optimalMove = null;
     ReversiModel copy = model.copyBoard();
     int var = copy.getSideLength() - 2;
-    int center = copy.getSideLength() -1;
+    int center = copy.getSideLength() - 1;
 
 
 
@@ -26,7 +29,8 @@ public class AvoidBeforeCornersStrategy implements ReversiStrategy{
       for (int q = 0; q < model.getBoardArrayLength(); q++) {
         copy = model.copyBoard();
         if (!(r == center + var || r == center - var || q == center + var
-        || q == center - var || -q - r == (-center -center) + var || -q - r == (-center -center) - var)) {
+                || q == center - var || - q - r == (- center - center) + var
+                || - q - r == (- center - center) - var)) {
           try {
             copy.placeMove(q, r, who);
             if (copy.getScore(who) > maxScore) {
@@ -34,7 +38,7 @@ public class AvoidBeforeCornersStrategy implements ReversiStrategy{
               optimalMove = new AxialCoord(q, r);
             }
           }
-          catch (IllegalArgumentException | IllegalStateException ignored){}
+          catch (IllegalArgumentException | IllegalStateException ignored) { }
         }
 
 
