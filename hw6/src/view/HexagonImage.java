@@ -7,11 +7,11 @@ import java.awt.geom.Point2D;
 import model.AxialCoord;
 
 public class HexagonImage extends Path2D.Double{
-  double sideLength;
+  private double sideLength;
 
-  Point.Double centerCoords;
-  AxialCoord axialCoords;
-  Color color;
+  private Point.Double centerCoords;
+  private AxialCoord axialCoords;
+  private Color color;
 
   public HexagonImage(double sideLength, Point.Double centerCoords, AxialCoord axialCoords, Color c) {
     this.sideLength = sideLength;
@@ -51,6 +51,10 @@ public class HexagonImage extends Path2D.Double{
     return this.centerCoords;
 
   }
+  public Color getColor() {
+    return this.color;
+  }
+
   public AxialCoord getAxialCoords() {
     return this.axialCoords;
   }

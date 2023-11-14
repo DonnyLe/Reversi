@@ -62,7 +62,7 @@ public class ReversiPanel extends JPanel {
     g2d.setStroke(new BasicStroke((float) 0.03));
 
     for(HexagonImage hex: this.hexImageList) {
-      drawHex(g2d, hex, hex.color);
+      drawHex(g2d, hex, hex.getColor());
       AxialCoord axialCoords = hex.getAxialCoords();
       drawDisc(g2d, hex.getCenter(), this.model.getDiscAt(axialCoords.q, axialCoords.r));
     }
@@ -107,6 +107,13 @@ public class ReversiPanel extends JPanel {
     }
   }
 
+  /**
+   * Draws a hexagon based on the inputted HexagonImage (made using Path.2D).
+   * Hexagon images 
+   * @param g2d
+   * @param hex
+   * @param color
+   */
   private void drawHex(Graphics2D g2d, HexagonImage hex, Color color) {
     g2d.setColor(color);
     g2d.fill(hex);
