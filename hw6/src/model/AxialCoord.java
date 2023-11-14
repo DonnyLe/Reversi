@@ -5,8 +5,8 @@ package model;
  */
 public class AxialCoord {
   public final int r, q;
-  public AxialCoord(int r, int q) {
-    this.r = r;
+  public AxialCoord(int q, int r) {
     this.q = q;
+    this.r = r;
   }
 }
