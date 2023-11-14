@@ -4,7 +4,7 @@ package model;
 /**
  * Interface for a Reversi game. Contains all move and retrieval methods required for Reversi.
  */
-public interface IReversi extends ReadonlyIReversi{
+public interface IReversi extends ReadonlyIReversi {
 
   /**
    * Place a move based on rules of Reversi.

@@ -113,7 +113,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     }
   }
 
-  public void setInitialDiscs(int center) {
+  private void setInitialDiscs(int center) {
     //initialize center as shown in assignment page
     this.board[center][center - 1] = new Hexagon(DiscState.BLACK);
     this.board[center - 1][center + 1] = new Hexagon(DiscState.BLACK);
@@ -342,7 +342,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   public DiscState getDiscAt(int q, int r) {
     gameStartedCheck();
 
-    if(isOutOfBounds(q, r)) {
+    if (isOutOfBounds(q, r)) {
       throw new IllegalArgumentException("Chosen coordinates are out of bounds");
     }
     return this.board[q][r].getDiscOnHex();
@@ -387,9 +387,9 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
         //Exception e because it doesn't matter which exception is thrown,
         //if an exception is thrown, the move is not allowed
 
-        catch(Exception e) {
+        catch (Exception e) {
           //this exception will be handled later by moveAllowedCheck, ignore it in this method
-          if(e.getMessage().equals("Not your turn. Choose the other player.")){
+          if (e.getMessage().equals("Not your turn. Choose the other player.")) {
             return;
           }
           continue;

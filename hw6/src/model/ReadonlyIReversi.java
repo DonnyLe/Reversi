@@ -1,6 +1,9 @@
 package model;
 
-public interface ReadonlyIReversi{
+/**
+ * Read only reversi model.
+ */
+public interface ReadonlyIReversi {
   /**
    * Gets the disc of the hexagon at the given q and r coords (given q and r are valid coords).
    * @param q q coords

@@ -9,7 +9,7 @@ import model.IReversi;
  * Temporary implementation of the reversi view. Displays ReversiModel as a string.
  */
 public class ReversiTextualView implements IView {
-  private IReversi model;
+  private final IReversi model;
 
   /**
    * Constructor for reversi textual view.

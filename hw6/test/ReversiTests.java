@@ -313,7 +313,7 @@ public class ReversiTests {
 
     m1.placeMove(2, 2, 0);
 
-    System.out.print(v.toString());
+    System.out.print(v);
 
 
     AxialCoord p = strat.chooseMove(m1, 1);

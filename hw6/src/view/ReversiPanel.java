@@ -19,7 +19,7 @@ import model.ReadonlyIReversi;
 
 public class ReversiPanel extends JPanel {
   private static final double CIRCLE_RADIUS = 0.2;
-  private ArrayList<HexagonImage> hexImageList;
+  private final ArrayList<HexagonImage> hexImageList;
   private final ReadonlyIReversi model;
 
   private HexagonImage selectedHex;
