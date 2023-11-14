@@ -64,13 +64,15 @@ and a HashMap of the colors corresponding to the players.
 
 
 ## Source Organization
-Within the src directory, there are two packages, model and view.
+Within the src directory, there are two packages, model, view, strategy, and commands.
 
 1. model includes :
 
 * DiscState.java : Enum DiscState used in the Hexagon object
 * Hexagon.java : Hexagon object used in model
-* IReversi.java : Interface for Reversi model
+* ReadonlyIReversi.java : Interface for Reversi model where all methods are 
+* observation methods (used by view). 
+* IReversi: Extends ReadonlyIReversi. Contains all operations for Reversi game. 
 * ReversiModel.java : model Implementation
 
 2. view includes :
@@ -84,5 +86,12 @@ recommended to add. We added a method that checks if a player
 has any possible moves. If they don't, it throws an Exception
 telling the player to pass. We also added a method for getting the 
 score, a method to return a deep copy of the model, and a method to get
-the side length of the model. 
+the side length of the model. We also followed the feedback given to us from 
+the last assignment. 
+
+
+
+## Keyboard Interactions 
+Pressing 'm' calls a move command placeholder on the selected coordinates. 
+Pressing 'p' calls a pass command placeholder. 
 

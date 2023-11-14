@@ -13,7 +13,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
   //origin or center of the hexagonal board is the (sideLen - 1, sideLen - 1)
-  //INVARIANT: The shape of the grid
+
   private Hexagon[][] board;
 
 
@@ -72,6 +72,31 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     if (sideLen < 3) {
       throw new IllegalArgumentException("Side length must be at least 3");
     }
+    initalizeTopHalf(sideLen);
+
+    intializeBottomHalf(sideLen);
+
+    setInitialDiscs(sideLen - 1);
+
+    
+  }
+
+  private void intializeBottomHalf(int sideLen) {
+    int endNullIndex = this.board.length - 1;
+    int startNullIndex = endNullIndex;
+
+    for (int q = sideLen; q < this.board.length; q++) {
+      for (int r = 0; r < startNullIndex; r++) {
+        this.board[q][r] = new Hexagon(DiscState.NONE);
+      }
+      for (int i = startNullIndex; i <= endNullIndex; i++) {
+        this.board[q][i] = null;
+      }
+      startNullIndex--;
+    }
+  }
+
+  private void initalizeTopHalf(int sideLen) {
     this.board = new Hexagon[2 * sideLen - 1][2 * sideLen - 1];
     int startNullIndex = 0;
     int endNullIndex = this.board.length - 1 - sideLen;
@@ -86,21 +111,9 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
       }
       endNullIndex--;
     }
+  }
 
-    endNullIndex = this.board.length - 1;
-    startNullIndex = endNullIndex;
-
-    for (int q = sideLen; q < this.board.length; q++) {
-      for (int r = 0; r < startNullIndex; r++) {
-        this.board[q][r] = new Hexagon(DiscState.NONE);
-      }
-      for (int i = startNullIndex; i <= endNullIndex; i++) {
-        this.board[q][i] = null;
-      }
-      startNullIndex--;
-    }
-    int center = sideLen - 1;
-
+  public void setInitialDiscs(int center) {
     //initialize center as shown in assignment page
     this.board[center][center - 1] = new Hexagon(DiscState.BLACK);
     this.board[center - 1][center + 1] = new Hexagon(DiscState.BLACK);
