@@ -79,3 +79,10 @@ Within the src directory, there are two packages, model and view.
 * ReversiTextualView : Textual view Implementation
 
 ## Changes for part 2
+We implemented the missing methods in the model that were 
+recommended to add. We added a method that checks if a player
+has any possible moves. If they don't, it throws an Exception
+telling the player to pass. We also added a method for getting the 
+score, a method to return a deep copy of the model, and a method to get
+the side length of the model. 
+

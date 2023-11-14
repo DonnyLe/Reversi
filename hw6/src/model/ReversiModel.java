@@ -13,6 +13,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
   //origin or center of the hexagonal board is the (sideLen - 1, sideLen - 1)
+  //INVARIANT: The shape of the grid
   private Hexagon[][] board;
 
 
