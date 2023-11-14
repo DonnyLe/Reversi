@@ -32,18 +32,30 @@ using an array of array is that due to the hexagonal shape, there will be unpopu
 2D array. These unpopulated spots will be initialized as null and no methods will be able to modify 
 these null spots (invariant). 
 
+In the view, the coordinate system also changes. This is due to our logical coordinate system
+(see transformLogicalToPhysical method in ReversiPanel) where
+(0, 0) represents the center of the frame. As a result, we have a method, translateAxialCoords, that 
+converts the coordinate system used in the model (where q and r are non-negative) to the coordinate system 
+where (0, 0) is the center (still follows the axial coordinate system). All this involves is subtracting
+q and r by length of the board array list / 2. 
+
 The game is a two player game where player 1 is represented as the integer 1 and player 2 is
 represented as the integer 2. Player 1 is the white color while player 2 is the black color. 
 
+
+
 ## Quick Start:
-The following code shows how one would start the game. 
 
 ReversiModel r = new ReversiModel(); //creates a model
-ReversiTextualView rtv = new ReversiTextualView(r); //creates a view 
+ReversiTextualView rtv = new ReversiTextualView(r); //creates a view
+ReversiGraphicsView rgv = new ReversiGraphicsView(r); //creates graphical view
+
 r.startGame(4); //starts the game where the hexagonal board has a side length of 4
 System.out.println(rtv.toString()); //prints the current state of the game
 r.placeMove(2, 2, 0); //does a valid move
 System.out.println(rtv.toString()); //prints the current state of the game
+rgv.render(); //renders the GUI view
+
 .
 .
 .
@@ -62,6 +74,8 @@ and a HashMap of the colors corresponding to the players.
 
 * The DiscState is an enum that can either be NONE, BLACK or WHITE
 
+#### view 
+The Reversi Graphical view consists
 
 ## Source Organization
 Within the src directory, there are two packages, model, view, strategy, and commands.
@@ -79,6 +93,8 @@ Within the src directory, there are two packages, model, view, strategy, and com
 
 * IView.java : Interface for the view
 * ReversiTextualView : Textual view Implementation
+* ReversiGraphicalView : Graphical view implementation
+* HexagonImage : Hexagon graphic used in graphical view. 
 
 ## Changes for part 2
 We implemented the missing methods in the model that were 
