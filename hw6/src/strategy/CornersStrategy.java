@@ -32,7 +32,7 @@ public class CornersStrategy implements ReversiStrategy{
             copy.placeMove(q, r, who);
             if (copy.getScore(who) > maxScore) {
               maxScore = copy.getScore(who);
-              optimalMove = new AxialCoord(r, q);
+              optimalMove = new AxialCoord(q, r);
             }
           }
           catch (IllegalArgumentException | IllegalStateException ignored){}
