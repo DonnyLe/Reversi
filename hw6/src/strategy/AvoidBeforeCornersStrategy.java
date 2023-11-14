@@ -5,6 +5,13 @@ import model.ReadonlyIReversi;
 import model.ReversiModel;
 
 public class AvoidBeforeCornersStrategy implements ReversiStrategy{
+  /**
+   * Chooses an AxialCoord on the board according to the number of captured, but avoiding
+   * the hexes adjacent to the corners of the board.
+   * @param model The model representing the current board state to be analyzed
+   * @param who integer representing which player is moving
+   * @return AxialCoord coordinate of the optimal move for the given strategy
+   */
   @Override
   public AxialCoord chooseMove(ReadonlyIReversi model, int who) {
     int maxScore = 0;

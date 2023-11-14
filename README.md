@@ -78,6 +78,4 @@ Within the src directory, there are two packages, model and view.
 * IView.java : Interface for the view
 * ReversiTextualView : Textual view Implementation
 
-
-
-
+## Changes for part 2

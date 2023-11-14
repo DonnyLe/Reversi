@@ -7,5 +7,9 @@ public class RunReversi {
     IReversi model = new ReversiModel();
     model.startGame(4);
     ReversiGraphicsView rv = new ReversiGraphicsView(model);
+    model.placeMove(4, 1, 0);
+
+    rv.render();
+
   }
 }

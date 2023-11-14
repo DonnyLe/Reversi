@@ -1,14 +1,15 @@
-package textview;
+package view;
 
 
 import model.DiscState;
 import model.IReversi;
+import view.IView;
 
 /**
  * Temporary implementation of the reversi view. Displays ReversiModel as a string.
  */
 public class ReversiTextualView implements IView {
-  private IReversi model;
+  private final IReversi model;
 
   /**
    * Constructor for reversi textual view.
@@ -18,6 +19,13 @@ public class ReversiTextualView implements IView {
     this.model = model;
   }
 
+
+  /**
+   * Prints a textual representation of the board.
+   */
+  public void render() {
+    System.out.print(this);
+  }
 
   /**
    * Produces textual representation of the Reversi board model.

@@ -5,7 +5,6 @@ import org.junit.Test;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import model.DiscState;
 import model.ReversiModel;
@@ -15,7 +14,8 @@ import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import model.AxialCoord;
 import strategy.ReversiStrategy;
-import textview.ReversiTextualView;
+import view.ReversiGraphicsView;
+import view.ReversiTextualView;
 
 /**
  * Tests for ReversiModel.
@@ -288,22 +288,19 @@ public class ReversiTests {
     ReversiModel m1 = new ReversiModel();
     m1.startGame(5);
     AvoidBeforeCornersStrategy strat = new AvoidBeforeCornersStrategy();
-    //ReversiTextualView v = new ReversiTextualView(m1);
 
-    //System.out.print(v.toString());
     AxialCoord p = strat.chooseMove(m1, 0);
     Assert.assertEquals(p.r, 2);
     Assert.assertEquals(p.q, 5);
 
     m1.placeMove(5, 2, 0);
-    //System.out.print(v.toString());
+
 
 
     p = strat.chooseMove(m1, 1);
     Assert.assertEquals(p.r, 3);
     Assert.assertEquals(p.q, 3);
-    //m1.placeMove(3, 3, 1);
-    //System.out.print(v.toString());
+
   }
 
   @Test
@@ -336,54 +333,48 @@ public class ReversiTests {
     ModularStrategy strat = new ModularStrategy(strategies);
 
     ReversiTextualView v = new ReversiTextualView(m1);
-    System.out.print(v.toString());
+    v.render();
 
     AxialCoord p = strat.chooseMove(m1, 0);
     Assert.assertEquals(p.r, 1);
     Assert.assertEquals(p.q, 4);
     m1.placeMove(4, 1, 0);
 
-    System.out.print(v.toString());
-
+    v.render();
     p = strat.chooseMove(m1, 1);
     Assert.assertEquals(p.r, 0);
     Assert.assertEquals(p.q, 4);
     m1.placeMove(4, 0, 1);
 
-    System.out.print(v.toString());
+    v.render();
 
     p = strat.chooseMove(m1, 0);
     Assert.assertEquals(p.r, 0);
     Assert.assertEquals(p.q, 5);
     m1.placeMove(5, 0, 0);
 
-    System.out.print(v.toString());
+    v.render();
 
     p = strat.chooseMove(m1, 1);
     Assert.assertEquals(p.r, 0);
     Assert.assertEquals(p.q, 6);
     m1.placeMove(6, 0, 1);
 
-    System.out.print(v.toString());
+    v.render();
 
     p = strat.chooseMove(m1, 0);
     Assert.assertEquals(p.r, 2);
     Assert.assertEquals(p.q, 5);
     m1.placeMove(5, 2, 0);
 
-    System.out.print(v.toString());
+    v.render();
 
     p = strat.chooseMove(m1, 1);
     Assert.assertEquals(p.r, 4);
     Assert.assertEquals(p.q, 4);
     m1.placeMove(4, 4, 1);
 
-    System.out.print(v.toString());
-
-
-
-
-
+    v.render();
   }
 
 

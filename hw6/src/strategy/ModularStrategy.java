@@ -13,6 +13,13 @@ public class ModularStrategy implements ReversiStrategy{
     this.strategies = strategies;
 
   }
+  /**
+   * Chooses an AxialCoord on the board according to the strategies added to the stretegies
+   * ArrayList.
+   * @param model The model representing the current board state to be analyzed
+   * @param who integer representing which player is moving
+   * @return AxialCoord coordinate of the optimal move for the given strategy
+   */
   @Override
   public AxialCoord chooseMove(ReadonlyIReversi model, int who) {
     AxialCoord ans = null;
