@@ -1,22 +1,18 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.security.Key;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
-import commands.MoveCommand;
-import commands.PassCommand;
 import model.AxialCoord;
 import model.DiscState;
 import model.ReadonlyIReversi;
@@ -36,15 +32,6 @@ public class ReversiPanel extends JPanel {
     MouseEventsListener listener = new MouseEventsListener();
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
-
-
-    KeyboardListener keyboardListener = new KeyboardListener();
-    HashMap<Character, Runnable> controls = new HashMap<Character, Runnable>();
-    controls.put('m', new MoveCommand());
-    controls.put('p', new PassCommand());
-    keyboardListener.setKeyTypedMap(controls);
-    this.addKeyListener(keyboardListener);
-
 
     initializeHexImageList();
     selectedHex = null;
@@ -274,39 +261,4 @@ public class ReversiPanel extends JPanel {
       }
     }
   }
-
-  private class KeyboardListener implements KeyListener {
-
-    private Map<Character, Runnable> keyTypedMap;
-    private Map<Integer, Runnable> keyPressedMap, keyReleasedMap;
-
-    public void setKeyTypedMap(Map<Character, Runnable> map) {
-      keyTypedMap = map;
-    }
-    public void setKeyPressedMap(Map<Integer, Runnable> map) {
-      keyPressedMap = map;
-    }
-    public void setKeyReleasedMap(Map<Integer, Runnable> map) {
-      keyReleasedMap = map;
-    }
-
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-      if (keyTypedMap.containsKey(e.getKeyChar()))
-        keyTypedMap.get(e.getKeyChar()).run();
-    }
-    @Override
-    public void keyPressed(KeyEvent e) {
-      if (keyPressedMap.containsKey(e.getKeyCode()))
-        keyPressedMap.get(e.getKeyCode()).run();
-    }
-    @Override
-    public void keyReleased(KeyEvent e) {
-      if (keyReleasedMap.containsKey(e.getKeyCode()))
-        keyReleasedMap.get(e.getKeyCode()).run();
-    }
-  }
-
-
 }
