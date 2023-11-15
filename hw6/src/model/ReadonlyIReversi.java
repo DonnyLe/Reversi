@@ -58,6 +58,8 @@ public interface ReadonlyIReversi {
   int getTurn();
 
   ReversiModel copyBoard();
+
+  int checkMove(int q, int r, int who);
 }
 
 

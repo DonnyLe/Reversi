@@ -148,6 +148,19 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     this.nextPlayer();
   }
 
+  /**
+   * Checks the score increase of a given move.
+   * @param q q coordinate of hex
+   * @param r r coordinate of hex
+   * @param who int representing player
+   * @return score increase of move
+   */
+  public int checkMove(int q, int r, int who) {
+    ReversiModel copy = this.copyBoard();
+    copy.placeMove(q, r, who);
+    return copy.getScore(who) - this.getScore(who);
+  }
+
 
   /**
    * Helper function that increments the player and makes sure after the last player does action,
