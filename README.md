@@ -32,15 +32,17 @@ using an array of array is that due to the hexagonal shape, there will be unpopu
 2D array. These unpopulated spots will be initialized as null and no methods will be able to modify 
 these null spots (invariant). 
 
-In the view, the coordinate system also changes. This is due to our logical coordinate system
-(see transformLogicalToPhysical method in ReversiPanel) where
-(0, 0) represents the center of the frame. As a result, we have a method, translateAxialCoords, that 
+In the graphical view, the coordinate system changes. This is due to our logical coordinate system
+(see the transformLogicalToPhysical method in ReversiPanel) where
+(0, 0) represents the center of the Jframe. As a result, we have a method, translateAxialCoords, that 
 converts the coordinate system used in the model (where q and r are non-negative) to the coordinate system 
-where (0, 0) is the center (still follows the axial coordinate system). All this involves is subtracting
-q and r by length of the board array list / 2. 
+where (0, 0) is the center (still following the axial coordinate system). All this involves is subtracting
+q and r by the length of the board array list / 2. 
 
-The game is a two player game where player 1 is represented as the integer 1 and player 2 is
-represented as the integer 2. Player 1 is the white color while player 2 is the black color. 
+In the game (which is a two-player game), player 1 is represented as the integer 1 and player 2 is
+represented as the integer 2. Player 1 is the white color while player 2 is the black color. We chose 
+represent the players as integers in the case there were more than two players (which is possible with 
+the Reversi rules).
 
 
 
@@ -61,7 +63,7 @@ rgv.render(); //renders the GUI view
 .
 
 ## Key Components
-The code base follows the model, view, Controller framework (controller not yet implemented).
+The code base follows the model, view, controller framework (controller not yet implemented).
 The model contains all rules and the actions that can be done in Reversi. To use the view, 
 a copy of the model is passed into the view.
 
@@ -75,7 +77,7 @@ and a HashMap of the colors corresponding to the players.
 * The DiscState is an enum that can either be NONE, BLACK or WHITE
 
 #### view 
-The Reversi Graphical view consists
+The Reversi Graphical view consists components (ReversiPanel)
 
 ## Source Organization
 Within the src directory, there are two packages, model, view, strategy, and commands.
@@ -95,6 +97,7 @@ Within the src directory, there are two packages, model, view, strategy, and com
 * ReversiTextualView : Textual view Implementation
 * ReversiGraphicalView : Graphical view implementation
 * HexagonImage : Hexagon graphic used in graphical view. 
+* ReversiPanel : Reversi representation of a JPanel
 
 ## Changes for part 2
 We implemented the missing methods in the model that were 
