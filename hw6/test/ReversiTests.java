@@ -15,7 +15,6 @@ import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import model.AxialCoord;
 import strategy.ReversiStrategy;
-import view.ReversiGraphicsView;
 import view.ReversiTextualView;
 
 /**
@@ -382,16 +381,13 @@ public class ReversiTests {
   public void testMock() {
     MockModel m1 = new MockModel();
     m1.startGame(4);
-    CornersStrategy strat = new CornersStrategy();
+    MostCapturesStrategy strat = new MostCapturesStrategy();
 
     ReversiTextualView v = new ReversiTextualView(m1);
 
-    m1.placeMove(2, 2, 0);
-
-    System.out.print(v);
 
 
-    AxialCoord p = strat.chooseMove(m1, 1);
+    AxialCoord p = strat.chooseMove(m1, 0);
 
     System.out.print(m1.log);
 
