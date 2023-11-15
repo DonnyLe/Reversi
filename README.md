@@ -101,10 +101,15 @@ We implemented the missing methods in the model that were
 recommended to add. We added a method that checks if a player
 has any possible moves. If they don't, it throws an Exception
 telling the player to pass. We also added a method for getting the 
-score, a method to return a deep copy of the model for use in the strategies, and a method to get
+score, a method to check the expected score of a move, 
+a method to return a deep copy of the model for use in the strategies, and a method to get
 the side length of the model to be able to calculate distance. We also followed the feedback given to us from 
 the last assignment. 
 
+## View Tests
+![1.png](hw6%2FviewTestImages%2F1.png)
+![2.png](hw6%2FviewTestImages%2F2.png)
+![3.png](hw6%2FviewTestImages%2F3.png)
 
 
 ## Keyboard Interactions 
@@ -114,5 +119,6 @@ Pressing 'p' calls a pass command placeholder.
 ## Extra Credit
 The Extra Credit strategies are in the Strategies module, with a Avoid Corners strategy, an only use corners
 strategy, a simple highest score increase strategy and a modular strategy
-to combine the different strategies in the order specified by the user.
+to combine the different strategies in the order specified by the user. The 
+mock results are available in [the transcript](strategy-transcript.txt)
 
