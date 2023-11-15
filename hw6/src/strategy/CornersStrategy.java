@@ -2,7 +2,6 @@ package strategy;
 
 import model.AxialCoord;
 import model.ReadonlyIReversi;
-import model.ReversiModel;
 
 /**
  * Strategy to play on corners.

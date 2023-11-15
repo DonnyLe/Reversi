@@ -22,8 +22,8 @@ public class MockModel implements IReversi, ReadonlyIReversi {
   private final int numPlayers = 2;
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
-
   public StringBuilder log;
+
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
    */
