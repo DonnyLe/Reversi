@@ -121,8 +121,11 @@ Pressing 'm' calls a move command placeholder on the selected coordinates.
 Pressing 'p' calls a pass command placeholder. 
 
 ## Extra Credit
-The Extra Credit strategies are in the Strategies module, with a Avoid Corners strategy, an only use corners
-strategy, a simple highest score increase strategy and a modular strategy
-to combine the different strategies in the order specified by the user. The 
-mock results are available in [the transcript](strategy-transcript.txt)
+The Extra Credit strategies are in the Strategies module, including:
+* Simple highest score increase strategy
+* Avoid Corners strategy
+* Only use corners strategy,
+* Modular strategy to combine the different strategies in the order specified by the user. 
+
+The mock test transcript is available in [the transcript](strategy-transcript.txt)
 
