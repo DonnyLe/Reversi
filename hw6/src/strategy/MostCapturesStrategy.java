@@ -22,10 +22,11 @@ public class MostCapturesStrategy implements ReversiStrategy {
 
     for (int r = 0; r < model.getBoardArrayLength(); r++) {
       for (int q = 0; q < model.getBoardArrayLength(); q++) {
+        ReversiModel copy = model.copyBoard();
         try {
-
-          if (model.checkMove(q, r, who) > maxScore) {
-            maxScore = model.checkMove(q, r, who);
+          copy.placeMove(q, r, who);
+          if (copy.getScore(who) > maxScore) {
+            maxScore = copy.getScore(who);
             optimalMove = new AxialCoord(q, r);
           }
         }

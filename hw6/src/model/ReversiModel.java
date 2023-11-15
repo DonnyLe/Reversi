@@ -78,7 +78,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
     setInitialDiscs(sideLen - 1);
 
-
+    
   }
 
   private void intializeBottomHalf(int sideLen) {
@@ -146,19 +146,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     ArrayList<int[]> validStraightLines = findValidStraightLines(directions, q, r, who);
     flipDiscs(q, r, validStraightLines, who);
     this.nextPlayer();
-  }
-
-  /**
-   * Checks the score increase of a given move.
-   * @param q q coordinate of hex
-   * @param r r coordinate of hex
-   * @param who int representing player
-   * @return score increase of move
-   */
-  public int checkMove(int q, int r, int who) {
-    ReversiModel copy = this.copyBoard();
-    copy.placeMove(q, r, who);
-    return copy.getScore(who) - this.getScore(who);
   }
 
 
