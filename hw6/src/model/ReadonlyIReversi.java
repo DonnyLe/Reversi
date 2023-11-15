@@ -6,6 +6,7 @@ package model;
 public interface ReadonlyIReversi {
   /**
    * Gets the disc of the hexagon at the given q and r coords (given q and r are valid coords).
+   *
    * @param q q coords
    * @param r r coords
    * @return a Hexagon Enum
@@ -14,18 +15,21 @@ public interface ReadonlyIReversi {
 
   /**
    * Returns the size of the array containing the board (not the side length of the hexagon board).
+   *
    * @return integer for the size of the board
    */
   int getBoardArrayLength();
 
   /**
    * Returns the side length of the hexagon board.
+   *
    * @return integer for the size of sides
    */
   int getSideLength();
 
   /**
    * Throws an exception is the player has no moves.
+   *
    * @param who integer representing the player
    * @throws IllegalStateException if player has no moves. Forces player to pass turn.
    */
@@ -33,6 +37,7 @@ public interface ReadonlyIReversi {
 
   /**
    * Gets the score of a player. Counts the number of discs a player has on the board.
+   *
    * @param who integer representing the player
    * @return integer for the score.
    */

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-/**`
+/**
+ * `
  * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
@@ -125,7 +126,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   }
 
 
-
   /**
    * Place a move based on rules of Reversi. Coordinates q and r uses the axial system
    * where the origin, (0, 0), is the center hexagon of the board.
@@ -187,13 +187,14 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * Finds pairs of dx, dy that allow the player to flip pieces. Coordinates q and r uses the
    * axial system where the origin, (0, 0), represents the top left item in the 2D board array
    * (always null).
+   *
    * @param validDirections adjacent directions that have the opposite player's disc
    *                        (return value of getListDirectionsToSearch)
-   * @param q q coordinate of move
-   * @param r r coordinate of move
-   * @param who integer representing the player
-   * @return a list of dx, dy pairs that point to directions where the player will be able
-   *         to flip discs (therefore, the move is valid).
+   * @param q               q coordinate of move
+   * @param r               r coordinate of move
+   * @param who             integer representing the player
+   * @return                a list of dx, dy pairs that point to directions where the player
+   *                        will be able to flip discs (therefore, the move is valid).
    */
   private ArrayList<int[]> findValidStraightLines(ArrayList<int[]> validDirections,
                                                   int q, int r, int who) {
@@ -347,6 +348,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   /**
    * Returns the status of the disc at the specified axial coordinates.
+   *
    * @param q q coord
    * @param r r coord
    * @return DiscState of the specified hex
@@ -364,6 +366,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   /**
    * Gets the length of the board array.
+   *
    * @return int length of board array
    */
   @Override
@@ -374,6 +377,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   /**
    * Gets the side length of the board.
+   *
    * @return int side length
    */
   @Override
@@ -384,6 +388,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   /**
    * Checks whether the given player has any legal moves.
+   *
    * @param who integer representing the player
    */
   @Override
@@ -414,6 +419,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   /**
    * Gets the score of a player. Counts the number of discs a player has on the board.
+   *
    * @param who integer representing the player
    * @return integer for the score.
    */
@@ -467,6 +473,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   /**
    * Returns a copy of the model.
+   *
    * @return ReversiModel deep copy of the model
    */
   @Override
