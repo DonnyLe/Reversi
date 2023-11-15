@@ -1,4 +1,4 @@
-package test;
+
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import model.DiscState;
+import model.MockModel;
 import model.ReversiModel;
 import strategy.AvoidBeforeCornersStrategy;
 import strategy.CornersStrategy;
@@ -375,6 +376,25 @@ public class ReversiTests {
     m1.placeMove(4, 4, 1);
 
     v.render();
+  }
+
+  @Test
+  public void testMock() {
+    MockModel m1 = new MockModel();
+    m1.startGame(4);
+    CornersStrategy strat = new CornersStrategy();
+
+    ReversiTextualView v = new ReversiTextualView(m1);
+
+    m1.placeMove(2, 2, 0);
+
+    System.out.print(v);
+
+
+    AxialCoord p = strat.chooseMove(m1, 1);
+
+    System.out.print(m1.log);
+
   }
 
 
