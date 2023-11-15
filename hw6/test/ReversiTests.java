@@ -14,7 +14,6 @@ import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import model.AxialCoord;
 import strategy.ReversiStrategy;
-import view.ReversiGraphicsView;
 import view.ReversiTextualView;
 
 /**

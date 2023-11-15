@@ -13,6 +13,7 @@ public class ReversiTextualView implements IView {
 
   /**
    * Constructor for reversi textual view.
+   *
    * @param model an IReversi object (the model)
    */
   public ReversiTextualView(IReversi model) {
@@ -48,18 +49,16 @@ public class ReversiTextualView implements IView {
       for (int j = 0; j < boardLength; j++) {
         try {
           DiscState disc = this.model.getDiscAt(j, i);
-          if(disc == DiscState.NONE) {
+          if (disc == DiscState.NONE) {
             view += "_ ";
-          }
-          else if (disc == DiscState.BLACK) {
+          } else if (disc == DiscState.BLACK) {
             view += "X ";
-          }
-          else if (disc == DiscState.WHITE) {
+          } else if (disc == DiscState.WHITE) {
             view += "O ";
           }
         }
         //catch outOfBounds error (j and i are the coordinates of a null spot)
-        catch(IllegalArgumentException e) {
+        catch (IllegalArgumentException e) {
           view += " ";
         }
       }

@@ -24,14 +24,11 @@ public interface IReversi extends ReadonlyIReversi {
   void startGame(int sideLen);
 
 
-
-
   /**
    * Function to allow player to pass. Passing is the only move if there are no legal moves for
    * the player.
    */
   void passTurn();
-
 
 
 }

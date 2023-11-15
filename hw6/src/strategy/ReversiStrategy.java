@@ -10,8 +10,9 @@ import model.ReadonlyIReversi;
 public interface ReversiStrategy {
   /**
    * Chooses an AxialCoord on the board according to the strategy of the implementation.
+   *
    * @param model The model representing the current board state to be analyzed
-   * @param who integer representing which player is moving
+   * @param who   integer representing which player is moving
    * @return AxialCoord coordinate of the optimal move for the given strategy
    */
   AxialCoord chooseMove(ReadonlyIReversi model, int who);
