@@ -101,12 +101,16 @@ Within the src directory, there are two packages, model, view, strategy, and com
 
 ## Changes for part 2
 We implemented the missing methods in the model that were 
-recommended to add. We added a method that checks if a player
+recommended to add:
+* Method that checks if a player
 has any possible moves. If they don't, it throws an Exception
-telling the player to pass. We also added a method for getting the 
-score, a method to check the expected score of a move, 
-a method to return a deep copy of the model for use in the strategies, and a method to get
-the side length of the model to be able to calculate distance. We also followed the feedback given to us from 
+telling the player to pass. 
+* Method for getting the score. Used in strategies
+* Method to check the expected score of a move. Used in strategies
+* Method to return a deep copy of the model for use in the expected score
+method
+* Method to get the side length of the model to be able to calculate distance. 
+We also followed the feedback given to us from 
 the last assignment. 
 
 ## View Tests
@@ -120,8 +124,11 @@ Pressing 'm' calls a move command placeholder on the selected coordinates.
 Pressing 'p' calls a pass command placeholder. 
 
 ## Extra Credit
-The Extra Credit strategies are in the Strategies module, with a Avoid Corners strategy, an only use corners
-strategy, a simple highest score increase strategy and a modular strategy
-to combine the different strategies in the order specified by the user. The 
-mock results are available in [the transcript](strategy-transcript.txt)
+The Extra Credit strategies are in the Strategies module, including:
+* Simple highest score increase strategy
+* Avoid Corners strategy
+* Only use corners strategy,
+* Modular strategy to combine the different strategies in the order specified by the user. 
+
+The mock test transcript is available in [the transcript](strategy-transcript.txt)
 
