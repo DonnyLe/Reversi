@@ -1,4 +1,4 @@
-package stategy;
+package strategy;
 
 import java.util.ArrayList;
 

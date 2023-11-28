@@ -1,5 +1,6 @@
-import controller.Controller;
-import controller.Player;
+import controller.IPlayer;
+import controller.ReversiController;
+import model.AxialCoord;
 import model.IReversi;
 import model.ReversiModel;
 import view.ReversiGraphicsView;
@@ -14,13 +15,29 @@ public class RunReversi {
    * @param args args
    */
   public static void main(String[] args) {
-    ReversiModel model = new ReversiModel();
-    model.startGame(4);
-    ReversiGraphicsView rv = new ReversiGraphicsView(model);
-    rv.render();
-    Player p = new Player(model);
-    Controller c = new Controller(model, rv, p);
-    c.playGame();
-    }
 
+    ReversiModel model = new ReversiModel();
+
+    ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
+    ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
+    IPlayer player = new IPlayer() {
+      @Override
+      public AxialCoord move() {
+        return null;
+      }
+
+      @Override
+      public void pass() {
+
+      }
+    };
+
+    ReversiController c1 = new ReversiController(model, player, rv1);
+    ReversiController c2 = new ReversiController(model, player, rv2);
+
+    model.startGame(4);
+    rv1.render();
+    rv2.render();
+
+  }
 }

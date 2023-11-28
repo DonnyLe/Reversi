@@ -3,15 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
-import controller.Player;
+import controller.ReversiController;
 
 /**
  * `
  * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
-public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
+public class ReversiModel implements IReversi, ReadonlyIReversi {
   private boolean isGameStarted;
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
@@ -19,12 +20,14 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
 
   private Hexagon[][] board;
 
-  private ArrayList<Player> players;
+
   private int numSkips;
   private int turn;
   private final int numPlayers = 2;
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
+
+  List<ReversiController> controllers = new ArrayList<ReversiController>();
 
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
@@ -49,13 +52,8 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
    */
   @Override
   public void startGame(int sideLen) {
-    if(this.players.size() == 2) {
-      this.isGameStarted = true;
-      initializeBoard(sideLen);
-    }
-    else {
-      throw new IllegalStateException("Players not added");
-    }
+    this.isGameStarted = true;
+    initializeBoard(sideLen);
   }
 
   protected void startGame(Hexagon[][] board, int turn) {
@@ -152,9 +150,10 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
     ArrayList<int[]> directions = getListDirectionsToSearch(q, r, who);
     ArrayList<int[]> validStraightLines = findValidStraightLines(directions, q, r, who);
     flipDiscs(q, r, validStraightLines, who);
-    System.out.println("move placed!");
     this.nextPlayer();
 
+    this.notifyYourTurn();
+    this.notifyUpdateView();
   }
 
   /**
@@ -178,7 +177,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
   private void nextPlayer() {
     turn++;
     turn %= this.numPlayers;
-    this.updatePlayerTurn();
 
   }
 
@@ -353,6 +351,8 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
     gameStartedCheck();
     numSkips++;
     this.nextPlayer();
+    this.notifyYourTurn();
+    this.notifyUpdateView();
 
   }
 
@@ -488,8 +488,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
    */
   @Override
   public ReversiModel copyBoard() {
-    gameStartedCheck();
-
     ReversiModel copy = new ReversiModel();
     Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];
     for (int i = 0; i < this.board.length; i++) {
@@ -501,16 +499,21 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelFeatures {
     return copy;
   }
 
-
-  @Override
-  public void addPlayer(Player player) {
-    players.add(player);
+  public void addObserver(ReversiController controller) {
+    controllers.add(controller);
   }
 
-  private void updatePlayerTurn() {
-    for(Player p: players) {
-      p.setCurrentTurn(players.get(this.turn));
+  public void notifyYourTurn(){
+    for (int i = 0; i < this.numPlayers; i++){
+      controllers.get(i).yourTurn();
     }
-
   }
+
+  public void notifyUpdateView(){
+    for (ReversiController controller : controllers){
+      controller.updateView();
+    }
+  }
+
+
 }

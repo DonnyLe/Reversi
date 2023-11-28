@@ -1,4 +1,4 @@
-package stategy;
+package strategy;
 
 import model.AxialCoord;
 import model.ReadonlyIReversi;

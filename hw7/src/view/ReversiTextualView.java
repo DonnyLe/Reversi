@@ -3,6 +3,7 @@ package view;
 
 import model.DiscState;
 import model.IReversi;
+import view.IView;
 
 /**
  * Temporary implementation of the reversi view. Displays ReversiModel as a string.

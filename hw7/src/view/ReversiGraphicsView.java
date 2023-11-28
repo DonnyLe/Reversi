@@ -1,17 +1,20 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.swing.*;
 
-//import commands.MoveCommand;
-//import commands.PassCommand;
-import controller.Player;
-import controller.PlayerActions;
+import javax.swing.JFrame;
+
+import commands.MoveCommand;
+import commands.PassCommand;
+import controller.ReversiController;
+import model.AxialCoord;
 import model.ReadonlyIReversi;
 
 /**
@@ -20,6 +23,8 @@ import model.ReadonlyIReversi;
 public class ReversiGraphicsView extends JFrame implements IView {
   ReversiPanel reversiBoard;
   ReadonlyIReversi model;
+
+  List<ReversiController> controllers = new ArrayList<ReversiController>();
 
   /**
    * Reversi graphics view that takes in a ReadonlyIReversi model.
@@ -30,11 +35,6 @@ public class ReversiGraphicsView extends JFrame implements IView {
     this.model = model;
 
   }
-
-  public void addFeatures(PlayerActions playerActions, Player player) {
-    this.reversiBoard.addFeatures(playerActions, player);
-  }
-
 
 
 
@@ -53,8 +53,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
     KeyboardListener keyboardListener = new KeyboardListener();
     HashMap<Character, Runnable> controls = new HashMap<Character, Runnable>();
     HashMap<Integer, Runnable> controls2 = new HashMap<Integer, Runnable>();
-//    controls.put('m', new MoveCommand());
-//    controls.put('p', new PassCommand());
+    controls.put('m', new MoveCommand(this));
+    controls.put('p', new PassCommand());
     keyboardListener.setKeyTypedMap(controls);
     keyboardListener.setKeyPressedMap(controls2);
     keyboardListener.setKeyReleasedMap(controls2);
@@ -64,6 +64,22 @@ public class ReversiGraphicsView extends JFrame implements IView {
     pack();
     setVisible(true);
   }
+
+  public void updateView(){
+    this.reversiBoard.repaint();
+  }
+
+  public void addObserver(ReversiController controller) {
+    controllers.add(controller);
+  }
+
+  public void notifyMove(){
+    for (ReversiController controller : controllers){
+      controller.move(this.reversiBoard.selectedHex.getAxialCoords());
+    }
+  }
+
+
 
   private class KeyboardListener implements KeyListener {
 
@@ -104,6 +120,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
         keyReleasedMap.get(e.getKeyCode()).run();
       }
     }
+
+
   }
 
 }

@@ -1,17 +1,27 @@
 package view;
 
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.BasicStroke;
+import java.awt.Shape;
+
+
+
+
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+
 import java.util.ArrayList;
 
-import javax.swing.*;
+
+import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
-import controller.Player;
-import controller.PlayerActions;
 import model.AxialCoord;
 import model.DiscState;
 import model.ReadonlyIReversi;
@@ -24,9 +34,7 @@ public class ReversiPanel extends JPanel {
   private final ArrayList<HexagonImage> hexImageList;
   private final ReadonlyIReversi model;
 
-  private HexagonImage selectedHex;
-
-
+  protected HexagonImage selectedHex;
 
 
 
@@ -38,6 +46,9 @@ public class ReversiPanel extends JPanel {
     this.model = model;
     this.hexImageList = new ArrayList<>();
 
+    MouseEventsListener listener = new MouseEventsListener();
+    this.addMouseListener(listener);
+    this.addMouseMotionListener(listener);
 
     initializeHexImageList();
     selectedHex = null;
@@ -61,12 +72,6 @@ public class ReversiPanel extends JPanel {
   }
 
 
-  public void addFeatures(PlayerActions playerActions, Player player) {
-    MouseEventsListener listener = new MouseEventsListener(playerActions);
-    this.addMouseListener(listener);
-    this.addMouseMotionListener(listener);
-
-  }
   @Override
   protected void paintComponent(Graphics g) {
 
@@ -199,8 +204,6 @@ public class ReversiPanel extends JPanel {
 
   }
 
-
-
   /**
    * Adjust the return value of translateAxialCoords to produce a center coord for the hexagons
    * such that there are no gaps between hexagons (this function is mainly for formatting).
@@ -216,8 +219,6 @@ public class ReversiPanel extends JPanel {
     double y = 0.75 * (3 / 2) * r;
     return new Point.Double(x, y);
   }
-
-
 
 
   /**
@@ -260,12 +261,6 @@ public class ReversiPanel extends JPanel {
    * Handles mouse events (temporarily in ReversiPanel).
    */
   private class MouseEventsListener extends MouseInputAdapter {
-    PlayerActions playerActions;
-
-    protected MouseEventsListener(PlayerActions playerActions) {
-      this.playerActions = playerActions;
-    }
-
     @Override
     public void mousePressed(MouseEvent e) {
       boolean foundHex = false;
@@ -275,14 +270,36 @@ public class ReversiPanel extends JPanel {
         // For us to figure out which circle it belongs to, we need to transform it
         // into logical coordinates
         Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
-        if (hex.contains(logicalP)) {
-          AxialCoord axialCoords = hex.getAxialCoords();
-          this.playerActions.move(axialCoords.q, axialCoords.r);
+        if (hex.contains(logicalP) && ReversiPanel.this.selectedHex == null) {
+          hex.setColor(Color.GREEN);
+          ReversiPanel.this.selectedHex = hex;
           ReversiPanel.this.repaint();
+          foundHex = true;
+        } else if (hex.contains(logicalP) && ReversiPanel.this.selectedHex == hex) {
+          ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+          ReversiPanel.this.selectedHex = null;
+          ReversiPanel.this.repaint();
+        } else if (hex.contains(logicalP) && ReversiPanel.this.selectedHex != null) {
+          ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+          hex.setColor(Color.GREEN);
+          ReversiPanel.this.selectedHex = hex;
+          ReversiPanel.this.repaint();
+          foundHex = true;
 
         }
 
       }
-    }
+      if (!foundHex) {
+        ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+        ReversiPanel.this.selectedHex = null;
+        ReversiPanel.this.repaint();
+      }
 
-  }}
+      if (foundHex) {
+        System.out.println(ReversiPanel.this.selectedHex.getAxialCoords().r
+                + ", " + ReversiPanel.this.selectedHex.getAxialCoords().q);
+
+      }
+    }
+  }
+}
