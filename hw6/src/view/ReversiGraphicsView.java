@@ -30,6 +30,9 @@ public class ReversiGraphicsView extends JFrame implements IView {
 
   }
 
+
+
+
   /**
    * Initializes the graphical view by adding a ReversiPanel,
    * adding Keyboard and mouse listeners, and setting the view

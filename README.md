@@ -1,8 +1,8 @@
-# ReversiModel
+# model.ReversiModel
 ## Overview:
 The following codebase is an implementation of the 2-player game, Reversi. 
 You can play the normal version of the game here: https://cardgames.io/reversi/ (scroll down on page to see rules).
-Compared to the normal version, this implementation of the game (as depicted in ReversiModel)  
+Compared to the normal version, this implementation of the game (as depicted in model.ReversiModel)  
 contains a hexagonal shaped board (flat-top shaped) instead of a square shaped board.
 In addition, instead of square tiles, each tile will be hexagons (pointy-top). However,
 since the view has not been fully-implemented, this version of the codebase will use a
@@ -48,7 +48,7 @@ the Reversi rules).
 
 ## Quick Start:
 
-ReversiModel r = new ReversiModel(); //creates a model
+model.ReversiModel r = new model.ReversiModel(); //creates a model
 ReversiTextualView rtv = new ReversiTextualView(r); //creates a view
 ReversiGraphicsView rgv = new ReversiGraphicsView(r); //creates graphical view
 
@@ -69,12 +69,12 @@ a copy of the model is passed into the view.
 
 ### Key Subcomponents
 #### model
-The model consists of a board, represented as a 2d array of Hexagon Objects, a turn counter, skip counter
+The model consists of a board, represented as a 2d array of model.Hexagon Objects, a turn counter, skip counter
 and a HashMap of the colors corresponding to the players.
 
-* A Hexagon object represents a single hex on the board, and has a DiscState field.
+* A model.Hexagon object represents a single hex on the board, and has a model.DiscState field.
 
-* The DiscState is an enum that can either be NONE, BLACK or WHITE
+* The model.DiscState is an enum that can either be NONE, BLACK or WHITE
 
 #### view 
 The Reversi Graphical view consists components (ReversiPanel)
@@ -84,19 +84,19 @@ Within the src directory, there are two packages, model, view, strategy, and com
 
 1. model includes :
 
-* DiscState.java : Enum DiscState used in the Hexagon object
-* Hexagon.java : Hexagon object used in model
-* ReadonlyIReversi.java : Interface for Reversi model where all methods are 
+* model.DiscState.java : Enum model.DiscState used in the model.Hexagon object
+* model.Hexagon.java : model.Hexagon object used in model
+* model.ReadonlyIReversi.java : Interface for Reversi model where all methods are 
 * observation methods (used by view). 
-* IReversi: Extends ReadonlyIReversi. Contains all operations for Reversi game. 
-* ReversiModel.java : model Implementation
+* model.IReversi: Extends model.ReadonlyIReversi. Contains all operations for Reversi game. 
+* model.ReversiModel.java : model Implementation
 
 2. view includes :
 
 * IView.java : Interface for the view
 * ReversiTextualView : Textual view Implementation
 * ReversiGraphicalView : Graphical view implementation
-* HexagonImage : Hexagon graphic used in graphical view. 
+* HexagonImage : model.Hexagon graphic used in graphical view. 
 * ReversiPanel : Reversi representation of a JPanel
 
 ## Changes for part 2
