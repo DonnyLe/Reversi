@@ -5,9 +5,16 @@ import model.ReversiModel;
 import view.ReversiGraphicsView;
 
 public class ReversiController implements Features{
-  ReversiModel model;
-  IPlayer player;
-  ReversiGraphicsView view;
+  private ReversiModel model;
+  private IPlayer player;
+  private ReversiGraphicsView view;
+
+  /**
+   * Constructor for the controller.
+   * @param model The model to be controlled
+   * @param player The player, machine or human
+   * @param view The view to be controlled
+   */
   public ReversiController(ReversiModel model, IPlayer player, ReversiGraphicsView view){
     this.model = model;
     this.player = player;
@@ -20,40 +27,59 @@ public class ReversiController implements Features{
 
   //features.processTurnChange(color)
 
+  /**
+   * Notifies the view that it is its turn.
+   */
   public void yourTurn() {
 
     this.player.move();
     if(this.player instanceof HumanPlayer) {
       this.view.startView();
     }
-
-
-
-
   }
 
+  /**
+   * Notifies the view to update itself.
+   */
   public void updateView(){
     this.view.updateView();
 
   }
 
+
+  /**
+   * Notifies the view to display an error message.
+   */
   public void displayError(){
     this.view.displayError();
   }
 
+  /**
+   * Notifies the view to display a win message.
+   */
   public void youWin(){
     this.view.displayWin();
   }
 
+  /**
+   * Notifies the view to display a draw message.
+   */
   public void draw(){
     this.view.displayDraw();
   }
 
+  /**
+   * Notifies the view to stop taking commands.
+   */
   public void stopGame(){
     this.view.stopView();
 
   }
 
+  /**
+   * Notifies the model to make a move at the specified coordinates.
+   * @param coord coordinates for move
+   */
   @Override
   public void move(AxialCoord coord){
     try{
@@ -68,6 +94,9 @@ public class ReversiController implements Features{
     }
   }
 
+  /**
+   * Notifies the model to pass the turn.
+   */
   @Override
   public void pass(){
     this.view.stopView();

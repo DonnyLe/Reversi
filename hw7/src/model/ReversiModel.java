@@ -524,10 +524,17 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     return copy;
   }
 
+  /**
+   * Adds the controller as an observer so that it can notify it.
+   * @param controller the controller to be added
+   */
   public void addObserver(ReversiController controller) {
     controllers.add(controller);
   }
 
+  /**
+   * Sends a notification to the controller for the current player that it is their turn.
+   */
   public void notifyYourTurn(){
     //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
 
@@ -537,12 +544,19 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     }
   }
 
+  /**
+   * Sends a notification to all subscribed controllers to update their views.
+   */
   public void notifyUpdateView(){
     for (ReversiController controller : controllers){
       controller.updateView();
     }
   }
 
+  /**
+   * Determines the winner and sends a notification to its controller, or sends a notification to
+   * both in case of a draw.
+   */
   public void notifyGameOver(){
     for (ReversiController controller : controllers){
       controller.stopGame();
@@ -559,11 +573,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
         controller.draw();
       }
     }
-
-
-
   }
-
-
 
 }

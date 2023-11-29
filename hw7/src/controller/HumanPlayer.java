@@ -5,14 +5,21 @@ import model.ReadonlyIReversi;
 
 
 public class HumanPlayer implements IPlayer{
-  ReadonlyIReversi model;
-  ArrayList<Features> features;
+  private ReadonlyIReversi model;
+  private ArrayList<Features> features;
 
+  /**
+   * Constructor for human player, initializes fields.
+   * @param model the model for the game
+   */
   public HumanPlayer(ReadonlyIReversi model) {
     this.model = model;
     this.features = new ArrayList<>();
   }
 
+  /**
+   *
+   */
   @Override
   public void move() {
 

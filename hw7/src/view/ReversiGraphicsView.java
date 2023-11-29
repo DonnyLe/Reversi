@@ -66,46 +66,77 @@ public class ReversiGraphicsView extends JFrame implements IView {
     setVisible(true);
   }
 
+  /**
+   * Updates the view to correspond to the state of the model.
+   */
   public void updateView(){
     this.reversiBoard.repaint();
   }
 
+  /**
+   * Displays an error message saying that a move is illegal.
+   */
   public void displayError(){
 
     JOptionPane.showMessageDialog(this, "Illegal Move",
             "Error", JOptionPane.ERROR_MESSAGE);
   }
 
+  /**
+   * Displays a message stating that the player has won.
+   */
   public void displayWin(){
-    JOptionPane.showMessageDialog(this, "You Win!", "Game Over", JOptionPane.PLAIN_MESSAGE);
+    JOptionPane.showMessageDialog(this, "You Win!", "Game Over",
+            JOptionPane.PLAIN_MESSAGE);
     this.repaint();
   }
 
+  /**
+   * Displays a message stating that there is a draw.
+   */
   public void displayDraw(){
-    JOptionPane.showMessageDialog(this, "Draw", "Game Over", JOptionPane.PLAIN_MESSAGE);
+    JOptionPane.showMessageDialog(this, "Draw",
+            "Game Over", JOptionPane.PLAIN_MESSAGE);
     this.repaint();
   }
 
+  /**
+   * Adds features to the view.
+   * @param feature the features to be added.
+   */
   public void addObserver(Features feature) {
     features.add(feature);
   }
 
+  /**
+   * Notifies the controller that the player wants to move to the currently selected hex.
+   */
   public void notifyMove(){
     for (Features f : features){
       f.move(this.reversiBoard.selectedHex.getAxialCoords());
     }
   }
+
+  /**
+   * Notifies the controller that it wants to pass.
+   */
   public void notifyPass(){
     for (Features f : features){
       f.pass();
     }
   }
 
+  /**
+   * Enables making moves for the view.
+   */
   public void startView() {
     this.active = true;
 
   }
 
+  /**
+   * Disables making moves for the view.
+   */
   public void stopView() {
     this.active = false;
   }
@@ -130,6 +161,10 @@ public class ReversiGraphicsView extends JFrame implements IView {
       keyReleasedMap = map;
     }
 
+    /**
+     * Runs the command associated with the key if the view is active.
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
       if (keyTypedMap.containsKey(e.getKeyChar()) && active) {
@@ -137,6 +172,10 @@ public class ReversiGraphicsView extends JFrame implements IView {
       }
     }
 
+    /**
+     * Runs the command associated with the key if the view is active.
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
       if (keyPressedMap.containsKey(e.getKeyCode()) && active) {
@@ -144,6 +183,10 @@ public class ReversiGraphicsView extends JFrame implements IView {
       }
     }
 
+    /**
+     * Runs the command associated with the key if the view is active.
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
       if (keyReleasedMap.containsKey(e.getKeyCode()) && active) {

@@ -7,10 +7,16 @@ import model.IReversi;
 import strategy.ReversiStrategy;
 
 public class MachinePlayer implements IPlayer{
-  IReversi model;
-  ReversiStrategy strat;
+  private IReversi model;
+  private ReversiStrategy strat;
 
-  ArrayList<Features> features;
+  private ArrayList<Features> features;
+
+  /**
+   * Constructor for machine player.
+   * @param model the model for the game
+   * @param strat the strategy used by the machine player
+   */
   public MachinePlayer(IReversi model, ReversiStrategy strat) {
     this.model = model;
     this.strat = strat;
@@ -18,6 +24,9 @@ public class MachinePlayer implements IPlayer{
 
   }
 
+  /**
+   * Chooses a move according to the strategy and moves or passes.
+   */
   @Override
   public void move() {
    AxialCoord coord = strat.chooseMove(model, model.getTurn());
@@ -28,6 +37,9 @@ public class MachinePlayer implements IPlayer{
 //   }
   }
 
+  /**
+   * Passes the turn.
+   */
   @Override
   public void pass() {
     for(Features f: features) {
@@ -35,6 +47,10 @@ public class MachinePlayer implements IPlayer{
     }
   }
 
+  /**
+   * Adds features to the player.
+   * @param feature features to be added
+   */
   @Override
   public void addFeatures(Features feature) {
     features.add(feature);
