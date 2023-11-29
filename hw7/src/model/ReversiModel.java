@@ -149,8 +149,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
     this.placeMoveHelper(q, r, who);
     this.nextPlayer();
-    this.notifyYourTurn();
-    this.notifyUpdateView();
+
 
 
   }
@@ -197,10 +196,13 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   private void nextPlayer() {
     if (this.isGameOver()){
       this.notifyGameOver();
+      this.notifyUpdateView();
       return;
     }
     turn++;
     turn %= this.numPlayers;
+    this.notifyYourTurn();
+    this.notifyUpdateView();
 
   }
 
@@ -375,8 +377,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     gameStartedCheck();
     numSkips++;
     this.nextPlayer();
-    this.notifyYourTurn();
-    this.notifyUpdateView();
+
 
   }
 

@@ -2,12 +2,13 @@ package controller;
 
 import model.AxialCoord;
 import model.ReversiModel;
+import view.IView;
 import view.ReversiGraphicsView;
 
 public class ReversiController implements Features{
   private ReversiModel model;
   private IPlayer player;
-  private ReversiGraphicsView view;
+  private IView view;
 
   /**
    * Constructor for the controller.
@@ -15,7 +16,7 @@ public class ReversiController implements Features{
    * @param player The player, machine or human
    * @param view The view to be controlled
    */
-  public ReversiController(ReversiModel model, IPlayer player, ReversiGraphicsView view){
+  public ReversiController(ReversiModel model, IPlayer player, IView view){
     this.model = model;
     this.player = player;
     this.view = view;

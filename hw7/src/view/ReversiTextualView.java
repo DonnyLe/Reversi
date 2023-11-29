@@ -8,7 +8,7 @@ import view.IView;
 /**
  * Temporary implementation of the reversi view. Displays ReversiModel as a string.
  */
-public class ReversiTextualView implements IView {
+public class ReversiTextualView {
   private final IReversi model;
 
   /**

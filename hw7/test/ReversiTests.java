@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import controller.HumanPlayer;
+import controller.ReversiController;
 import model.DiscState;
 import model.MockModel;
 import model.ReversiModel;
@@ -15,6 +17,7 @@ import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import model.AxialCoord;
 import strategy.ReversiStrategy;
+import view.MockView;
 import view.ReversiTextualView;
 
 /**
@@ -395,6 +398,70 @@ public class ReversiTests {
     Assert.assertEquals(p.q, 4);
 
   }
+
+  @Test
+  public void testController(){
+    ReversiModel m1 = new ReversiModel();
+    MockView v1 = new MockView();
+    MockView v2 = new MockView();
+    HumanPlayer p1 = new HumanPlayer(m1);
+    HumanPlayer p2 = new HumanPlayer(m1);
+    ReversiController c1 = new ReversiController(m1, p1, v1);
+    ReversiController c2 = new ReversiController(m1, p2, v2);
+    m1.startGame(4);
+
+    c1.move(new AxialCoord(1, 4));
+    c2.move(new AxialCoord(0, 4));
+    c1.move(new AxialCoord(0, 5));
+    c2.move(new AxialCoord(0, 6));
+    c1.move(new AxialCoord(2, 5));
+    c1.pass();
+    c2.pass();
+
+
+    //System.out.println(v1.getLog());
+    //System.out.println(v2.getLog());
+
+    Assert.assertEquals(v1.getLog(),
+            "\nStart view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Update view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Start view notification recieved\n" +
+                    "Update view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Display error notification recieved\n" +
+                    "Repaint notification recieved\n" +
+                    "Start view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Update view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Update view notification recieved");
+
+    Assert.assertEquals(v2.getLog(),
+            "\n" +
+                    "Start view notification recieved\n" +
+                    "Update view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Display error notification recieved\n" +
+                    "Repaint notification recieved\n" +
+                    "Start view notification recieved\n" +
+                    "Update view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Display error notification recieved\n" +
+                    "Repaint notification recieved\n" +
+                    "Start view notification recieved\n" +
+                    "Start view notification recieved\n" +
+                    "Update view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Display win notification recieved\n" +
+                    "Update view notification recieved");
+  }
+
+
+
+
 
 
 
