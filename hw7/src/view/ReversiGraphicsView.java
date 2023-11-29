@@ -74,12 +74,18 @@ public class ReversiGraphicsView extends JFrame implements IView {
 
   public void displayError(){
 
-    JOptionPane.showMessageDialog(null, "Illegal Move",
+    JOptionPane.showMessageDialog(this, "Illegal Move",
             "Error", JOptionPane.ERROR_MESSAGE);
+  }
 
+  public void displayWin(){
+    JOptionPane.showMessageDialog(this, "You Win!", "Game Over", JOptionPane.PLAIN_MESSAGE);
+    this.repaint();
+  }
 
-
-
+  public void displayDraw(){
+    JOptionPane.showMessageDialog(this, "Draw", "Game Over", JOptionPane.PLAIN_MESSAGE);
+    this.repaint();
   }
 
   public void addObserver(Features feature) {

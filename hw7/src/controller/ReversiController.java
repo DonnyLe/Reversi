@@ -41,6 +41,14 @@ public class ReversiController implements Features{
     this.view.displayError();
   }
 
+  public void youWin(){
+    this.view.displayWin();
+  }
+
+  public void draw(){
+    this.view.displayDraw();
+  }
+
   @Override
   public void move(AxialCoord coord){
     try{
