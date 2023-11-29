@@ -29,6 +29,7 @@ public class ReversiController implements Features{
 
 
 
+
   }
 
   public void updateView(){
