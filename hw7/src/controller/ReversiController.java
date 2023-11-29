@@ -49,6 +49,11 @@ public class ReversiController implements Features{
     this.view.displayDraw();
   }
 
+  public void stopGame(){
+    this.view.stopView();
+
+  }
+
   @Override
   public void move(AxialCoord coord){
     try{

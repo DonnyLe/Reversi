@@ -10,7 +10,7 @@ import model.ReadonlyIReversi;
  */
 public class ModularStrategy implements ReversiStrategy {
 
-  ArrayList<ReversiStrategy> strategies;
+  private ArrayList<ReversiStrategy> strategies;
 
   public ModularStrategy(ArrayList<ReversiStrategy> strategies) {
     this.strategies = strategies;

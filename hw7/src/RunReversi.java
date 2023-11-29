@@ -1,11 +1,8 @@
 import java.util.ArrayList;
 
 import controller.HumanPlayer;
-import controller.IPlayer;
 import controller.MachinePlayer;
 import controller.ReversiController;
-import model.AxialCoord;
-import model.IReversi;
 import model.ReversiModel;
 import strategy.AvoidBeforeCornersStrategy;
 import strategy.CornersStrategy;
@@ -29,7 +26,7 @@ public class RunReversi {
 
     ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
     ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
-    ArrayList<ReversiStrategy> strategies = new ArrayList<ReversiStrategy>();
+    ArrayList<ReversiStrategy> strategies = new ArrayList<>();
     strategies.add(new CornersStrategy());
     strategies.add(new AvoidBeforeCornersStrategy());
     strategies.add(new MostCapturesStrategy());
@@ -37,7 +34,7 @@ public class RunReversi {
 
     HumanPlayer player1 = new HumanPlayer(model);
     HumanPlayer player2 = new HumanPlayer(model);
-    //MachinePlayer player2 = new MachinePlayer(model, strat);
+    MachinePlayer mplayer2 = new MachinePlayer(model, strat);
 
 
 

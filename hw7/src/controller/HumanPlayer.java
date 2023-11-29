@@ -1,11 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
-
-import model.AxialCoord;
-import model.IReversi;
 import model.ReadonlyIReversi;
-import strategy.ReversiStrategy;
+
 
 public class HumanPlayer implements IPlayer{
   ReadonlyIReversi model;
@@ -30,5 +27,5 @@ public class HumanPlayer implements IPlayer{
   public void addFeatures(Features feature) {
     features.add(feature);
   }
-};
+}
 

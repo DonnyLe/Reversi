@@ -22,7 +22,7 @@ public class MockModel implements IReversi, ReadonlyIReversi {
   private final int numPlayers = 2;
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
-  public StringBuilder log;
+  private StringBuilder log;
 
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
@@ -483,6 +483,14 @@ public class MockModel implements IReversi, ReadonlyIReversi {
 
     copy.startGame(copyB, this.turn);
     return copy;
+  }
+
+  /**
+   * Returns the log as a string.
+   * @return String with log
+   */
+  public String getLog(){
+    return log.toString();
   }
 
 

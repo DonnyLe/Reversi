@@ -57,8 +57,20 @@ public interface ReadonlyIReversi {
    */
   int getTurn();
 
+  /**
+   * Returns a copy of the model.
+   *
+   * @return ReversiModel deep copy of the model
+   */
   ReversiModel copyBoard();
 
+  /**
+   * Checks the score increase of a given move.
+   * @param q q coordinate of hex
+   * @param r r coordinate of hex
+   * @param who int representing player
+   * @return score increase of move
+   */
   int checkMove(int q, int r, int who);
 }
 

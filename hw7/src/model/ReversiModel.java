@@ -27,7 +27,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
 
-  List<ReversiController> controllers = new ArrayList<ReversiController>();
+  List<ReversiController> controllers = new ArrayList<>();
   int placemovecounter = 0;
 
   /**
@@ -140,6 +140,8 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * @param q   q coord
    * @param r   r coord
    * @param who integer representing current player
+   * @throws IllegalStateException For invalid move
+   * @throws IllegalArgumentException For invalid move
    */
   public void placeMove(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
     System.out.println("Place Move Counter: " + placemovecounter);
@@ -153,14 +155,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   }
 
-  /**
-   * Place a move based on rules of Reversi. Coordinates q and r uses the axial system
-   * where the origin, (0, 0), is the center hexagon of the board.
-   *
-   * @param q   q coord
-   * @param r   r coord
-   * @param who integer representing current player
-   */
   private void placeMoveHelper(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
     //precursor checks
     gameStartedCheck();
@@ -535,9 +529,12 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   }
 
   public void notifyYourTurn(){
-    System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
+    //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
 
-    controllers.get(this.turn).yourTurn();
+    if(!controllers.isEmpty()){
+      controllers.get(this.turn).yourTurn();
+
+    }
   }
 
   public void notifyUpdateView(){
@@ -547,6 +544,10 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   }
 
   public void notifyGameOver(){
+    for (ReversiController controller : controllers){
+      controller.stopGame();
+    }
+
     if(this.getScore(0) > this.getScore(1)){
       controllers.get(0).youWin();
     }
@@ -558,6 +559,8 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
         controller.draw();
       }
     }
+
+
 
   }
 

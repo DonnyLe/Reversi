@@ -14,8 +14,6 @@ import javax.swing.*;
 import commands.MoveCommand;
 import commands.PassCommand;
 import controller.Features;
-import controller.ReversiController;
-import model.AxialCoord;
 import model.ReadonlyIReversi;
 
 /**
@@ -26,7 +24,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   private ReadonlyIReversi model;
 
   private boolean active;
-  List<Features> features = new ArrayList<Features>();
+  private List<Features> features = new ArrayList<Features>();
 
   /**
    * Reversi graphics view that takes in a ReadonlyIReversi model.

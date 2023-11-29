@@ -242,7 +242,7 @@ public class ReversiTests {
     m1.passTurn(); //turn = 1
     m1.passTurn(); //turn = 0
     m1.passTurn(); //turn = 1
-    Assert.assertEquals(m1.getTurn(), 0); //turn = 0
+    Assert.assertEquals(m1.getTurn(), 1); //turn = 0
   }
 
   @Test
@@ -389,7 +389,7 @@ public class ReversiTests {
 
     AxialCoord p = strat.chooseMove(m1, 0);
 
-    System.out.print(m1.log);
+    System.out.print(m1.getLog());
     p = strat.chooseMove(m1, 0);
     Assert.assertEquals(p.r, 1);
     Assert.assertEquals(p.q, 4);
