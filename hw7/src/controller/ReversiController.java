@@ -21,8 +21,13 @@ public class ReversiController implements Features{
   //features.processTurnChange(color)
 
   public void yourTurn() {
+
     this.player.move();
-    this.view.startView();
+    if(this.player instanceof HumanPlayer) {
+      this.view.startView();
+    }
+
+
 
   }
 
@@ -37,8 +42,8 @@ public class ReversiController implements Features{
 
   @Override
   public void move(AxialCoord coord){
-    System.out.println(model.getTurn());
     try{
+      this.view.stopView();
       this.model.placeMove(coord.q, coord.r, model.getTurn());
     }
     catch (IllegalArgumentException | IllegalStateException e){
@@ -46,7 +51,6 @@ public class ReversiController implements Features{
       this.view.repaint();
       return;
     }
-    this.view.stopView();
   }
 
   @Override
