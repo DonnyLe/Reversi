@@ -73,7 +73,7 @@ public class MockView implements IView{
    * Displays an error message saying that a move is illegal.
    */
   @Override
-  public void displayError() {
+  public void displayError(RuntimeException e) {
 
     log.append("\nDisplay error notification recieved");
   }

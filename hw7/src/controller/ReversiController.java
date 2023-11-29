@@ -3,7 +3,6 @@ package controller;
 import model.AxialCoord;
 import model.ReversiModel;
 import view.IView;
-import view.ReversiGraphicsView;
 
 public class ReversiController implements Features{
   private ReversiModel model;
@@ -51,8 +50,8 @@ public class ReversiController implements Features{
   /**
    * Notifies the view to display an error message.
    */
-  public void displayError(){
-    this.view.displayError();
+  public void displayError(RuntimeException e){
+    this.view.displayError(e);
   }
 
   /**
@@ -88,10 +87,11 @@ public class ReversiController implements Features{
       this.model.placeMove(coord.q, coord.r, model.getTurn());
     }
     catch (IllegalArgumentException | IllegalStateException e){
-      this.displayError();
+      this.displayError(e);
       this.view.repaint();
       this.yourTurn();
       return;
+
     }
   }
 

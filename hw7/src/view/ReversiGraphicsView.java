@@ -76,9 +76,9 @@ public class ReversiGraphicsView extends JFrame implements IView {
   /**
    * Displays an error message saying that a move is illegal.
    */
-  public void displayError(){
+  public void displayError(RuntimeException e){
 
-    JOptionPane.showMessageDialog(this, "Illegal Move",
+    JOptionPane.showMessageDialog(this, e.getMessage(),
             "Error", JOptionPane.ERROR_MESSAGE);
   }
 

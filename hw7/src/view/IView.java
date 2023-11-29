@@ -34,7 +34,7 @@ public interface IView {
   /**
    * Displays an error message saying that a move is illegal.
    */
-  void displayError();
+  void displayError(RuntimeException e);
 
   /**
    * Displays a message stating that the player has won.
