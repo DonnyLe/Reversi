@@ -201,6 +201,10 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * it returns to the first player.
    */
   private void nextPlayer() {
+    if (this.isGameOver()){
+      this.notifyGameOver();
+      return;
+    }
     turn++;
     turn %= this.numPlayers;
 
@@ -540,6 +544,21 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     for (ReversiController controller : controllers){
       controller.updateView();
     }
+  }
+
+  public void notifyGameOver(){
+    if(this.getScore(0) > this.getScore(1)){
+      controllers.get(0).youWin();
+    }
+    else if(this.getScore(0) < this.getScore(1)){
+      controllers.get(1).youWin();
+    }
+    else {
+      for (ReversiController controller : controllers){
+        controller.draw();
+      }
+    }
+
   }
 
 
