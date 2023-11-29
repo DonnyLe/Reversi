@@ -24,6 +24,7 @@ public class ReversiController implements Features{
     this.player.move();
     this.view.startView();
 
+
   }
 
   public void updateView(){
