@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 
 import commands.MoveCommand;
 import commands.PassCommand;
+import controller.Features;
 import controller.ReversiController;
 import model.AxialCoord;
 import model.ReadonlyIReversi;
@@ -21,10 +22,11 @@ import model.ReadonlyIReversi;
  * Graphical view for Reversi. Implements IView interface.
  */
 public class ReversiGraphicsView extends JFrame implements IView {
-  ReversiPanel reversiBoard;
-  ReadonlyIReversi model;
+  private ReversiPanel reversiBoard;
+  private ReadonlyIReversi model;
 
-  List<ReversiController> controllers = new ArrayList<ReversiController>();
+  private boolean active;
+  List<Features> features = new ArrayList<Features>();
 
   /**
    * Reversi graphics view that takes in a ReadonlyIReversi model.
@@ -33,6 +35,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   public ReversiGraphicsView(ReadonlyIReversi model) {
     super("Reversi");
     this.model = model;
+    this.active = false;
 
   }
 
@@ -69,16 +72,24 @@ public class ReversiGraphicsView extends JFrame implements IView {
     this.reversiBoard.repaint();
   }
 
-  public void addObserver(ReversiController controller) {
-    controllers.add(controller);
+  public void addObserver(Features feature) {
+    features.add(feature);
   }
 
   public void notifyMove(){
-    for (ReversiController controller : controllers){
-      controller.move(this.reversiBoard.selectedHex.getAxialCoords());
+    for (Features f : features){
+      f.move(this.reversiBoard.selectedHex.getAxialCoords());
     }
   }
 
+  public void startView() {
+    this.active = true;
+
+  }
+
+  public void stopView() {
+    this.active = false;
+  }
 
 
   private class KeyboardListener implements KeyListener {
@@ -102,21 +113,21 @@ public class ReversiGraphicsView extends JFrame implements IView {
 
     @Override
     public void keyTyped(KeyEvent e) {
-      if (keyTypedMap.containsKey(e.getKeyChar())) {
+      if (keyTypedMap.containsKey(e.getKeyChar()) && active) {
         keyTypedMap.get(e.getKeyChar()).run();
       }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-      if (keyPressedMap.containsKey(e.getKeyCode())) {
+      if (keyPressedMap.containsKey(e.getKeyCode()) && active) {
         keyPressedMap.get(e.getKeyCode()).run();
       }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-      if (keyReleasedMap.containsKey(e.getKeyCode())) {
+      if (keyReleasedMap.containsKey(e.getKeyCode()) && active) {
         keyReleasedMap.get(e.getKeyCode()).run();
       }
     }

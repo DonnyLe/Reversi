@@ -274,6 +274,7 @@ public class ReversiPanel extends JPanel {
           hex.setColor(Color.GREEN);
           ReversiPanel.this.selectedHex = hex;
           ReversiPanel.this.repaint();
+
           foundHex = true;
         } else if (hex.contains(logicalP) && ReversiPanel.this.selectedHex == hex) {
           ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);

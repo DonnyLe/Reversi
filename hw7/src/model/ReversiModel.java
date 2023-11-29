@@ -54,12 +54,14 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   public void startGame(int sideLen) {
     this.isGameStarted = true;
     initializeBoard(sideLen);
+    notifyYourTurn();
   }
 
   protected void startGame(Hexagon[][] board, int turn) {
     this.isGameStarted = true;
     this.board = board;
     this.turn = turn;
+
 
   }
 
@@ -130,6 +132,23 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   }
 
+  /**
+   * Place a move based on rules of Reversi. Coordinates q and r uses the axial system
+   * where the origin, (0, 0), is the center hexagon of the board.
+   *
+   * @param q   q coord
+   * @param r   r coord
+   * @param who integer representing current player
+   */
+  public void placeMove(int q, int r, int who) {
+    this.placeMoveHelper(q, r, who);
+
+    this.nextPlayer();
+    this.notifyYourTurn();
+    this.notifyUpdateView();
+
+
+  }
 
   /**
    * Place a move based on rules of Reversi. Coordinates q and r uses the axial system
@@ -139,8 +158,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * @param r   r coord
    * @param who integer representing current player
    */
-  @Override
-  public void placeMove(int q, int r, int who) {
+  private void placeMoveHelper(int q, int r, int who) {
     //precursor checks
     gameStartedCheck();
     gameOverCheck();
@@ -150,10 +168,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     ArrayList<int[]> directions = getListDirectionsToSearch(q, r, who);
     ArrayList<int[]> validStraightLines = findValidStraightLines(directions, q, r, who);
     flipDiscs(q, r, validStraightLines, who);
-    this.nextPlayer();
-
-    this.notifyYourTurn();
-    this.notifyUpdateView();
   }
 
   /**
@@ -165,7 +179,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    */
   public int checkMove(int q, int r, int who) {
     ReversiModel copy = this.copyBoard();
-    copy.placeMove(q, r, who);
+    copy.placeMoveHelper(q, r, who);
     return copy.getScore(who) - this.getScore(who);
   }
 
@@ -495,6 +509,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
     }
 
+
     copy.startGame(copyB, this.turn);
     return copy;
   }
@@ -504,9 +519,8 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   }
 
   public void notifyYourTurn(){
-    for (int i = 0; i < this.numPlayers; i++){
-      controllers.get(i).yourTurn();
-    }
+    controllers.get(this.turn).yourTurn();
+
   }
 
   public void notifyUpdateView(){
