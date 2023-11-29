@@ -49,6 +49,7 @@ public class ReversiController implements Features{
 
   /**
    * Notifies the view to display an error message.
+   * @param e The error to pass on
    */
   public void displayError(RuntimeException e){
     this.view.displayError(e);

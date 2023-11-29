@@ -71,6 +71,7 @@ public class MockView implements IView{
 
   /**
    * Displays an error message saying that a move is illegal.
+   * @param e The error to display
    */
   @Override
   public void displayError(RuntimeException e) {

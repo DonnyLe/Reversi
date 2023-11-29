@@ -33,6 +33,7 @@ public interface IView {
 
   /**
    * Displays an error message saying that a move is illegal.
+   * @param e The error to display
    */
   void displayError(RuntimeException e);
 
