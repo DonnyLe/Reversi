@@ -36,7 +36,7 @@ public class RunReversi {
     ModularStrategy strat = new ModularStrategy(strategies);
 
     HumanPlayer player1 = new HumanPlayer(model);
-    //HumanPlayer player2 = new HumanPlayer(model);
+//    HumanPlayer player2 = new HumanPlayer(model);
     MachinePlayer player2 = new MachinePlayer(model, strat);
 
 

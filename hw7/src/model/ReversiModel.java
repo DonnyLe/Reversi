@@ -28,6 +28,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   private final HashMap<Integer, DiscState> playerColors;
 
   List<ReversiController> controllers = new ArrayList<ReversiController>();
+  int placemovecounter = 0;
 
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
@@ -141,6 +142,8 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * @param who integer representing current player
    */
   public void placeMove(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
+    System.out.println("Place Move Counter: " + placemovecounter);
+    this.placemovecounter++;
 
     this.placeMoveHelper(q, r, who);
     this.nextPlayer();
@@ -528,8 +531,9 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   }
 
   public void notifyYourTurn(){
-    controllers.get(this.turn).yourTurn();
+    System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
 
+    controllers.get(this.turn).yourTurn();
   }
 
   public void notifyUpdateView(){

@@ -50,11 +50,11 @@ public class ReversiPanel extends JPanel {
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
 
-    initializeHexImageList();
     selectedHex = null;
   }
 
-  private void initializeHexImageList() {
+
+  public void initializeHexImageList() {
     initializeMiddleRow();
     initializeAllRowsExceptMiddle();
     this.setBackground(Color.DARK_GRAY);

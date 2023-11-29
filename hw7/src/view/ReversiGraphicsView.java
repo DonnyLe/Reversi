@@ -36,7 +36,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
     super("Reversi");
     this.model = model;
     this.active = false;
-
+    this.reversiBoard = new ReversiPanel(model);
+    this.add(reversiBoard);
   }
 
 
@@ -50,8 +51,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   public void render() {
     this.setBackground(Color.DARK_GRAY);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    reversiBoard = new ReversiPanel(model);
-    this.add(reversiBoard);
+    this.reversiBoard.initializeHexImageList();
 
     KeyboardListener keyboardListener = new KeyboardListener();
     HashMap<Character, Runnable> controls = new HashMap<Character, Runnable>();
@@ -99,13 +99,11 @@ public class ReversiGraphicsView extends JFrame implements IView {
 
   public void startView() {
     this.active = true;
-    System.out.println("Turned view on");
 
   }
 
   public void stopView() {
     this.active = false;
-    System.out.println("Turned view off");
   }
 
 
