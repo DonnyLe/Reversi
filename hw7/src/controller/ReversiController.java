@@ -49,14 +49,15 @@ public class ReversiController implements Features{
     catch (IllegalArgumentException | IllegalStateException e){
       this.displayError();
       this.view.repaint();
+      this.yourTurn();
       return;
     }
   }
 
   @Override
   public void pass(){
-    this.model.passTurn();
     this.view.stopView();
+    this.model.passTurn();
 
   }
 
