@@ -22,7 +22,9 @@ public class MachinePlayer implements IPlayer{
   public void move() {
    AxialCoord coord = strat.chooseMove(model, model.getTurn());
    for(Features f: features) {
-     f.move(coord);
+     if(coord == null) {this.pass();}
+     else{f.move(coord);}
+
    }
   }
 

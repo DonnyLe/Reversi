@@ -23,6 +23,7 @@ public class ReversiController implements Features{
   public void yourTurn() {
     this.player.move();
     this.view.startView();
+
   }
 
   public void updateView(){
@@ -30,10 +31,21 @@ public class ReversiController implements Features{
 
   }
 
+  public void displayError(){
+    this.view.displayError();
+  }
+
   @Override
   public void move(AxialCoord coord){
     System.out.println(model.getTurn());
-    this.model.placeMove(coord.q, coord.r, model.getTurn());
+    try{
+      this.model.placeMove(coord.q, coord.r, model.getTurn());
+    }
+    catch (IllegalArgumentException | IllegalStateException e){
+      this.displayError();
+      this.view.repaint();
+      return;
+    }
     this.view.stopView();
   }
 

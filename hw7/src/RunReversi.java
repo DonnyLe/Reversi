@@ -35,9 +35,9 @@ public class RunReversi {
     strategies.add(new MostCapturesStrategy());
     ModularStrategy strat = new ModularStrategy(strategies);
 
-    MachinePlayer player2 = new MachinePlayer(model, strat);
-//    HumanPlayer player1 = new HumanPlayer(model);
     HumanPlayer player1 = new HumanPlayer(model);
+    HumanPlayer player2 = new HumanPlayer(model);
+    //MachinePlayer player2 = new MachinePlayer(model, strat);
 
 
 

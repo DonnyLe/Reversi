@@ -140,9 +140,9 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * @param r   r coord
    * @param who integer representing current player
    */
-  public void placeMove(int q, int r, int who) {
-    this.placeMoveHelper(q, r, who);
+  public void placeMove(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
 
+    this.placeMoveHelper(q, r, who);
     this.nextPlayer();
     this.notifyYourTurn();
     this.notifyUpdateView();
@@ -158,16 +158,25 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * @param r   r coord
    * @param who integer representing current player
    */
-  private void placeMoveHelper(int q, int r, int who) {
+  private void placeMoveHelper(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
     //precursor checks
     gameStartedCheck();
     gameOverCheck();
     hasMovesCheck(who);
 
+
     moveAllowedCheck(q, r, who);
+
+
+
+
+
     ArrayList<int[]> directions = getListDirectionsToSearch(q, r, who);
     ArrayList<int[]> validStraightLines = findValidStraightLines(directions, q, r, who);
     flipDiscs(q, r, validStraightLines, who);
+    numSkips = 0;
+
+
   }
 
   /**
@@ -528,6 +537,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
       controller.updateView();
     }
   }
+
 
 
 }
