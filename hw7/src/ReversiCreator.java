@@ -77,6 +77,7 @@ public class ReversiCreator {
       model.startGame(sideLength);
       rv1.render();
       rv2.render();
+      model.init();
     }
 
   }
