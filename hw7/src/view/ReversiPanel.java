@@ -35,6 +35,8 @@ public class ReversiPanel extends JPanel {
   private final ReadonlyIReversi model;
 
   protected HexagonImage selectedHex;
+  private boolean active;
+
 
 
 
@@ -49,7 +51,7 @@ public class ReversiPanel extends JPanel {
     MouseEventsListener listener = new MouseEventsListener();
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
-
+    this.active = false;
     selectedHex = null;
   }
 
@@ -257,6 +259,15 @@ public class ReversiPanel extends JPanel {
     return ret;
   }
 
+  public void stopView() {
+    this.active = false;
+
+  }
+
+  public void startView() {
+    this.active = true;
+  }
+
   /**
    * Handles mouse events (temporarily in ReversiPanel).
    */
@@ -264,42 +275,44 @@ public class ReversiPanel extends JPanel {
     @Override
     public void mousePressed(MouseEvent e) {
       boolean foundHex = false;
-      for (HexagonImage hex : hexImageList) {
-        // This point is measured in actual physical pixels
-        Point physicalP = e.getPoint();
-        // For us to figure out which circle it belongs to, we need to transform it
-        // into logical coordinates
-        Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
-        if (hex.contains(logicalP) && ReversiPanel.this.selectedHex == null) {
-          hex.setColor(Color.GREEN);
-          ReversiPanel.this.selectedHex = hex;
-          ReversiPanel.this.repaint();
+      if(active) {
+        for (HexagonImage hex : hexImageList) {
+          // This point is measured in actual physical pixels
+          Point physicalP = e.getPoint();
+          // For us to figure out which circle it belongs to, we need to transform it
+          // into logical coordinates
+          Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
+          if (hex.contains(logicalP) && ReversiPanel.this.selectedHex == null) {
+            hex.setColor(Color.GREEN);
+            ReversiPanel.this.selectedHex = hex;
+            ReversiPanel.this.repaint();
 
-          foundHex = true;
-        } else if (hex.contains(logicalP) && ReversiPanel.this.selectedHex == hex) {
+            foundHex = true;
+          } else if (hex.contains(logicalP) && ReversiPanel.this.selectedHex == hex) {
+            ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+            ReversiPanel.this.selectedHex = null;
+            ReversiPanel.this.repaint();
+          } else if (hex.contains(logicalP) && ReversiPanel.this.selectedHex != null) {
+            ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
+            hex.setColor(Color.GREEN);
+            ReversiPanel.this.selectedHex = hex;
+            ReversiPanel.this.repaint();
+            foundHex = true;
+
+          }
+
+        }
+        if (!foundHex) {
           ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
           ReversiPanel.this.selectedHex = null;
           ReversiPanel.this.repaint();
-        } else if (hex.contains(logicalP) && ReversiPanel.this.selectedHex != null) {
-          ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
-          hex.setColor(Color.GREEN);
-          ReversiPanel.this.selectedHex = hex;
-          ReversiPanel.this.repaint();
-          foundHex = true;
-
         }
 
-      }
-      if (!foundHex) {
-        ReversiPanel.this.selectedHex.setColor(Color.LIGHT_GRAY);
-        ReversiPanel.this.selectedHex = null;
-        ReversiPanel.this.repaint();
-      }
+        if (foundHex) {
+          System.out.println(ReversiPanel.this.selectedHex.getAxialCoords().r
+                  + ", " + ReversiPanel.this.selectedHex.getAxialCoords().q);
 
-      if (foundHex) {
-        System.out.println(ReversiPanel.this.selectedHex.getAxialCoords().r
-                + ", " + ReversiPanel.this.selectedHex.getAxialCoords().q);
-
+        }
       }
     }
   }

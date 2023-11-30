@@ -86,6 +86,8 @@ public class ReversiController implements Features{
     try{
       this.view.stopView();
       this.model.placeMove(coord.q, coord.r, model.getTurn());
+      System.out.println("entered");
+
     }
     catch (IllegalArgumentException | IllegalStateException e){
       this.displayError(e);
@@ -106,7 +108,17 @@ public class ReversiController implements Features{
 
   }
 
-
+  private static void wait(int ms)
+  {
+    try
+    {
+      Thread.sleep(ms);
+    }
+    catch(InterruptedException ex)
+    {
+      Thread.currentThread().interrupt();
+    }
+  }
 
 
 }

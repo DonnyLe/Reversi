@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import model.AxialCoord;
 import model.IReversi;
+import model.ReadonlyIReversi;
 import strategy.ReversiStrategy;
 
 public class MachinePlayer implements IPlayer{
-  private IReversi model;
+  private ReadonlyIReversi model;
   private ReversiStrategy strat;
 
   private ArrayList<Features> features;
@@ -17,7 +18,7 @@ public class MachinePlayer implements IPlayer{
    * @param model the model for the game
    * @param strat the strategy used by the machine player
    */
-  public MachinePlayer(IReversi model, ReversiStrategy strat) {
+  public MachinePlayer(ReadonlyIReversi model, ReversiStrategy strat) {
     this.model = model;
     this.strat = strat;
     this.features = new ArrayList<>();
@@ -29,12 +30,27 @@ public class MachinePlayer implements IPlayer{
    */
   @Override
   public void move() {
-   AxialCoord coord = strat.chooseMove(model, model.getTurn());
-//   for(Features f: features) {
-     if(coord == null) {this.pass();}
-     else{features.get(0).move(coord);}
+      AxialCoord coord = strat.chooseMove(model, model.getTurn());
+      for (Features f : features) {
+        if (coord == null) {
+          this.pass();
+        } else {
 
-//   }
+          f.move(coord);
+        }
+    }
+
+  }
+  private static void wait(int ms)
+  {
+    try
+    {
+      Thread.sleep(ms);
+    }
+    catch(InterruptedException ex)
+    {
+      Thread.currentThread().interrupt();
+    }
   }
 
   /**
