@@ -9,8 +9,8 @@ import java.awt.BasicStroke;
 import java.awt.Shape;
 
 
-
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
@@ -19,7 +19,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
 import model.AxialCoord;
@@ -36,6 +36,7 @@ public class ReversiPanel extends JPanel {
 
   protected HexagonImage selectedHex;
   private boolean active;
+  private JLabel passMessage;
 
 
 
@@ -45,6 +46,7 @@ public class ReversiPanel extends JPanel {
    * @param model ReadOnlyIReversi model.
    */
   ReversiPanel(ReadonlyIReversi model) {
+    super(null);
     this.model = model;
     this.hexImageList = new ArrayList<>();
 
@@ -53,8 +55,30 @@ public class ReversiPanel extends JPanel {
     this.addMouseMotionListener(listener);
     this.active = false;
     selectedHex = null;
-  }
+    this.passMessage = new JLabel("Passed move!");
+    this.add(passMessage);
+    Dimension d = this.passMessage.getPreferredSize();
+    this.passMessage.setBounds(0, 0, d.width, d.height);
+    this.passMessage.setForeground(Color.WHITE);
+    
 
+    this.passMessage.setVisible(false);
+
+  }
+  public void passMessage() {
+    int delay = 2000;
+    this.passMessage.setVisible(true);
+
+
+    Timer timer = new Timer(delay, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        ReversiPanel.this.passMessage.setVisible(false);
+      }
+    });
+    timer.setRepeats(false); // Set to false to run the timer only once
+    timer.start();
+  }
 
   public void initializeHexImageList() {
     initializeMiddleRow();
