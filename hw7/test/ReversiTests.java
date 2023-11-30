@@ -411,8 +411,11 @@ public class ReversiTests {
     m1.startGame(4);
     m1.init();
 
-    c1.move(new AxialCoord(1, 4));
-    c2.move(new AxialCoord(0, 4));
+    c1.move(new AxialCoord(4, 1));
+    Assert.assertEquals(m1.getDiscAt(4, 1), DiscState.WHITE);
+
+    c2.move(new AxialCoord(4, 0));
+    Assert.assertEquals(m1.getDiscAt(4, 0), DiscState.BLACK);
     c1.move(new AxialCoord(0, 5));
     c2.move(new AxialCoord(0, 6));
     c1.move(new AxialCoord(2, 5));
@@ -428,7 +431,6 @@ public class ReversiTests {
                     "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Update view notification recieved\n" +
-                    "Stop view notification recieved\n" +
                     "Update view notification recieved\n" +
                     "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
@@ -436,7 +438,11 @@ public class ReversiTests {
                     "Repaint notification recieved\n" +
                     "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
+                    "Update view notification recieved\n" +
                     "Stop view notification recieved\n" +
+                    "Start view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Display win notification recieved\n" +
                     "Update view notification recieved");
 
     Assert.assertEquals(v2.getLog(),
@@ -444,18 +450,15 @@ public class ReversiTests {
                     "Update view notification recieved\n" +
                     "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
-                    "Display error notification recieved\n" +
-                    "Repaint notification recieved\n" +
-                    "Start view notification recieved\n" +
                     "Update view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Display error notification recieved\n" +
                     "Repaint notification recieved\n" +
                     "Start view notification recieved\n" +
+                    "Update view notification recieved\n" +
                     "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Stop view notification recieved\n" +
-                    "Display win notification recieved\n" +
                     "Update view notification recieved");
   }
 

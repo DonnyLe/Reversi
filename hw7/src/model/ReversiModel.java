@@ -157,7 +157,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
 
   }
 
-  private void placeMoveHelper(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
+  protected void placeMoveHelper(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
     //precursor checks
     gameStartedCheck();
     gameOverCheck();
