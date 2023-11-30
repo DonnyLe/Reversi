@@ -36,6 +36,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
     this.active = false;
     this.reversiBoard = new ReversiPanel(model);
     this.add(reversiBoard);
+
+
   }
 
 
@@ -132,6 +134,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
    */
   public void startView() {
     this.active = true;
+    this.reversiBoard.startView();
 
   }
 
@@ -140,6 +143,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
    */
   public void stopView() {
     this.active = false;
+    this.reversiBoard.stopView();
   }
 
 

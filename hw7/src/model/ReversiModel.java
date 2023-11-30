@@ -144,10 +144,9 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * @throws IllegalArgumentException For invalid move
    */
   public void placeMove(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
-    System.out.println("Place Move Counter: " + placemovecounter);
-    this.placemovecounter++;
 
     this.placeMoveHelper(q, r, who);
+    this.notifyUpdateView();
     this.nextPlayer();
 
 
@@ -202,7 +201,6 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
     turn++;
     turn %= this.numPlayers;
     this.notifyYourTurn();
-    this.notifyUpdateView();
 
   }
 

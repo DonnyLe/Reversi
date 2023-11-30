@@ -19,6 +19,7 @@ public class MoveCommand implements Runnable {
   @Override
   public void run() {
     this.view.notifyMove();
+    this.view.updateView();
 
 
   }
