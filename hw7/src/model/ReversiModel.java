@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import controller.ModelObserver;
 import controller.ReversiController;
 
 /**
@@ -27,7 +28,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelStatus {
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
 
-  List<ReversiController> controllers = new ArrayList<>();
+  List<ModelObserver> controllers = new ArrayList<>();
   int placemovecounter = 0;
 
   /**
@@ -532,7 +533,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelStatus {
    * @param controller the controller to be added
    */
   @Override
-  public void addObserver(ReversiController controller) {
+  public void addObserver(ModelObserver controller) {
     controllers.add(controller);
   }
 
@@ -555,7 +556,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelStatus {
    */
   @Override
   public void notifyUpdateView(){
-    for (ReversiController controller : controllers){
+    for (ModelObserver controller : controllers){
       controller.updateView();
     }
   }
@@ -566,7 +567,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelStatus {
    */
   @Override
   public void notifyGameOver(){
-    for (ReversiController controller : controllers){
+    for (ModelObserver controller : controllers){
       controller.stopGame();
     }
 
@@ -577,7 +578,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi, ModelStatus {
       controllers.get(1).youWin();
     }
     else {
-      for (ReversiController controller : controllers){
+      for (ModelObserver controller : controllers){
         controller.draw();
       }
     }

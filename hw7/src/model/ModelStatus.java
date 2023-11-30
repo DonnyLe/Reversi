@@ -1,9 +1,10 @@
 package model;
 
+import controller.ModelObserver;
 import controller.ReversiController;
 
 public interface ModelStatus {
-  void addObserver(ReversiController controller);
+  void addObserver(ModelObserver controller);
 
   void notifyYourTurn();
 

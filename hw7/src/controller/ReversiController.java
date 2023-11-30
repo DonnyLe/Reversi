@@ -4,7 +4,7 @@ import model.AxialCoord;
 import model.ReversiModel;
 import view.IView;
 
-public class ReversiController implements PlayerActions {
+public class ReversiController implements PlayerActions, ModelObserver{
   private ReversiModel model;
   private IPlayer player;
   private IView view;
@@ -27,12 +27,12 @@ public class ReversiController implements PlayerActions {
 
   //features.processTurnChange(color)
 
+
   /**
    * Notifies the view that it is its turn.
    */
+  @Override
   public void yourTurn() {
-
-
     this.player.move();
     if(this.player instanceof HumanPlayer) {
       this.view.startView();
@@ -42,6 +42,7 @@ public class ReversiController implements PlayerActions {
   /**
    * Notifies the view to update itself.
    */
+  @Override
   public void updateView(){
     this.view.updateView();
 
@@ -52,6 +53,7 @@ public class ReversiController implements PlayerActions {
    * Notifies the view to display an error message.
    * @param e The error to pass on
    */
+  @Override
   public void displayError(RuntimeException e){
     this.view.displayError(e);
   }
@@ -59,6 +61,7 @@ public class ReversiController implements PlayerActions {
   /**
    * Notifies the view to display a win message.
    */
+  @Override
   public void youWin(){
     this.view.displayWin();
   }
@@ -66,6 +69,7 @@ public class ReversiController implements PlayerActions {
   /**
    * Notifies the view to display a draw message.
    */
+  @Override
   public void draw(){
     this.view.displayDraw();
   }
@@ -73,6 +77,7 @@ public class ReversiController implements PlayerActions {
   /**
    * Notifies the view to stop taking commands.
    */
+  @Override
   public void stopGame(){
     this.view.stopView();
 
@@ -109,17 +114,6 @@ public class ReversiController implements PlayerActions {
     this.model.passTurn();
   }
 
-  private static void wait(int ms)
-  {
-    try
-    {
-      Thread.sleep(ms);
-    }
-    catch(InterruptedException ex)
-    {
-      Thread.currentThread().interrupt();
-    }
-  }
 
 
 }
