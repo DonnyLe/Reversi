@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import model.AxialCoord;
-import model.IReversi;
 import model.ReadonlyIReversi;
 import strategy.ReversiStrategy;
 
@@ -15,7 +14,7 @@ public class MachinePlayer implements IPlayer{
   private ReadonlyIReversi model;
   private ReversiStrategy strat;
 
-  private ArrayList<Features> features;
+  private ArrayList<PlayerActions> features;
 
   /**
    * Constructor for machine player.
@@ -39,7 +38,7 @@ public class MachinePlayer implements IPlayer{
       @Override
       public void actionPerformed(ActionEvent e) {
         AxialCoord coord = strat.chooseMove(model, model.getTurn());
-        for (Features f : features) {
+        for (PlayerActions f : features) {
           if (coord == null) {
             MachinePlayer.this.pass();
           } else {
@@ -60,7 +59,7 @@ public class MachinePlayer implements IPlayer{
    */
   @Override
   public void pass() {
-    for(Features f: features) {
+    for(PlayerActions f: features) {
       f.pass();
     }
   }
@@ -70,7 +69,7 @@ public class MachinePlayer implements IPlayer{
    * @param feature features to be added
    */
   @Override
-  public void addFeatures(Features feature) {
+  public void addFeatures(PlayerActions feature) {
     features.add(feature);
   }
 }

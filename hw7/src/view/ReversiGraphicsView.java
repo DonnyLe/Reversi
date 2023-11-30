@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -15,9 +13,7 @@ import javax.swing.*;
 
 import commands.MoveCommand;
 import commands.PassCommand;
-import controller.Features;
-import controller.MachinePlayer;
-import model.AxialCoord;
+import controller.PlayerActions;
 import model.ReadonlyIReversi;
 
 /**
@@ -28,7 +24,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   private ReadonlyIReversi model;
 
   private boolean active;
-  private List<Features> features = new ArrayList<Features>();
+  private List<PlayerActions> features = new ArrayList<PlayerActions>();
 
 
 
@@ -117,17 +113,17 @@ public class ReversiGraphicsView extends JFrame implements IView {
 
   /**
    * Adds features to the view.
-   * @param feature the features to be added.
+   * @param playerActions the features to be added.
    */
-  public void addObserver(Features feature) {
-    features.add(feature);
+  public void addPlayerActionsListeners(PlayerActions playerActions) {
+    features.add(playerActions);
   }
 
   /**
    * Notifies the controller that the player wants to move to the currently selected hex.
    */
   public void notifyMove(){
-    for (Features f : features){
+    for (PlayerActions f : features){
       f.move(this.reversiBoard.selectedHex.getAxialCoords());
     }
   }
@@ -136,7 +132,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
    * Notifies the controller that it wants to pass.
    */
   public void notifyPass(){
-    for (Features f : features){
+    for (PlayerActions f : features){
       f.pass();
     }
   }

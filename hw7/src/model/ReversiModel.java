@@ -12,7 +12,7 @@ import controller.ReversiController;
  * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
-public class ReversiModel implements IReversi, ReadonlyIReversi {
+public class ReversiModel implements IReversi, ReadonlyIReversi, ModelStatus {
   private boolean isGameStarted;
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
@@ -531,6 +531,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * Adds the controller as an observer so that it can notify it.
    * @param controller the controller to be added
    */
+  @Override
   public void addObserver(ReversiController controller) {
     controllers.add(controller);
   }
@@ -538,6 +539,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   /**
    * Sends a notification to the controller for the current player that it is their turn.
    */
+  @Override
   public void notifyYourTurn(){
     //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
 
@@ -551,6 +553,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   /**
    * Sends a notification to all subscribed controllers to update their views.
    */
+  @Override
   public void notifyUpdateView(){
     for (ReversiController controller : controllers){
       controller.updateView();
@@ -561,6 +564,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    * Determines the winner and sends a notification to its controller, or sends a notification to
    * both in case of a draw.
    */
+  @Override
   public void notifyGameOver(){
     for (ReversiController controller : controllers){
       controller.stopGame();

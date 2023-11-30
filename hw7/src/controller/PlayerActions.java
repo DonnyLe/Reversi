@@ -2,7 +2,7 @@ package controller;
 
 import model.AxialCoord;
 
-public interface Features {
+public interface PlayerActions {
 
   /**
    * Tells the model to move at given coordinates.

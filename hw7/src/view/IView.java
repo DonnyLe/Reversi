@@ -1,8 +1,7 @@
 package view;
 
 
-import controller.Features;
-import controller.ReversiController;
+import controller.PlayerActions;
 
 /**
  * View interface for all views for Reversi.
@@ -17,9 +16,9 @@ public interface IView {
 
   /**
    * Adds features to the view.
-   * @param feature the features to be added.
+   * @param playerActions the features to be added.
    */
-  public void addObserver(Features feature);
+  public void addPlayerActionsListeners(PlayerActions playerActions);
 
   /**
    * Enables making moves for the view.

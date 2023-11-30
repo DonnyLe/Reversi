@@ -1,8 +1,5 @@
 package controller;
 
-import model.AxialCoord;
-import model.DiscState;
-
 public interface IPlayer {
 
   /**
@@ -20,7 +17,7 @@ public interface IPlayer {
    * Adds the features to the player.
    * @param feature features to be added
    */
-  public void addFeatures(Features feature);
+  public void addFeatures(PlayerActions feature);
 
 
 }

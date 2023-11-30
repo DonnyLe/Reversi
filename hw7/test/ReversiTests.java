@@ -459,12 +459,5 @@ public class ReversiTests {
                     "Update view notification recieved");
   }
 
-
-
-
-
-
-
-
 }
 

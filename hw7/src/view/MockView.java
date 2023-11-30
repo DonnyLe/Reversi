@@ -3,12 +3,12 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.Features;
+import controller.PlayerActions;
 import model.AxialCoord;
 
 public class MockView implements IView{
 
-  private List<Features> features = new ArrayList<Features>();
+  private List<PlayerActions> features = new ArrayList<PlayerActions>();
   private StringBuilder log = new StringBuilder();
 
 
@@ -23,21 +23,21 @@ public class MockView implements IView{
   /**
    * Adds features to the view.
    *
-   * @param feature the features to be added.
+   * @param playerActions the features to be added.
    */
   @Override
-  public void addObserver(Features feature) {
-    features.add(feature);
+  public void addPlayerActionsListeners(PlayerActions playerActions) {
+    features.add(playerActions);
   }
 
   public void mockInput(AxialCoord coord) {
-    for (Features f : features){
+    for (PlayerActions f : features){
       f.move(coord);
     }
   }
 
   public void mockPass() {
-    for (Features f : features){
+    for (PlayerActions f : features){
       f.pass();
     }
   }

@@ -1,12 +1,10 @@
 package controller;
 
-import javax.swing.*;
-
 import model.AxialCoord;
 import model.ReversiModel;
 import view.IView;
 
-public class ReversiController implements Features{
+public class ReversiController implements PlayerActions {
   private ReversiModel model;
   private IPlayer player;
   private IView view;
@@ -22,7 +20,7 @@ public class ReversiController implements Features{
     this.player = player;
     this.view = view;
     this.model.addObserver(this);
-    this.view.addObserver(this);
+    this.view.addPlayerActionsListeners(this);
     this.player.addFeatures(this);
   }
   //have a method
