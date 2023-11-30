@@ -1,6 +1,10 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.*;
 
 import model.AxialCoord;
 import model.IReversi;
@@ -30,28 +34,26 @@ public class MachinePlayer implements IPlayer{
    */
   @Override
   public void move() {
-      AxialCoord coord = strat.chooseMove(model, model.getTurn());
-      for (Features f : features) {
-        if (coord == null) {
-          this.pass();
-        } else {
-
-          f.move(coord);
+    int delay = 1000;
+    Timer timer = new Timer(delay, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        AxialCoord coord = strat.chooseMove(model, model.getTurn());
+        for (Features f : features) {
+          if (coord == null) {
+            MachinePlayer.this.pass();
+          } else {
+            f.move(coord);
+          }
         }
-    }
+      }
+    });
+    timer.setRepeats(false); // Set to false to run the timer only once
+    timer.start();
+
 
   }
-  private static void wait(int ms)
-  {
-    try
-    {
-      Thread.sleep(ms);
-    }
-    catch(InterruptedException ex)
-    {
-      Thread.currentThread().interrupt();
-    }
-  }
+
 
   /**
    * Passes the turn.

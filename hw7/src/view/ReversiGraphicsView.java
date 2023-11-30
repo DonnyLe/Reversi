@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import javax.swing.*;
 import commands.MoveCommand;
 import commands.PassCommand;
 import controller.Features;
+import controller.MachinePlayer;
+import model.AxialCoord;
 import model.ReadonlyIReversi;
 
 /**
@@ -26,6 +30,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
   private boolean active;
   private List<Features> features = new ArrayList<Features>();
 
+
+
   /**
    * Reversi graphics view that takes in a ReadonlyIReversi model.
    * @param model Reversi model
@@ -34,6 +40,9 @@ public class ReversiGraphicsView extends JFrame implements IView {
     super("Reversi");
     this.model = model;
     this.active = false;
+
+
+
     this.reversiBoard = new ReversiPanel(model);
     this.add(reversiBoard);
 
@@ -72,6 +81,9 @@ public class ReversiGraphicsView extends JFrame implements IView {
    * Updates the view to correspond to the state of the model.
    */
   public void updateView(){
+    revalidate();
+    this.reversiBoard.revalidate();
+
     this.reversiBoard.repaint();
   }
 
@@ -144,6 +156,11 @@ public class ReversiGraphicsView extends JFrame implements IView {
   public void stopView() {
     this.active = false;
     this.reversiBoard.stopView();
+  }
+
+  @Override
+  public void passMessage() {
+    this.reversiBoard.passMessage();
   }
 
 

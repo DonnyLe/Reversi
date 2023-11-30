@@ -1,25 +1,21 @@
 package controller;
 
 import java.util.ArrayList;
-import model.ReadonlyIReversi;
 
+import model.AxialCoord;
+import model.IReversi;
+import model.ReadonlyIReversi;
+import strategy.ReversiStrategy;
 
 public class HumanPlayer implements IPlayer{
-  private ReadonlyIReversi model;
-  private ArrayList<Features> features;
+  ReadonlyIReversi model;
+  ArrayList<Features> features;
 
-  /**
-   * Constructor for human player, initializes fields.
-   * @param model the model for the game
-   */
   public HumanPlayer(ReadonlyIReversi model) {
     this.model = model;
     this.features = new ArrayList<>();
   }
 
-  /**
-   *
-   */
   @Override
   public void move() {
 
@@ -34,5 +30,5 @@ public class HumanPlayer implements IPlayer{
   public void addFeatures(Features feature) {
     features.add(feature);
   }
-}
+};
 

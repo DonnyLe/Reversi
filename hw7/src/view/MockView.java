@@ -115,4 +115,9 @@ public class MockView implements IView{
     log.append("\nRepaint notification recieved");
 
   }
+
+  @Override
+  public void passMessage() {
+
+  }
 }

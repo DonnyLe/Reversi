@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.*;
+
 import model.AxialCoord;
 import model.ReversiModel;
 import view.IView;
@@ -84,12 +86,10 @@ public class ReversiController implements Features{
    */
   @Override
   public void move(AxialCoord coord){
-    if (this.player instanceof MachinePlayer){
-      wait(500);
-    }
     try{
       this.view.stopView();
       this.model.placeMove(coord.q, coord.r, model.getTurn());
+      System.out.println("entered");
 
     }
     catch (IllegalArgumentException | IllegalStateException e){
@@ -107,8 +107,8 @@ public class ReversiController implements Features{
   @Override
   public void pass(){
     this.view.stopView();
+    this.view.passMessage();
     this.model.passTurn();
-
   }
 
   private static void wait(int ms)

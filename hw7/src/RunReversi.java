@@ -39,7 +39,7 @@ public class RunReversi {
 
 
 
-    ReversiController c1 = new ReversiController(model, mplayer1, rv1);
+    ReversiController c1 = new ReversiController(model, player1, rv1);
     ReversiController c2 = new ReversiController(model, mplayer2, rv2);
 
     model.startGame(4);
