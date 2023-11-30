@@ -32,6 +32,7 @@ public class ReversiController implements Features{
    */
   public void yourTurn() {
 
+
     this.player.move();
     if(this.player instanceof HumanPlayer) {
       this.view.startView();
@@ -83,6 +84,9 @@ public class ReversiController implements Features{
    */
   @Override
   public void move(AxialCoord coord){
+    if (this.player instanceof MachinePlayer){
+      wait(1000);
+    }
     try{
       this.view.stopView();
       this.model.placeMove(coord.q, coord.r, model.getTurn());

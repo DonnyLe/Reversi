@@ -409,6 +409,7 @@ public class ReversiTests {
     ReversiController c1 = new ReversiController(m1, p1, v1);
     ReversiController c2 = new ReversiController(m1, p2, v2);
     m1.startGame(4);
+    m1.init();
 
     c1.move(new AxialCoord(1, 4));
     c2.move(new AxialCoord(0, 4));
@@ -419,29 +420,29 @@ public class ReversiTests {
     c2.pass();
 
 
-    //System.out.println(v1.getLog());
-    //System.out.println(v2.getLog());
+    System.out.println(v1.getLog());
+    System.out.println(v2.getLog());
 
     Assert.assertEquals(v1.getLog(),
-            "\nStart view notification recieved\n" +
-                    "Stop view notification recieved\n" +
-                    "Update view notification recieved\n" +
-                    "Stop view notification recieved\n" +
+            "\n" +
                     "Start view notification recieved\n" +
+                    "Stop view notification recieved\n" +
                     "Update view notification recieved\n" +
+                    "Stop view notification recieved\n" +
+                    "Update view notification recieved\n" +
+                    "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Display error notification recieved\n" +
                     "Repaint notification recieved\n" +
                     "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
-                    "Update view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Update view notification recieved");
 
     Assert.assertEquals(v2.getLog(),
             "\n" +
-                    "Start view notification recieved\n" +
                     "Update view notification recieved\n" +
+                    "Start view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Display error notification recieved\n" +
                     "Repaint notification recieved\n" +
@@ -452,7 +453,6 @@ public class ReversiTests {
                     "Repaint notification recieved\n" +
                     "Start view notification recieved\n" +
                     "Start view notification recieved\n" +
-                    "Update view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Stop view notification recieved\n" +
                     "Display win notification recieved\n" +

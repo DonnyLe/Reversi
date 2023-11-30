@@ -34,16 +34,18 @@ public class RunReversi {
 
     HumanPlayer player1 = new HumanPlayer(model);
     HumanPlayer player2 = new HumanPlayer(model);
+    MachinePlayer mplayer1 = new MachinePlayer(model, strat);
     MachinePlayer mplayer2 = new MachinePlayer(model, strat);
 
 
 
-    ReversiController c1 = new ReversiController(model, player1, rv1);
-    ReversiController c2 = new ReversiController(model, player2, rv2);
+    ReversiController c1 = new ReversiController(model, mplayer1, rv1);
+    ReversiController c2 = new ReversiController(model, mplayer2, rv2);
 
     model.startGame(4);
     rv1.render();
     rv2.render();
+    model.init();
 
   }
 }

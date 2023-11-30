@@ -55,6 +55,10 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
   public void startGame(int sideLen) {
     this.isGameStarted = true;
     initializeBoard(sideLen);
+
+  }
+
+  public void init(){
     notifyYourTurn();
   }
 
@@ -536,6 +540,7 @@ public class ReversiModel implements IReversi, ReadonlyIReversi {
    */
   public void notifyYourTurn(){
     //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
+
 
     if(!controllers.isEmpty()){
       controllers.get(this.turn).yourTurn();
