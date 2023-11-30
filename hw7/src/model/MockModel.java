@@ -548,7 +548,7 @@ public class MockModel implements IReversi, ReadonlyIReversi {
 
     if(!controllers.isEmpty()){
       controllers.get(this.turn).yourTurn();
-      log2.append("Sent your turn notification");
+      log2.append("\nSent your turn notification");
 
     }
   }
@@ -559,7 +559,7 @@ public class MockModel implements IReversi, ReadonlyIReversi {
   public void notifyUpdateView(){
     for (ReversiController controller : controllers){
       controller.updateView();
-      log2.append("Sent update view notification");
+      log2.append("\nSent update view notification");
     }
   }
 
@@ -569,22 +569,22 @@ public class MockModel implements IReversi, ReadonlyIReversi {
    */
   public void notifyGameOver(){
     for (ReversiController controller : controllers){
-      log2.append("Sent stop game notification");
+      log2.append("\nSent stop game notification");
       controller.stopGame();
     }
 
     if(this.getScore(0) > this.getScore(1)){
       controllers.get(0).youWin();
-      log2.append("Sent player 1 win notification");
+      log2.append("\nSent player 1 win notification");
     }
     else if(this.getScore(0) < this.getScore(1)){
       controllers.get(1).youWin();
-      log2.append("Sent player 2 win notification");
+      log2.append("\nSent player 2 win notification");
     }
     else {
       for (ReversiController controller : controllers){
         controller.draw();
-        log2.append("Sent draw notification");
+        log2.append("\nSent draw notification");
       }
     }
   }

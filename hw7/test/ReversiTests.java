@@ -462,5 +462,56 @@ public class ReversiTests {
                     "Update view notification recieved");
   }
 
+  @Test
+  public void testObserver() {
+    MockModel m1 = new MockModel();
+    MockView v1 = new MockView();
+    MockView v2 = new MockView();
+    HumanPlayer p1 = new HumanPlayer(m1);
+    HumanPlayer p2 = new HumanPlayer(m1);
+    ReversiController c1 = new ReversiController(m1, p1, v1);
+    ReversiController c2 = new ReversiController(m1, p2, v2);
+    m1.startGame(4);
+    m1.init();
+
+    c1.move(new AxialCoord(4, 1));
+
+    c2.move(new AxialCoord(4, 0));
+
+    c1.move(new AxialCoord(5, 0));
+    c2.move(new AxialCoord(6, 0));
+    c1.move(new AxialCoord(5, 2));
+    c2.pass();
+    c1.pass();
+
+    System.out.println(m1.getLog2());
+
+    Assert.assertEquals(m1.getLog2(),
+            "\n" +
+                    "Sent your turn notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent your turn notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent your turn notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent your turn notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent your turn notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent your turn notification\n" +
+                    "Sent your turn notification\n" +
+                    "Sent stop game notification\n" +
+                    "Sent stop game notification\n" +
+                    "Sent player 1 win notification\n" +
+                    "Sent update view notification\n" +
+                    "Sent update view notification");
+
+  }
+
 }
 

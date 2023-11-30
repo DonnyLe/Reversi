@@ -1,6 +1,8 @@
 package model;
 
 
+import controller.ReversiController;
+
 /**
  * Interface for a Reversi game. Contains all move and retrieval methods required for Reversi.
  */
@@ -29,6 +31,13 @@ public interface IReversi extends ReadonlyIReversi {
    * the player.
    */
   void passTurn();
+
+  /**
+   * Adds the controller as an observer so that it can notify it.
+   * @param controller the controller to be added
+   */
+
+  void addObserver(ReversiController controller);
 
 
 }

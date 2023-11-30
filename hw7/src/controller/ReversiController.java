@@ -1,11 +1,12 @@
 package controller;
 
 import model.AxialCoord;
+import model.IReversi;
 import model.ReversiModel;
 import view.IView;
 
 public class ReversiController implements PlayerActions {
-  private ReversiModel model;
+  private IReversi model;
   private IPlayer player;
   private IView view;
 
@@ -15,7 +16,7 @@ public class ReversiController implements PlayerActions {
    * @param player The player, machine or human
    * @param view The view to be controlled
    */
-  public ReversiController(ReversiModel model, IPlayer player, IView view){
+  public ReversiController(IReversi model, IPlayer player, IView view){
     this.model = model;
     this.player = player;
     this.view = view;
