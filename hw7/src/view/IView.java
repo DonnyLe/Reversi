@@ -56,4 +56,6 @@ public interface IView {
    * Updates the view.
    */
   void repaint();
+
+  void passMessage();
 }

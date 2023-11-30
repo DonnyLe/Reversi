@@ -60,7 +60,6 @@ public class ReversiPanel extends JPanel {
     Dimension d = this.passMessage.getPreferredSize();
     this.passMessage.setBounds(0, 0, d.width, d.height);
     this.passMessage.setForeground(Color.WHITE);
-    
 
     this.passMessage.setVisible(false);
 

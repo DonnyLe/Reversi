@@ -95,7 +95,7 @@ public class ReversiCreator {
         allStrats.remove(args[i]);
       }
       else {
-        return null;
+        break;
       }
     }
     return new MachinePlayer(model, new ModularStrategy(strategies));
