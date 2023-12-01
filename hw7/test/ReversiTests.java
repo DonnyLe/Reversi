@@ -7,6 +7,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import controller.HumanPlayer;
+import controller.MachinePlayer;
+import controller.MockMachinePlayer;
+import controller.MockPlayerActions;
 import controller.ReversiController;
 import model.DiscState;
 import model.MockModel;
@@ -513,5 +516,45 @@ public class ReversiTests {
 
   }
 
-}
+  @Test
+  public void testMachinePlayer() {
+    ReversiModel model = new ReversiModel();
+    ArrayList<ReversiStrategy> stratList = new ArrayList<>();
+    stratList.add(new CornersStrategy());
+    stratList.add(new AvoidBeforeCornersStrategy());
+    stratList.add(new MostCapturesStrategy());
+    ModularStrategy strats = new ModularStrategy(stratList);
+    MockMachinePlayer player1 = new MockMachinePlayer(model, strats);
+    MockMachinePlayer player2 = new MockMachinePlayer(model, strats);
+
+    MockPlayerActions mock1 = new MockPlayerActions(model, player1);
+    MockPlayerActions mock2 = new MockPlayerActions(model, player2);
+    model.startGame(4);
+    model.init();
+    ReversiTextualView view = new ReversiTextualView(model);
+    view.render();
+    System.out.println(mock1.getLog());
+    System.out.println();
+    System.out.println(mock2.getLog());
+
+    ReversiModel sameModel = new ReversiModel();
+    sameModel.startGame(4);
+    AxialCoord a1 = strats.chooseMove(sameModel, 0);
+    sameModel.placeMove(a1.q, a1.r, 0);
+    AxialCoord a2 = strats.chooseMove(sameModel, 1);
+    sameModel.placeMove(a2.q, a2.r, 0);
+    AxialCoord a3 =  strats.chooseMove(sameModel, 0);
+    
+
+
+
+
+
+
+
+
+
+
+  }
+  }
 

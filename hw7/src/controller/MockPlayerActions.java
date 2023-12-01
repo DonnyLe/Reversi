@@ -36,6 +36,11 @@ public class MockPlayerActions implements PlayerActions, ModelObserver{
     this.player.move();
   }
 
+  public String getLog() {
+    return log.toString();
+  }
+
+
   @Override
   public void updateView() {
 
@@ -67,12 +72,10 @@ public class MockPlayerActions implements PlayerActions, ModelObserver{
    */
   @Override
   public void move(AxialCoord coord){
-    log.append("Placed move to (" + coord.q + " , " + coord.r );
+    log.append("Placed move to (" + coord.q + " , " + coord.r + ")\n");
 
     try{
       this.model.placeMove(coord.q, coord.r, model.getTurn());
-      System.out.println("entered");
-
     }
     catch (IllegalArgumentException | IllegalStateException e){
 
@@ -87,7 +90,7 @@ public class MockPlayerActions implements PlayerActions, ModelObserver{
    */
   @Override
   public void pass(){
-    log.append("Passed move.");
+    log.append("Passed move." + "\n");
     this.model.passTurn();
   }
 

@@ -203,9 +203,11 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
       this.notifyUpdateView();
       return;
     }
-    turn++;
-    turn %= this.numPlayers;
-    this.notifyYourTurn();
+    else {
+      turn++;
+      turn %= this.numPlayers;
+      this.notifyYourTurn();
+    }
 
   }
 

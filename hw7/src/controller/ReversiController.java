@@ -94,7 +94,6 @@ public class ReversiController implements PlayerActions, ModelObserver{
     try{
       this.view.stopView();
       this.model.placeMove(coord.q, coord.r, model.getTurn());
-      System.out.println("entered");
 
     }
     catch (IllegalArgumentException | IllegalStateException e){
