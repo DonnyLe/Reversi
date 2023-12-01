@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
-import controller.HumanPlayer;
-import controller.MachinePlayer;
+import player.HumanPlayer;
+import player.MachinePlayer;
 import controller.ReversiController;
 import model.ReversiModel;
 import strategy.AvoidBeforeCornersStrategy;

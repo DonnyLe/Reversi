@@ -57,6 +57,7 @@ System.out.println(rtv.toString()); //prints the current state of the game
 r.placeMove(2, 2, 0); //does a valid move
 System.out.println(rtv.toString()); //prints the current state of the game
 rgv.render(); //renders the GUI view
+r.init(); starts gameplay
 
 .
 .
@@ -77,7 +78,7 @@ and a HashMap of the colors corresponding to the players.
 * The model.DiscState is an enum that can either be NONE, BLACK or WHITE
 
 #### view
-The Reversi Graphical view consists components (ReversiPanel)
+The Reversi Graphical view consists of components (ReversiPanel)
 
 ## Source Organization
 Within the src directory, there are two packages, model, view, strategy, and commands.
@@ -130,14 +131,19 @@ recommended to add:
   the last assignment.
 
 ## View Tests
+Start of game
 ![1.png](hw6%2FviewTestImages%2F1.png)
+
+Hex selected
 ![2.png](hw6%2FviewTestImages%2F2.png)
+
+Arbitrary point in game
 ![3.png](hw6%2FviewTestImages%2F3.png)
 
 
 ## Keyboard Interactions
-Pressing 'm' calls a move command placeholder on the selected coordinates.
-Pressing 'p' calls a pass command placeholder.
+Pressing 'm' attempts to place a disc on the selected coordinates.
+Pressing 'p' attempts to pass your turn.
 
 ## Extra Credit
 The Extra Credit strategies are in the Strategies module, including:

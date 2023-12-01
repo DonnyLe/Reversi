@@ -2,6 +2,8 @@ package controller;
 
 import model.AxialCoord;
 import model.IReversi;
+import player.HumanPlayer;
+import player.IPlayer;
 import view.IView;
 
 /**
