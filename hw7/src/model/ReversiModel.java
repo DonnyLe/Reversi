@@ -13,7 +13,7 @@ import controller.ReversiController;
  * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
-public class ReversiModel implements IReversi, ReadonlyIReversi, ModelStatus {
+public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
   private boolean isGameStarted;
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs

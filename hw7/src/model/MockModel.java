@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import controller.ModelObserver;
 import controller.ReversiController;
 
 /**
@@ -12,7 +13,7 @@ import controller.ReversiController;
  * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
-public class MockModel implements IReversi, ReadonlyIReversi {
+public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
   private boolean isGameStarted;
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
@@ -27,7 +28,7 @@ public class MockModel implements IReversi, ReadonlyIReversi {
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
 
-  List<ReversiController> controllers = new ArrayList<>();
+  List<ModelObserver> controllers = new ArrayList<>();
   int placemovecounter = 0;
 
   private StringBuilder log = new StringBuilder();
@@ -535,9 +536,12 @@ public class MockModel implements IReversi, ReadonlyIReversi {
    * Adds the controller as an observer so that it can notify it.
    * @param controller the controller to be added
    */
-  public void addObserver(ReversiController controller) {
+  @Override
+  public void addObserver(ModelObserver controller) {
     controllers.add(controller);
   }
+
+
 
   /**
    * Sends a notification to the controller for the current player that it is their turn.
@@ -557,7 +561,7 @@ public class MockModel implements IReversi, ReadonlyIReversi {
    * Sends a notification to all subscribed controllers to update their views.
    */
   public void notifyUpdateView(){
-    for (ReversiController controller : controllers){
+    for (ModelObserver controller : controllers){
       controller.updateView();
       log2.append("\nSent update view notification");
     }
@@ -568,7 +572,7 @@ public class MockModel implements IReversi, ReadonlyIReversi {
    * both in case of a draw.
    */
   public void notifyGameOver(){
-    for (ReversiController controller : controllers){
+    for (ModelObserver controller : controllers){
       log2.append("\nSent stop game notification");
       controller.stopGame();
     }
@@ -582,7 +586,7 @@ public class MockModel implements IReversi, ReadonlyIReversi {
       log2.append("\nSent player 2 win notification");
     }
     else {
-      for (ReversiController controller : controllers){
+      for (ModelObserver controller : controllers){
         controller.draw();
         log2.append("\nSent draw notification");
       }
