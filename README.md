@@ -90,8 +90,6 @@ Within the src directory, there are two packages, model, view, strategy, and com
 * observation methods (used by view). 
 * model.IReversi: Extends model.ReadonlyIReversi. Contains all operations for Reversi game. 
 * model.ReversiModel.java : model Implementation
-* model.ModelStatus : methods to notify model observer (controller), subject in observer pattern
-* 
 
 2. view includes :
 
@@ -100,20 +98,6 @@ Within the src directory, there are two packages, model, view, strategy, and com
 * ReversiGraphicalView : Graphical view implementation
 * HexagonImage : model.Hexagon graphic used in graphical view. 
 * ReversiPanel : Reversi representation of a JPanel
-* MockView : Mock of the view used for testing
-
-3. controller includes :
-* MockPlayerActions : controller/features mock for testing
-* ModelObserver : interface for observing model 
-* ReversiController : controller for Reversi, implements model observer and player actions
-* PlayerActions : features (feature pattern) or all actions a player in Reversi can do
-
-4. player includes :
-* HumanPlayer : class for human player (empty because view emits PlayerActions)
-* IPlayer : interface for players
-* MachinePlayer : class for AI/machine player, uses strategies to emit PlayerActions
-* MockMachinePlayer : mock class for testing (changes delay to allow for testing)
-
 
 ## Changes for part 2
 We implemented the missing methods in the model that were 

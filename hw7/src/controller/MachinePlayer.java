@@ -1,19 +1,19 @@
-package player;
+package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-<<<<<<< Updated upstream:hw7/src/controller/MockMachinePlayer.java
-=======
-import controller.PlayerActions;
->>>>>>> Stashed changes:hw7/src/player/MockMachinePlayer.java
+import javax.swing.Timer;
+
 import model.AxialCoord;
 import model.ReadonlyIReversi;
 import strategy.ReversiStrategy;
 
 /**
- * Mock machine player for testing.
+ * Machine player.
  */
-public class MockMachinePlayer implements IPlayer {
+public class MachinePlayer implements IPlayer {
   private ReadonlyIReversi model;
   private ReversiStrategy strat;
 
@@ -24,7 +24,7 @@ public class MockMachinePlayer implements IPlayer {
    * @param model the model for the game
    * @param strat the strategy used by the machine player
    */
-  public MockMachinePlayer(ReadonlyIReversi model, ReversiStrategy strat) {
+  public MachinePlayer(ReadonlyIReversi model, ReversiStrategy strat) {
     this.model = model;
     this.strat = strat;
     this.features = new ArrayList<>();
@@ -36,15 +36,24 @@ public class MockMachinePlayer implements IPlayer {
    */
   @Override
   public void move() {
-
-    AxialCoord coord = strat.chooseMove(model, model.getTurn());
-    for (PlayerActions f : features) {
-      if (coord == null) {
-        this.pass();
-      } else {
-        f.move(coord);
+    int delay = 1000;
+    Timer timer = new Timer(delay, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        AxialCoord coord = strat.chooseMove(model, model.getTurn());
+        for (PlayerActions f : features) {
+          if (coord == null) {
+            MachinePlayer.this.pass();
+          } else {
+            f.move(coord);
+          }
+        }
       }
-    }
+    });
+    timer.setRepeats(false); // Set to false to run the timer only once
+    timer.start();
+
+
   }
 
 

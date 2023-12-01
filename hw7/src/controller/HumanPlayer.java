@@ -1,8 +1,7 @@
-package player;
+package controller;
 
 import java.util.ArrayList;
 
-import controller.PlayerActions;
 import model.ReadonlyIReversi;
 
 /**

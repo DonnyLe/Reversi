@@ -1,14 +1,8 @@
 
 package controller;
 
-<<<<<<< Updated upstream
 import model.AxialCoord;
 import model.ReversiModel;
-=======
-        import model.AxialCoord;
-        import model.ReversiModel;
-        import player.IPlayer;
->>>>>>> Stashed changes
 
 /**
  * Mock player actions for testing purposes.
