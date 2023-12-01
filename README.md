@@ -132,3 +132,30 @@ The Extra Credit strategies are in the Strategies module, including:
 
 The mock test transcript is available in [the transcript](strategy-transcript.txt)
 
+## Changes for part 2
+We added the ModelObserver, PlayerActions, ModelStatus interfaces.
+
+* ModelObserver sends notifications from the controller using the observer pattern
+  * These include notifying the correct listener that it is their turn, 
+    notifying to update views, notifying that there is an error to be displayed
+    , that there is a winner, or a draw and to stop the game.
+* PlayerActions is the actions that the player can take and send to the controller
+  * These are to pass and to move
+* ModelStatus includes notifying that it is your turn, notifying to update the view
+  and notifying that the game is over
+
+## Controller
+The controller takes in a model, a view and a player. 
+
+The controller connects the model, the view and the controller and sends
+commands between them. All interactions between the parts are mediated by
+the controller. These include all the player actions, such as passing
+and moving, all the view interactions such as passing and moving, and
+all the notifications from the model about the board state and game state.
+
+## Player
+The player is able to move and pass. In the case of the machine player,
+a strategy is passed into the player, which determines the actions to be
+taken. The human player ignores these methods and lets the view handle
+the moving and passing.
+
