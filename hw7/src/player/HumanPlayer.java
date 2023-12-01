@@ -9,7 +9,6 @@ import model.ReadonlyIReversi;
  * Human player.
  */
 public class HumanPlayer implements IPlayer {
-  private ReadonlyIReversi model;
   private ArrayList<PlayerActions> features;
 
   /**
@@ -18,7 +17,6 @@ public class HumanPlayer implements IPlayer {
    * @param model model for use in strategy
    */
   public HumanPlayer(ReadonlyIReversi model) {
-    this.model = model;
     this.features = new ArrayList<>();
   }
 
