@@ -27,8 +27,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
 
-  List<ModelObserver> controllers = new ArrayList<>();
-  int placemovecounter = 0;
+  private List<ModelObserver> controllers = new ArrayList<>();
 
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
@@ -203,7 +202,6 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
     if (this.isGameOver()) {
       this.notifyGameOver();
       this.notifyUpdateView();
-      return;
     }
     else {
       turn++;

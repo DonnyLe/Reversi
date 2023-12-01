@@ -9,8 +9,8 @@ import model.ReadonlyIReversi;
  * Human player.
  */
 public class HumanPlayer implements IPlayer {
-  ReadonlyIReversi model;
-  ArrayList<PlayerActions> features;
+  private ReadonlyIReversi model;
+  private ArrayList<PlayerActions> features;
 
   /**
    * Constructor for human player.
