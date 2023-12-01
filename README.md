@@ -177,11 +177,11 @@ all the notifications from the model about the board state and game state.
 The player is able to move and pass. In the case of the machine player,
 a strategy is passed into the player, which determines the actions to be
 taken. The human player ignores these methods and lets the view handle
-the moving and passing.
+the moving and passing. 
 
 ## Reversi Creator 
 The ReversiCreator has the following options:
-side-length, human-player, and machine-player
+side-length, human-player, and machine-player.
 The side-length parameter is optional (default is sidelength of 4) and is followed
 by an integer representing the side length of the hexagon (e.g side-length 8)
 After adding the side-length parameter (or not inputting the side-length parameter),
@@ -190,6 +190,12 @@ To add a human player, type "human-player" followed by no other parameters.
 To add a machine player, type "machine-player" followed by "strategy3", space, and/or "strategy2"
 (e.g. machine-player strategy3 strategy2). By default, the machine-player has strategy1 installed
 to make the strategy the machine-player uses a complete strategy (strategies 2 and 3 are incomplete).
+You would also want the strategies to be in highest to lowest order since the higher the strategy, 
+the better the strategy is (so you want to have that strategy be prioritized before using the lower strategy).
+After choosing player1, you must choose player2 using the same format as player1 (e.g machine-player strategy2).
+An example of running the game is "side-length 8 machine-player strategy3 strategy2 human".
+Another example would be "human machine-player strategy3" (side-length is 4 in this case as default).
+
 
 
 
