@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import controller.HumanPlayer;
-import controller.IPlayer;
-import controller.MachinePlayer;
+import player.HumanPlayer;
+import player.IPlayer;
+import player.MachinePlayer;
 import controller.ReversiController;
 import model.ReadonlyIReversi;
 import model.ReversiModel;

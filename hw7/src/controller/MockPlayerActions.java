@@ -3,6 +3,7 @@ package controller;
 
 import model.AxialCoord;
 import model.ReversiModel;
+import player.IPlayer;
 
 /**
  * Mock player actions for testing purposes.

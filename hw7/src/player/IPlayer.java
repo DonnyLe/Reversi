@@ -1,4 +1,6 @@
-package controller;
+package player;
+
+import controller.PlayerActions;
 
 /**
  * Interface for player.
