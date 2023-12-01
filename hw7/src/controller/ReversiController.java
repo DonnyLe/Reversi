@@ -2,6 +2,11 @@ package controller;
 
 import model.AxialCoord;
 import model.IReversi;
+<<<<<<< Updated upstream
+=======
+import player.HumanPlayer;
+import player.IPlayer;
+>>>>>>> Stashed changes
 import view.IView;
 
 /**

@@ -6,8 +6,13 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+<<<<<<< Updated upstream
 import controller.HumanPlayer;
 import controller.MockMachinePlayer;
+=======
+import player.HumanPlayer;
+import player.MockMachinePlayer;
+>>>>>>> Stashed changes
 import controller.MockPlayerActions;
 import controller.ReversiController;
 import model.DiscState;
