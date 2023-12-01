@@ -148,7 +148,8 @@ The Extra Credit strategies are in the Strategies module, including:
 
 The mock test transcript is available in [the transcript](strategy-transcript.txt)
 
-## Changes for part 2
+## Changes for part 3
+
 We added the ModelObserver, PlayerActions, ModelStatus interfaces.
 
 * ModelObserver sends notifications from the controller using the observer pattern
@@ -159,6 +160,9 @@ We added the ModelObserver, PlayerActions, ModelStatus interfaces.
   * These are to pass and to move
 * ModelStatus includes notifying that it is your turn, notifying to update the view
   and notifying that the game is over
+
+We also added other functionality in the view. We added a JLabel that shows 
+if the user has passed. 
 
 ## Controller
 The controller takes in a model, a view and a player.
@@ -174,4 +178,19 @@ The player is able to move and pass. In the case of the machine player,
 a strategy is passed into the player, which determines the actions to be
 taken. The human player ignores these methods and lets the view handle
 the moving and passing.
+
+## Reversi Creator 
+The ReversiCreator has the following options:
+side-length, human-player, and machine-player
+The side-length parameter is optional (default is sidelength of 4) and is followed
+by an integer representing the side length of the hexagon (e.g side-length 8)
+After adding the side-length parameter (or not inputting the side-length parameter),
+the next input is player 1. Player 1 can either be human-player or a machine-player.
+To add a human player, type "human-player" followed by no other parameters.
+To add a machine player, type "machine-player" followed by "strategy3", space, and/or "strategy2"
+(e.g. machine-player strategy3 strategy2). By default, the machine-player has strategy1 installed
+to make the strategy the machine-player uses a complete strategy (strategies 2 and 3 are incomplete).
+
+
+
 
