@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 import controller.HumanPlayer;
@@ -533,28 +534,56 @@ public class ReversiTests {
     model.init();
     ReversiTextualView view = new ReversiTextualView(model);
     view.render();
-    System.out.println(mock1.getLog());
-    System.out.println();
-    System.out.println(mock2.getLog());
+    String player1Actual = mock1.getLog();
+    String player2Actual = mock2.getLog();
 
     ReversiModel sameModel = new ReversiModel();
     sameModel.startGame(4);
-    AxialCoord a1 = strats.chooseMove(sameModel, 0);
-    sameModel.placeMove(a1.q, a1.r, 0);
-    AxialCoord a2 = strats.chooseMove(sameModel, 1);
-    sameModel.placeMove(a2.q, a2.r, 0);
-    AxialCoord a3 =  strats.chooseMove(sameModel, 0);
-    
+
+    ArrayList<ArrayList<AxialCoord>> chosenMoves = new ArrayList<>();
+    chosenMoves.add(new ArrayList<AxialCoord>());
+    chosenMoves.add(new ArrayList<AxialCoord>());
 
 
+    for(int i = 0; i< 26; i++) {
+      AxialCoord coord = strats.chooseMove(sameModel, i%2);
+      chosenMoves.get(i%2).add(coord);
+      if(coord != null) {
+        sameModel.placeMove(coord.q, coord.r, i % 2);
+      }
+      else {
+        try {
+          sameModel.passTurn();
+        }
+        //when pass turn ends the game (throws exception since no controllers)
+        catch(IndexOutOfBoundsException e) {
+          break;
+        }
+      }
+    }
+    String player1ExpectedRes = "";
+    String player2ExpectedRes = "";
 
 
-
-
-
-
-
-
+    for(int i = 0; i < 13; i++) {
+      AxialCoord coord = chosenMoves.get(0).get(i);
+      if(coord != null) {
+        player1ExpectedRes += "Placed move to (" + coord.q + " , " + coord.r + ")\n";
+      }
+      else {
+        player1ExpectedRes += "Passed move.\n";
+      }
+    }
+    for(int i = 0; i < 13; i++) {
+      AxialCoord coord = chosenMoves.get(1).get(i);
+      if (coord != null) {
+        player2ExpectedRes += "Placed move to (" + coord.q + " , " + coord.r + ")\n";
+      } else {
+        player2ExpectedRes += "Passed move.\n";
+      }
+    }
+      Assert.assertEquals(player1Actual, player1ExpectedRes);
+      Assert.assertEquals(player2Actual, player2ExpectedRes);
   }
   }
 
