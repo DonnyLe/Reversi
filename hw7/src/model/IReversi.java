@@ -1,8 +1,6 @@
 package model;
 
 
-import controller.ReversiController;
-
 /**
  * Interface for a Reversi game. Contains all move and retrieval methods required for Reversi.
  */

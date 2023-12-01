@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.Timer;
 
 import model.AxialCoord;
 import model.ReadonlyIReversi;
 import strategy.ReversiStrategy;
 
-public class MachinePlayer implements IPlayer{
+/**
+ * Machine player.
+ */
+public class MachinePlayer implements IPlayer {
   private ReadonlyIReversi model;
   private ReversiStrategy strat;
 
@@ -59,7 +62,7 @@ public class MachinePlayer implements IPlayer{
    */
   @Override
   public void pass() {
-    for(PlayerActions f: features) {
+    for (PlayerActions f: features) {
       f.pass();
     }
   }

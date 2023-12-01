@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import controller.ModelObserver;
-import controller.ReversiController;
 
 /**
  * `
@@ -59,9 +58,6 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   }
 
-  public void init(){
-    notifyYourTurn();
-  }
 
   protected void startGame(Hexagon[][] board, int turn) {
     this.isGameStarted = true;
@@ -69,6 +65,10 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
     this.turn = turn;
 
 
+  }
+
+  public void init() {
+    notifyYourTurn();
   }
 
 
@@ -148,7 +148,8 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    * @throws IllegalStateException For invalid move
    * @throws IllegalArgumentException For invalid move
    */
-  public void placeMove(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
+  public void placeMove(int q, int r, int who) throws IllegalStateException,
+          IllegalArgumentException {
 
     this.placeMoveHelper(q, r, who);
     this.notifyUpdateView();
@@ -158,7 +159,8 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   }
 
-  protected void placeMoveHelper(int q, int r, int who) throws IllegalStateException, IllegalArgumentException{
+  protected void placeMoveHelper(int q, int r, int who) throws IllegalStateException,
+          IllegalArgumentException {
     //precursor checks
     gameStartedCheck();
     gameOverCheck();
@@ -198,7 +200,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    * it returns to the first player.
    */
   private void nextPlayer() {
-    if (this.isGameOver()){
+    if (this.isGameOver()) {
       this.notifyGameOver();
       this.notifyUpdateView();
       return;
@@ -543,11 +545,11 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    * Sends a notification to the controller for the current player that it is their turn.
    */
   @Override
-  public void notifyYourTurn(){
+  public void notifyYourTurn() {
     //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
 
 
-    if(!controllers.isEmpty()){
+    if(!controllers.isEmpty()) {
       controllers.get(this.turn).yourTurn();
 
     }
@@ -557,8 +559,8 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    * Sends a notification to all subscribed controllers to update their views.
    */
   @Override
-  public void notifyUpdateView(){
-    for (ModelObserver controller : controllers){
+  public void notifyUpdateView() {
+    for (ModelObserver controller : controllers) {
       controller.updateView();
     }
   }
@@ -568,19 +570,19 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    * both in case of a draw.
    */
   @Override
-  public void notifyGameOver(){
-    for (ModelObserver controller : controllers){
+  public void notifyGameOver() {
+    for (ModelObserver controller : controllers) {
       controller.stopGame();
     }
 
-    if(this.getScore(0) > this.getScore(1)){
+    if(this.getScore(0) > this.getScore(1)) {
       controllers.get(0).youWin();
     }
-    else if(this.getScore(0) < this.getScore(1)){
+    else if(this.getScore(0) < this.getScore(1)) {
       controllers.get(1).youWin();
     }
     else {
-      for (ModelObserver controller : controllers){
+      for (ModelObserver controller : controllers) {
         controller.draw();
       }
     }

@@ -2,11 +2,12 @@ package controller;
 
 import model.AxialCoord;
 import model.IReversi;
-import model.ModelStatus;
-import model.ReversiModel;
 import view.IView;
 
-public class ReversiController implements PlayerActions, ModelObserver{
+/**
+ * Controller for reversi.
+ */
+public class ReversiController implements PlayerActions, ModelObserver {
   private IReversi model;
   private IPlayer player;
   private IView view;
@@ -17,7 +18,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * @param player The player, machine or human
    * @param view The view to be controlled
    */
-  public ReversiController(IReversi model, IPlayer player, IView view){
+  public ReversiController(IReversi model, IPlayer player, IView view) {
     this.model = model;
     this.player = player;
     this.view = view;
@@ -25,9 +26,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
     this.view.addPlayerActionsListeners(this);
     this.player.addFeatures(this);
   }
-  //have a method
 
-  //features.processTurnChange(color)
 
 
   /**
@@ -36,7 +35,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
   @Override
   public void yourTurn() {
     this.player.move();
-    if(this.player instanceof HumanPlayer) {
+    if (this.player instanceof HumanPlayer) {
       this.view.startView();
     }
   }
@@ -45,7 +44,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * Notifies the view to update itself.
    */
   @Override
-  public void updateView(){
+  public void updateView() {
     this.view.updateView();
 
   }
@@ -56,7 +55,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * @param e The error to pass on
    */
   @Override
-  public void displayError(RuntimeException e){
+  public void displayError(RuntimeException e) {
     this.view.displayError(e);
   }
 
@@ -64,7 +63,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * Notifies the view to display a win message.
    */
   @Override
-  public void youWin(){
+  public void youWin() {
     this.view.displayWin();
   }
 
@@ -72,7 +71,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * Notifies the view to display a draw message.
    */
   @Override
-  public void draw(){
+  public void draw() {
     this.view.displayDraw();
   }
 
@@ -80,7 +79,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * Notifies the view to stop taking commands.
    */
   @Override
-  public void stopGame(){
+  public void stopGame() {
     this.view.stopView();
 
   }
@@ -90,13 +89,13 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * @param coord coordinates for move
    */
   @Override
-  public void move(AxialCoord coord){
-    try{
+  public void move(AxialCoord coord) {
+    try {
       this.view.stopView();
       this.model.placeMove(coord.q, coord.r, model.getTurn());
 
     }
-    catch (IllegalArgumentException | IllegalStateException e){
+    catch (IllegalArgumentException | IllegalStateException e) {
       this.displayError(e);
       this.view.repaint();
       this.yourTurn();
@@ -109,7 +108,7 @@ public class ReversiController implements PlayerActions, ModelObserver{
    * Notifies the model to pass the turn.
    */
   @Override
-  public void pass(){
+  public void pass() {
     this.view.stopView();
     this.view.passMessage();
     this.model.passTurn();

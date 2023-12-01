@@ -1,8 +1,10 @@
 package model;
 
 import controller.ModelObserver;
-import controller.ReversiController;
 
+/**
+ * Interface for model status.
+ */
 public interface ModelStatus {
   void addObserver(ModelObserver controller);
 

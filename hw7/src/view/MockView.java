@@ -6,7 +6,10 @@ import java.util.List;
 import controller.PlayerActions;
 import model.AxialCoord;
 
-public class MockView implements IView{
+/**
+ * Mock view for testing purposes.
+ */
+public class MockView implements IView {
 
   private List<PlayerActions> features = new ArrayList<PlayerActions>();
   private StringBuilder log = new StringBuilder();
@@ -18,6 +21,7 @@ public class MockView implements IView{
   @Override
   public void render() {
 
+    //empty
   }
 
   /**
@@ -30,14 +34,21 @@ public class MockView implements IView{
     features.add(playerActions);
   }
 
+  /**
+   * Mock input.
+   * @param coord coordinate
+   */
   public void mockInput(AxialCoord coord) {
-    for (PlayerActions f : features){
+    for (PlayerActions f : features) {
       f.move(coord);
     }
   }
 
+  /**
+   * Mock pass
+   */
   public void mockPass() {
-    for (PlayerActions f : features){
+    for (PlayerActions f : features) {
       f.pass();
     }
   }
@@ -46,7 +57,7 @@ public class MockView implements IView{
    * Returns the log as a string.
    * @return String with log
    */
-  public String getLog(){
+  public String getLog() {
     return log.toString();
   }
 
@@ -119,5 +130,6 @@ public class MockView implements IView{
   @Override
   public void passMessage() {
 
+    //empty
   }
 }

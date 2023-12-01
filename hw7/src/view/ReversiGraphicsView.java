@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import commands.MoveCommand;
 import commands.PassCommand;
@@ -21,7 +22,6 @@ import model.ReadonlyIReversi;
  */
 public class ReversiGraphicsView extends JFrame implements IView {
   private ReversiPanel reversiBoard;
-  private ReadonlyIReversi model;
 
   private boolean active;
   private List<PlayerActions> features = new ArrayList<PlayerActions>();
@@ -34,7 +34,6 @@ public class ReversiGraphicsView extends JFrame implements IView {
    */
   public ReversiGraphicsView(ReadonlyIReversi model) {
     super("Reversi");
-    this.model = model;
     this.active = false;
 
 
@@ -76,7 +75,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   /**
    * Updates the view to correspond to the state of the model.
    */
-  public void updateView(){
+  public void updateView() {
     revalidate();
     this.reversiBoard.revalidate();
 
@@ -87,7 +86,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
    * Displays an error message saying that a move is illegal.
    * @param e The error to display
    */
-  public void displayError(RuntimeException e){
+  public void displayError(RuntimeException e) {
 
     JOptionPane.showMessageDialog(this, e.getMessage(),
             "Error", JOptionPane.ERROR_MESSAGE);
@@ -96,7 +95,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   /**
    * Displays a message stating that the player has won.
    */
-  public void displayWin(){
+  public void displayWin() {
     JOptionPane.showMessageDialog(this, "You Win!", "Game Over",
             JOptionPane.PLAIN_MESSAGE);
     this.repaint();
@@ -105,7 +104,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   /**
    * Displays a message stating that there is a draw.
    */
-  public void displayDraw(){
+  public void displayDraw() {
     JOptionPane.showMessageDialog(this, "Draw",
             "Game Over", JOptionPane.PLAIN_MESSAGE);
     this.repaint();
@@ -122,8 +121,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
   /**
    * Notifies the controller that the player wants to move to the currently selected hex.
    */
-  public void notifyMove(){
-    for (PlayerActions f : features){
+  public void notifyMove() {
+    for (PlayerActions f : features) {
       f.move(this.reversiBoard.selectedHex.getAxialCoords());
     }
   }
@@ -131,8 +130,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
   /**
    * Notifies the controller that it wants to pass.
    */
-  public void notifyPass(){
-    for (PlayerActions f : features){
+  public void notifyPass() {
+    for (PlayerActions f : features) {
       f.pass();
     }
   }

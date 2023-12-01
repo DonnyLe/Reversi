@@ -1,11 +1,13 @@
 
 package controller;
 
-        import model.AxialCoord;
-        import model.ReversiModel;
-        import view.IView;
+import model.AxialCoord;
+import model.ReversiModel;
 
-public class MockPlayerActions implements PlayerActions, ModelObserver{
+/**
+ * Mock player actions for testing purposes.
+ */
+public class MockPlayerActions implements PlayerActions, ModelObserver {
   private ReversiModel model;
   private IPlayer player;
   private StringBuilder log = new StringBuilder();
@@ -16,7 +18,7 @@ public class MockPlayerActions implements PlayerActions, ModelObserver{
    * @param model The model to be controlled
    * @param player The player, machine or human
    */
-  public MockPlayerActions(ReversiModel model, IPlayer player){
+  public MockPlayerActions(ReversiModel model, IPlayer player) {
     this.model = model;
     this.player = player;
     this.player.addFeatures(this);
@@ -43,27 +45,32 @@ public class MockPlayerActions implements PlayerActions, ModelObserver{
 
   @Override
   public void updateView() {
+    //empty
 
   }
 
   @Override
   public void displayError(RuntimeException e) {
 
+    //empty
   }
 
   @Override
   public void youWin() {
 
+    //empty
   }
 
   @Override
   public void draw() {
 
+    //empty
   }
 
   @Override
   public void stopGame() {
 
+    //empty
   }
 
   /**
@@ -71,13 +78,13 @@ public class MockPlayerActions implements PlayerActions, ModelObserver{
    * @param coord coordinates for move
    */
   @Override
-  public void move(AxialCoord coord){
+  public void move(AxialCoord coord) {
     log.append("Placed move to (" + coord.q + " , " + coord.r + ")\n");
 
-    try{
+    try {
       this.model.placeMove(coord.q, coord.r, model.getTurn());
     }
-    catch (IllegalArgumentException | IllegalStateException e){
+    catch (IllegalArgumentException | IllegalStateException e) {
 
       this.yourTurn();
       return;
@@ -89,7 +96,7 @@ public class MockPlayerActions implements PlayerActions, ModelObserver{
    * Notifies the model to pass the turn.
    */
   @Override
-  public void pass(){
+  public void pass() {
     log.append("Passed move." + "\n");
     this.model.passTurn();
   }

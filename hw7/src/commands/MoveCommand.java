@@ -9,7 +9,7 @@ public class MoveCommand implements Runnable {
 
   ReversiGraphicsView view;
 
-  public MoveCommand(ReversiGraphicsView view){
+  public MoveCommand(ReversiGraphicsView view) {
     this.view = view;
   }
 

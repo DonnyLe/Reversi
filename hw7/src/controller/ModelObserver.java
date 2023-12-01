@@ -1,5 +1,8 @@
 package controller;
 
+/**
+ * Model observer interface.
+ */
 public interface ModelObserver {
   void yourTurn();
 

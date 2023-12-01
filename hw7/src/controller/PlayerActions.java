@@ -2,6 +2,9 @@ package controller;
 
 import model.AxialCoord;
 
+/**
+ * Player actions interface.
+ */
 public interface PlayerActions {
 
   /**

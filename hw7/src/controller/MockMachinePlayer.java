@@ -1,16 +1,15 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.*;
 
 import model.AxialCoord;
 import model.ReadonlyIReversi;
 import strategy.ReversiStrategy;
 
-public class MockMachinePlayer implements IPlayer{
+/**
+ * Mock machine player for testing.
+ */
+public class MockMachinePlayer implements IPlayer {
   private ReadonlyIReversi model;
   private ReversiStrategy strat;
 
@@ -50,7 +49,7 @@ public class MockMachinePlayer implements IPlayer{
    */
   @Override
   public void pass() {
-    for(PlayerActions f: features) {
+    for (PlayerActions f: features) {
       f.pass();
     }
   }

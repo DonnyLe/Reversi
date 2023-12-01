@@ -19,7 +19,9 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 import javax.swing.event.MouseInputAdapter;
 
 import model.AxialCoord;
@@ -64,6 +66,10 @@ public class ReversiPanel extends JPanel {
     this.passMessage.setVisible(false);
 
   }
+
+  /**
+   * Passes message.
+   */
   public void passMessage() {
     int delay = 2000;
     this.passMessage.setVisible(true);
@@ -79,6 +85,9 @@ public class ReversiPanel extends JPanel {
     timer.start();
   }
 
+  /**
+   * Initializes hex image list.
+   */
   public void initializeHexImageList() {
     initializeMiddleRow();
     initializeAllRowsExceptMiddle();
@@ -298,7 +307,7 @@ public class ReversiPanel extends JPanel {
     @Override
     public void mousePressed(MouseEvent e) {
       boolean foundHex = false;
-      if(active) {
+      if (active) {
         for (HexagonImage hex : hexImageList) {
           // This point is measured in actual physical pixels
           Point physicalP = e.getPoint();

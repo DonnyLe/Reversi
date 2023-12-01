@@ -1,5 +1,8 @@
 package controller;
 
+/**
+ * Interface for player.
+ */
 public interface IPlayer {
 
   /**
