@@ -27,8 +27,7 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
   //hashmap for connecting the player number and their color
   private final HashMap<Integer, DiscState> playerColors;
 
-  List<ModelObserver> controllers = new ArrayList<>();
-  int placemovecounter = 0;
+  private List<ModelObserver> controllers = new ArrayList<>();
 
   private StringBuilder log = new StringBuilder();
   private StringBuilder log2 = new StringBuilder();

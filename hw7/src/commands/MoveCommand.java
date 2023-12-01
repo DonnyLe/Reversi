@@ -7,7 +7,7 @@ import view.ReversiGraphicsView;
  */
 public class MoveCommand implements Runnable {
 
-  ReversiGraphicsView view;
+  private ReversiGraphicsView view;
 
   public MoveCommand(ReversiGraphicsView view) {
     this.view = view;
