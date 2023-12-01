@@ -12,7 +12,8 @@ public class HumanPlayer implements IPlayer {
   ArrayList<PlayerActions> features;
 
   /**
-   * Constructor for human player
+   * Constructor for human player.
+   *
    * @param model model for use in strategy
    */
   public HumanPlayer(ReadonlyIReversi model) {

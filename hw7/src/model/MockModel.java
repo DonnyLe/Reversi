@@ -544,7 +544,7 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
     //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
 
 
-    if(!controllers.isEmpty()) {
+    if (!controllers.isEmpty()) {
       controllers.get(this.turn).yourTurn();
       log2.append("\nSent your turn notification");
 
@@ -571,11 +571,11 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
       controller.stopGame();
     }
 
-    if(this.getScore(0) > this.getScore(1)) {
+    if (this.getScore(0) > this.getScore(1)) {
       controllers.get(0).youWin();
       log2.append("\nSent player 1 win notification");
     }
-    else if(this.getScore(0) < this.getScore(1)) {
+    else if (this.getScore(0) < this.getScore(1)) {
       controllers.get(1).youWin();
       log2.append("\nSent player 2 win notification");
     }

@@ -45,7 +45,7 @@ public class MockView implements IView {
   }
 
   /**
-   * Mock pass
+   * Mock pass.
    */
   public void mockPass() {
     for (PlayerActions f : features) {

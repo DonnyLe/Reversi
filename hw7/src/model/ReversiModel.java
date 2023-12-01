@@ -549,7 +549,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
     //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
 
 
-    if(!controllers.isEmpty()) {
+    if (!controllers.isEmpty()) {
       controllers.get(this.turn).yourTurn();
 
     }
@@ -575,10 +575,10 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
       controller.stopGame();
     }
 
-    if(this.getScore(0) > this.getScore(1)) {
+    if (this.getScore(0) > this.getScore(1)) {
       controllers.get(0).youWin();
     }
-    else if(this.getScore(0) < this.getScore(1)) {
+    else if (this.getScore(0) < this.getScore(1)) {
       controllers.get(1).youWin();
     }
     else {

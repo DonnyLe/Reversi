@@ -4,11 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 import controller.HumanPlayer;
-import controller.MachinePlayer;
 import controller.MockMachinePlayer;
 import controller.MockPlayerActions;
 import controller.ReversiController;
@@ -203,7 +201,8 @@ public class ReversiTests {
     Exception exception = Assert.assertThrows(IllegalStateException.class,
         () -> m1.placeMove(3, 0, 0));
 
-    String expectedMessage = "Chosen move coordinates has no adjacent " +
+    String expectedMessage = "Chosen move coordinates has no adjacent "
+            +
             "discs of the opposite player. Move not allowed";
     String actualMessage = exception.getMessage();
 
@@ -404,7 +403,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testController(){
+  public void testController() {
     ReversiModel m1 = new ReversiModel();
     MockView v1 = new MockView();
     MockView v2 = new MockView();
@@ -545,10 +544,10 @@ public class ReversiTests {
     chosenMoves.add(new ArrayList<AxialCoord>());
 
 
-    for(int i = 0; i< 26; i++) {
-      AxialCoord coord = strats.chooseMove(sameModel, i%2);
-      chosenMoves.get(i%2).add(coord);
-      if(coord != null) {
+    for (int i = 0; i < 26; i++) {
+      AxialCoord coord = strats.chooseMove(sameModel, i % 2);
+      chosenMoves.get(i % 2).add(coord);
+      if (coord != null) {
         sameModel.placeMove(coord.q, coord.r, i % 2);
       }
       else {
@@ -556,7 +555,7 @@ public class ReversiTests {
           sameModel.passTurn();
         }
         //when pass turn ends the game (throws exception since no controllers)
-        catch(IndexOutOfBoundsException e) {
+        catch (IndexOutOfBoundsException e) {
           break;
         }
       }
@@ -565,16 +564,16 @@ public class ReversiTests {
     String player2ExpectedRes = "";
 
 
-    for(int i = 0; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       AxialCoord coord = chosenMoves.get(0).get(i);
-      if(coord != null) {
+      if (coord != null) {
         player1ExpectedRes += "Placed move to (" + coord.q + " , " + coord.r + ")\n";
       }
       else {
         player1ExpectedRes += "Passed move.\n";
       }
     }
-    for(int i = 0; i < 13; i++) {
+    for (int i = 0; i < 13; i++) {
       AxialCoord coord = chosenMoves.get(1).get(i);
       if (coord != null) {
         player2ExpectedRes += "Placed move to (" + coord.q + " , " + coord.r + ")\n";
@@ -582,8 +581,8 @@ public class ReversiTests {
         player2ExpectedRes += "Passed move.\n";
       }
     }
-      Assert.assertEquals(player1Actual, player1ExpectedRes);
-      Assert.assertEquals(player2Actual, player2ExpectedRes);
+    Assert.assertEquals(player1Actual, player1ExpectedRes);
+    Assert.assertEquals(player2Actual, player2ExpectedRes);
   }
-  }
+}
 

@@ -110,7 +110,8 @@ public class ReversiCreator {
 
 
   /**
-   * Checks if the string is an int
+   * Checks if the string is an int.
+   *
    * @param s String
    * @return true if int
    */
