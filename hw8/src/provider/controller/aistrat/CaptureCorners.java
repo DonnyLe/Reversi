@@ -23,8 +23,10 @@ public class CaptureCorners implements ReversiStratagy {
    * @param turn  The object representing the current player's turn.
    * @return The selected for the next move, prioritizing corners.
    */
+
   @Override
   public Coordinate chooseMove(Reversi model, Disc turn) {
+    /*
     Turn t = null;
     if (turn == Disc.BLACK) {
       t = Turn.BLACK;
@@ -40,6 +42,9 @@ public class CaptureCorners implements ReversiStratagy {
       }
     }
     return new Coordinate(model.getSize(), model.getSize());
+
+     */
+    return null;
   }
 
 

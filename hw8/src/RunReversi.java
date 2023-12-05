@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 
+import adapters.ModelAdapter;
 import player.HumanPlayer;
 import player.MachinePlayer;
 import controller.ReversiController;
 import model.ReversiModel;
+import provider.view.ReversiFrame;
 import strategy.AvoidBeforeCornersStrategy;
 import strategy.CornersStrategy;
 import strategy.ModularStrategy;
@@ -24,7 +26,10 @@ public class RunReversi {
 
     ReversiModel model = new ReversiModel();
 
+
     ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
+
+    /*
     ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
     ArrayList<ReversiStrategy> strategies = new ArrayList<>();
     strategies.add(new CornersStrategy());
@@ -39,13 +44,26 @@ public class RunReversi {
 
 
 
+
+
     ReversiController c1 = new ReversiController(model, player1, rv1);
     ReversiController c2 = new ReversiController(model, mplayer2, rv2);
 
+     */
+
+
+
     model.startGame(4);
-    rv1.render();
-    rv2.render();
-    model.init();
+
+    //rv1.render();
+    //rv2.render();
+
+
+    //model.init();
+    ReversiFrame rv2 = new ReversiFrame(new ModelAdapter(model));
+    rv2.setVisible(true);
+    //rv2.getBoardPanel().initializeHexagons();
+
 
   }
 }

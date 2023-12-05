@@ -1,7 +1,9 @@
 package adapters;
 
+import java.awt.*;
 import java.util.HashMap;
 
+import model.AxialCoord;
 import model.DiscState;
 import model.Hexagon;
 import model.ReadonlyIReversi;
@@ -43,7 +45,8 @@ public class ModelAdapter implements ReversiReadOnly {
    */
   @Override
   public Disc getDiscAt(int q, int r) {
-    return convertDisc(this.model.getDiscAt(q, r));
+    AxialCoord centerCoord = this.translateAxialCoords(q, r);
+    return convertDisc(this.model.getDiscAt(centerCoord.q, centerCoord.r));
   }
 
   /**
@@ -95,4 +98,13 @@ public class ModelAdapter implements ReversiReadOnly {
     }
     return 0;
   }
+
+
+  private AxialCoord translateAxialCoords(int q, int r) {
+    int centerR = (int) Math.floor(this.model.getBoardArrayLength() / 2);
+    return new AxialCoord(q + centerR, r + centerR);
+
+  }
+
+
 }
