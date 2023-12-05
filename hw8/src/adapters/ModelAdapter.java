@@ -29,6 +29,12 @@ public class ModelAdapter implements ReversiReadOnly {
 
   }
 
+
+  /**
+   * Converts DiscState enum to Disc enum.
+   * @param state DiscState enum
+   * @return Disc enum
+   */
   public Disc convertDisc(DiscState state){
     if (state == DiscState.WHITE) {return Disc.WHITE;}
     else if (state == DiscState.BLACK) {return Disc.BLACK;}
@@ -100,6 +106,12 @@ public class ModelAdapter implements ReversiReadOnly {
   }
 
 
+  /**
+   * Converts coordinates from center-origin to top left origin coordinates.
+   * @param q q coord
+   * @param r r coord
+   * @return converted AxialCoord
+   */
   private AxialCoord translateAxialCoords(int q, int r) {
     int centerR = (int) Math.floor(this.model.getBoardArrayLength() / 2);
     return new AxialCoord(q + centerR, r + centerR);
