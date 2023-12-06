@@ -114,5 +114,10 @@ public class MockPlayerActions implements PlayerActions, ModelObserver {
     return null;
   }
 
+  @Override
+  public int getBoardArrayLength() {
+    return 0;
+  }
+
 
 }

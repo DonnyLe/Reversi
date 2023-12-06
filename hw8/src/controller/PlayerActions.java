@@ -23,4 +23,6 @@ public interface PlayerActions {
   Disc getPlayer();
 
   Player getTurn();
+
+  int getBoardArrayLength();
 }

@@ -15,4 +15,5 @@ public interface ModelObserver {
   void draw();
 
   void stopGame();
+
 }

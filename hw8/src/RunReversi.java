@@ -78,7 +78,7 @@ public class RunReversi {
     IView rv2 = new ViewAdapter(theirView);
 
     ReversiController c1 = new ReversiController(model, player1, rv1);
-    ReversiController c2 = new ReversiController(model, player2, new ViewAdapter(theirView));
+    ReversiController c2 = new ReversiController(model, player2, rv2);
     model.startGame();
     rv1.render();
     rv2.render();

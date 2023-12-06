@@ -29,6 +29,8 @@ public class ViewAdapter implements IView, ControllerFeatures {
   private PlayerActions features;
   private AxialCoord selectedHexLocation;
 
+
+
   public ViewAdapter(ReversiFrame view){
     this.view = view;
   }
@@ -77,6 +79,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
   @Override
   public void selectHexagon(int q, int r) {
 
+
     this.selectedHexLocation = new AxialCoord(q, r);
 
 
@@ -84,9 +87,10 @@ public class ViewAdapter implements IView, ControllerFeatures {
 
   @Override
   public void confirmMove() {
+    System.out.println(this.selectedHexLocation.q + " " + this.selectedHexLocation.r);
     if(active) {
       if (this.selectedHexLocation != null) {
-        features.move(this.selectedHexLocation);
+        features.move(this.translateAxialCoords(this.selectedHexLocation.q, this.selectedHexLocation.r));
         }
         this.selectedHexLocation = null;
       }
@@ -166,11 +170,25 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void repaint() {
+    this.view.repaint();
 
   }
 
   @Override
   public void passMessage() {
+    this.view.getBoardPanel().showInvalidMoveDialog("Invalid move");
+
+  }
+
+  /**
+   * Converts coordinates from center-origin to top left origin coordinates.
+   * @param q q coord
+   * @param r r coord
+   * @return converted AxialCoord
+   */
+  private AxialCoord translateAxialCoords(int q, int r) {
+    int centerR = (int) Math.floor(this.features.getBoardArrayLength() / 2);
+    return new AxialCoord(q + centerR, r + centerR);
 
   }
 }

@@ -1,5 +1,6 @@
 package adapters;
 
+
 import model.AxialCoord;
 import model.ReadonlyIReversi;
 import provider.controller.aistrat.ReversiStratagy;
@@ -23,13 +24,17 @@ public class StrategyAdapter implements ReversiStrategy {
    */
   @Override
   public AxialCoord chooseMove(ReadonlyIReversi model, int who) {
+    /*
     Disc d;
     if (who == 0) {
       d = Disc.WHITE;
     }
     else {d = Disc.BLACK;}
-    Coordinate c = this.strat.chooseMove(new ModelAdapter(model), d);
+    Coordinate c = this.strat.chooseMove(new ModelAdapter(), d);
     return this.translateAxialCoords(c.getQ(), c.getR(), model);
+
+     */
+    return null;
   }
 
   /**

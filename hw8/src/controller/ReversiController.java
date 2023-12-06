@@ -141,5 +141,10 @@ public class ReversiController implements PlayerActions, ModelObserver {
 
   }
 
+  @Override
+  public int getBoardArrayLength() {
+    return this.model.getBoardArrayLength();
+  }
+
 
 }
