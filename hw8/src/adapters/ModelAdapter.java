@@ -167,7 +167,7 @@ public class ModelAdapter implements Reversi {
     for (int q = 0; q < this.model.getBoardArrayLength(); q++) {
       for (int r = 0; r < this.model.getBoardArrayLength(); r++) {
         if(this.model.moveAllowedCheck2(q, r, this.model.getTurn())) {
-          System.out.println(q + " " + r);
+          //System.out.println(q + " " + r);
           possibleCoords.add(new Coordinate(q, r));
         }
       }
@@ -195,8 +195,10 @@ public class ModelAdapter implements Reversi {
 
   @Override
   public int checkMove(Reversi model, Coordinate move) {
-    AxialCoord centerCoord = this.translateAxialCoords(move.getQ(), move.getR());
-    return this.model.checkMove(centerCoord.q, centerCoord.r, this.model.getTurn());
+    //AxialCoord centerCoord = this.translateAxialCoords(move.getQ(), move.getR());
+    //return this.model.checkMove(centerCoord.q, centerCoord.r, this.model.getTurn());
+    return this.model.checkMove(move.getQ(), move.getR(), this.model.getTurn());
+
   }
 
 

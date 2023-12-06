@@ -33,7 +33,7 @@ public class StrategyAdapter implements ReversiStrategy {
     }
     else {d = Disc.BLACK;}
     Coordinate c = this.strat.chooseMove(new ModelAdapter((IReversi) model), d);
-    return this.translateAxialCoords(c.getQ(), c.getR(), model);
+    return new AxialCoord(c.getQ(), c.getR());
 
 
 

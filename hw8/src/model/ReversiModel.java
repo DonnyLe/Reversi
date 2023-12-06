@@ -348,7 +348,6 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   private void moveAllowedCheck(int q, int r, int who) {
     if (isOutOfBounds(q, r)) {
-      System.out.println(q + " " + r);
       throw new IllegalArgumentException("Chosen coordinates are out of bounds");
     }
     if (this.board[q][r].getDiscOnHex() != DiscState.NONE) {
