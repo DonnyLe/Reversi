@@ -38,17 +38,4 @@ public class StrategyAdapter implements ReversiStrategy {
 
 
   }
-
-  /**
-   * Converts coordinates from center-origin to top left origin coordinates.
-   * @param q q coord
-   * @param r r coord
-   * @param model the model to base calculations on
-   * @return converted AxialCoord
-   */
-  private AxialCoord translateAxialCoords(int q, int r, ReadonlyIReversi model) {
-    int centerR = (int) Math.floor(model.getBoardArrayLength() / 2);
-    return new AxialCoord(q + centerR, r + centerR);
-
-  }
 }
