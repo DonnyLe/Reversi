@@ -1,5 +1,6 @@
 package adapters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import controller.PlayerActions;
@@ -7,20 +8,24 @@ import model.DiscState;
 import model.Hexagon;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
+import provider.controller.ControllerFeatures;
+import provider.controller.Player;
 import provider.model.Cell;
 import provider.model.Coordinate;
 import provider.model.Disc;
 import provider.model.ReversiReadOnly;
 import provider.view.BoardPanel;
+import provider.view.IBoardPanel;
 import provider.view.ReversiFrame;
 import view.IView;
 
-public class ViewAdapter implements IView {
+public class ViewAdapter implements IView, ControllerFeatures {
 
   private ReversiFrame view;
 
   private ReversiReadOnly model;
 
+  private ArrayList<PlayerActions> features = new ArrayList<>();
   public ViewAdapter(ReadonlyIReversi model){
     this.model = new ModelAdapter(model);
   }
@@ -37,6 +42,10 @@ public class ViewAdapter implements IView {
     this.view = new ReversiFrame(model);
   }
 
+
+
+
+
   /**
    * Adds features to the view.
    *
@@ -44,6 +53,11 @@ public class ViewAdapter implements IView {
    */
   @Override
   public void addPlayerActionsListeners(PlayerActions playerActions) {
+    features.add(playerActions);
+    IBoardPanel p  = this.view.getBoardPanel();
+    p.setController(this);
+
+
 
   }
 
@@ -54,6 +68,37 @@ public class ViewAdapter implements IView {
   public void startView() {
 
 
+  }
+
+  @Override
+  public void selectHexagon(int q, int r) {
+
+
+  }
+
+  @Override
+  public void confirmMove() {
+
+  }
+
+  @Override
+  public void passTurn() {
+
+  }
+
+  @Override
+  public Disc getPlayer() {
+    return null;
+  }
+
+  @Override
+  public Player getTurn() {
+    return null;
+  }
+
+  @Override
+  public String getLog() {
+    return null;
   }
 
   /**
