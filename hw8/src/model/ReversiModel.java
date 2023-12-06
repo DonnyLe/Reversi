@@ -164,6 +164,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
     hasMovesCheck(who);
 
 
+
     moveAllowedCheck(q, r, who);
 
 
@@ -347,6 +348,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   private void moveAllowedCheck(int q, int r, int who) {
     if (isOutOfBounds(q, r)) {
+      System.out.println(q + " " + r);
       throw new IllegalArgumentException("Chosen coordinates are out of bounds");
     }
     if (this.board[q][r].getDiscOnHex() != DiscState.NONE) {
@@ -384,7 +386,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
     if (isOutOfBounds(q, r)) {
       allowed = false;
     }
-    if (this.board[q][r].getDiscOnHex() != DiscState.NONE) {
+    else if (this.board[q][r].getDiscOnHex() != DiscState.NONE) {
       allowed = false;
     }
     ArrayList<int[]> validDirections = getListDirectionsToSearch(q, r, who);

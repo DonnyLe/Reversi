@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 import adapters.ModelAdapter;
+import adapters.StrategyAdapter;
 import adapters.ViewAdapter;
 import model.IReversi;
 import player.HumanPlayer;
 import player.MachinePlayer;
 import controller.ReversiController;
 import model.ReversiModel;
+import provider.controller.aistrat.CaptureMost;
 import provider.model.Reversi;
 import provider.view.ReversiFrame;
 import strategy.AvoidBeforeCornersStrategy;
@@ -74,10 +76,11 @@ public class RunReversi {
 
     HumanPlayer player1 = new HumanPlayer(model);
     HumanPlayer player2 = new HumanPlayer(model);
+    MachinePlayer mach = new MachinePlayer(model, new StrategyAdapter(new CaptureMost()));
 
     IView rv2 = new ViewAdapter(theirView);
 
-    ReversiController c1 = new ReversiController(model, player1, rv1);
+    ReversiController c1 = new ReversiController(model, mach, rv1);
     ReversiController c2 = new ReversiController(model, player2, rv2);
     model.startGame();
     rv1.render();
