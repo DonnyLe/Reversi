@@ -197,6 +197,11 @@ public class ModelAdapter implements Reversi {
     return this.model.checkMove(centerCoord.q, centerCoord.r, this.model.getTurn());
   }
 
+  @Override
+  public ArrayList<Coordinate> getPossibleMoves() {
+    return null;
+  }
+
 
   /**
    * Converts coordinates from center-origin to top left origin coordinates.
@@ -212,3 +217,6 @@ public class ModelAdapter implements Reversi {
 
 
 }
+
+
+

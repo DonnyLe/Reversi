@@ -1,5 +1,7 @@
 package provider.model;
 
+import java.util.ArrayList;
+
 /**
  * An interface to create a version of Board in which you can only call observer.
  * Methods upon it to prevent any mutation.
@@ -48,6 +50,15 @@ public interface ReversiReadOnly {
    */
   int getScore(Disc player);
 
+
   int checkMove(Reversi model, Coordinate move);
 
+
+  /**
+   * Calculates and returns a list of all possible moves for the current player.
+   *
+   * @return An {@link ArrayList} of {@link Coordinate} objects representing all possible moves.
+   *     that the current player can make.
+   */
+  ArrayList<Coordinate> getPossibleMoves();
 } 

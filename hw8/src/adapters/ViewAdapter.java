@@ -1,25 +1,33 @@
 package adapters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import controller.PlayerActions;
+import model.AxialCoord;
 import model.DiscState;
 import model.Hexagon;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
+import provider.controller.ControllerFeatures;
+import provider.controller.Player;
 import provider.model.Cell;
 import provider.model.Coordinate;
 import provider.model.Disc;
 import provider.model.ReversiReadOnly;
 import provider.view.BoardPanel;
+import provider.view.IBoardPanel;
 import provider.view.ReversiFrame;
 import view.IView;
 
-public class ViewAdapter implements IView {
+public class ViewAdapter implements IView, ControllerFeatures {
 
+  private boolean active;
   private ReversiFrame view;
 
-  private ReversiReadOnly model;
+
+  private ArrayList<PlayerActions> features = new ArrayList<>();
+  private AxialCoord selectedHexLocation;
 
   public ViewAdapter(ReversiFrame view){
     this.view = view;
@@ -33,8 +41,12 @@ public class ViewAdapter implements IView {
    */
   @Override
   public void render() {
-    this.view.setVisible(true);
+      this.view.setVisible(true);
   }
+
+
+
+
 
   /**
    * Adds features to the view.
@@ -44,6 +56,12 @@ public class ViewAdapter implements IView {
   @Override
   public void addPlayerActionsListeners(PlayerActions playerActions) {
 
+    features.add(playerActions);
+    IBoardPanel p  = this.view.getBoardPanel();
+    p.setController(this);
+
+
+
   }
 
   /**
@@ -51,8 +69,56 @@ public class ViewAdapter implements IView {
    */
   @Override
   public void startView() {
+    this.active = true;
 
 
+  }
+
+  @Override
+  public void selectHexagon(int q, int r) {
+
+    this.selectedHexLocation = new AxialCoord(q, r);
+
+
+  }
+
+  @Override
+  public void confirmMove() {
+    if(active) {
+      if (this.selectedHexLocation != null) {
+        for (PlayerActions f : this.features) {
+          f.move(this.selectedHexLocation);
+        }
+        this.selectedHexLocation = null;
+      }
+    }
+
+  }
+
+  @Override
+  public void passTurn() {
+    if(active) {
+      for (PlayerActions f : this.features) {
+        f.pass();
+      }
+    }
+
+
+  }
+
+  @Override
+  public Disc getPlayer() {
+    return null;
+  }
+
+  @Override
+  public Player getTurn() {
+    return null;
+  }
+
+  @Override
+  public String getLog() {
+    return null;
   }
 
   /**
@@ -60,7 +126,7 @@ public class ViewAdapter implements IView {
    */
   @Override
   public void updateView() {
-
+    this.view.repaint();
   }
 
   /**
@@ -71,6 +137,7 @@ public class ViewAdapter implements IView {
   @Override
   public void displayError(RuntimeException e) {
 
+      this.view.getBoardPanel().showInvalidMoveDialog(e.getMessage());
   }
 
   /**
@@ -86,7 +153,6 @@ public class ViewAdapter implements IView {
    */
   @Override
   public void displayDraw() {
-
   }
 
   /**
@@ -94,6 +160,7 @@ public class ViewAdapter implements IView {
    */
   @Override
   public void stopView() {
+    this.active = false;
 
   }
 

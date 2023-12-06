@@ -1,9 +1,12 @@
 package controller;
 
+import adapters.PlayerAdapter;
 import model.AxialCoord;
 import model.IReversi;
 import player.HumanPlayer;
 import player.IPlayer;
+import provider.controller.Player;
+import provider.model.Disc;
 import view.IView;
 
 /**
@@ -13,6 +16,8 @@ public class ReversiController implements PlayerActions, ModelObserver {
   private IReversi model;
   private IPlayer player;
   private IView view;
+
+  private Disc playerDisc;
 
   /**
    * Constructor for the controller.
@@ -36,6 +41,14 @@ public class ReversiController implements PlayerActions, ModelObserver {
    */
   @Override
   public void yourTurn() {
+    if(this.model.getTurn() == 0) {
+      playerDisc = Disc.WHITE;
+    }
+    else {
+      playerDisc = Disc.BLACK;
+    }
+
+
     this.player.move();
     if (this.player instanceof HumanPlayer) {
       this.view.startView();
@@ -116,6 +129,16 @@ public class ReversiController implements PlayerActions, ModelObserver {
     this.model.passTurn();
   }
 
+  @Override
+  public Disc getPlayer() {
+    return this.playerDisc;
+  }
+
+  @Override
+  public Player getTurn() {
+    return new PlayerAdapter(this.player, this.playerDisc);
+
+  }
 
 
 }

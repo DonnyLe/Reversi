@@ -511,8 +511,7 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
    *
    * @return ReversiModel deep copy of the model
    */
-  @Override
-  public ReversiModel copyBoard() {
+  private ReversiModel copyBoard() {
     ReversiModel copy = new ReversiModel();
     Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];
     for (int i = 0; i < this.board.length; i++) {

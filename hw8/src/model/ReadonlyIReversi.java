@@ -57,12 +57,7 @@ public interface ReadonlyIReversi {
    */
   int getTurn();
 
-  /**
-   * Returns a copy of the model.
-   *
-   * @return ReversiModel deep copy of the model
-   */
-  ReadonlyIReversi copyBoard();
+
 
   public Hexagon[][] copyBoard2();
 
