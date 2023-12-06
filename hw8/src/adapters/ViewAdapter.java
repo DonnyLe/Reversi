@@ -21,8 +21,8 @@ public class ViewAdapter implements IView {
 
   private ReversiReadOnly model;
 
-  public ViewAdapter(ReadonlyIReversi model){
-    this.model = new ModelAdapter(model);
+  public ViewAdapter(ReversiFrame view){
+    this.view = view;
   }
 
 
@@ -33,8 +33,7 @@ public class ViewAdapter implements IView {
    */
   @Override
   public void render() {
-
-    this.view = new ReversiFrame(model);
+    this.view.setVisible(true);
   }
 
   /**
