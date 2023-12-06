@@ -62,7 +62,7 @@ public interface ReadonlyIReversi {
    *
    * @return ReversiModel deep copy of the model
    */
-  ReversiModel copyBoard();
+  ReadonlyIReversi copyBoard();
 
   public Hexagon[][] copyBoard2();
 
