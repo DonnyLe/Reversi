@@ -10,6 +10,7 @@ import model.ReadonlyIReversi;
 import provider.model.Cell;
 import provider.model.Coordinate;
 import provider.model.Disc;
+import provider.model.Reversi;
 import provider.model.ReversiReadOnly;
 
 public class ModelAdapter implements ReversiReadOnly {
@@ -103,6 +104,12 @@ public class ModelAdapter implements ReversiReadOnly {
       this.model.getScore(0);
     }
     return 0;
+  }
+
+  @Override
+  public int checkMove(Reversi model, Coordinate move) {
+    AxialCoord centerCoord = this.translateAxialCoords(move.getQ(), move.getR());
+    return this.model.checkMove(centerCoord.q, centerCoord.r, this.model.getTurn());
   }
 
 
