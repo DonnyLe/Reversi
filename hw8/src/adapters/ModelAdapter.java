@@ -7,6 +7,7 @@ import java.util.HashMap;
 import model.AxialCoord;
 import model.DiscState;
 import model.Hexagon;
+import model.IReversi;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
 import provider.model.Cell;
@@ -16,8 +17,8 @@ import provider.model.Reversi;
 import provider.model.ReversiReadOnly;
 
 public class ModelAdapter implements Reversi {
-  ReversiModel model;
-  public ModelAdapter(ReversiModel model){
+  IReversi model;
+  public ModelAdapter(IReversi model){
     this.model = model;
   }
 

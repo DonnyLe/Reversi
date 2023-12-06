@@ -127,6 +127,9 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void updateView() {
+
+    this.view.getBoardPanel().initializeHexagons(new ModelAdapter(this.features.getModel()));
+    this.view.getBoardPanel().repaint();
     this.view.repaint();
   }
 
@@ -170,7 +173,8 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void repaint() {
-    this.view.repaint();
+    System.out.println("update request");
+    this.view.getBoardPanel().repaint();
 
   }
 

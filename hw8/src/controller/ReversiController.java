@@ -3,6 +3,7 @@ package controller;
 import adapters.PlayerAdapter;
 import model.AxialCoord;
 import model.IReversi;
+import model.ReversiModel;
 import player.HumanPlayer;
 import player.IPlayer;
 import provider.controller.Player;
@@ -141,10 +142,20 @@ public class ReversiController implements PlayerActions, ModelObserver {
 
   }
 
+  /**
+   * Returns the length of the board array of the model.
+   * @return int board array length
+   */
   @Override
   public int getBoardArrayLength() {
     return this.model.getBoardArrayLength();
   }
+
+  public IReversi getModel() {
+    return this.model;
+  }
+
+
 
 
 }

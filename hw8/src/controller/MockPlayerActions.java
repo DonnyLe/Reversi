@@ -2,6 +2,7 @@
 package controller;
 
 import model.AxialCoord;
+import model.IReversi;
 import model.ReversiModel;
 import player.IPlayer;
 import provider.controller.Player;
@@ -117,6 +118,11 @@ public class MockPlayerActions implements PlayerActions, ModelObserver {
   @Override
   public int getBoardArrayLength() {
     return 0;
+  }
+
+  @Override
+  public IReversi getModel() {
+    return null;
   }
 
 

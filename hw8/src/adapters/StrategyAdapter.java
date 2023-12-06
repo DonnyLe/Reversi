@@ -24,16 +24,19 @@ public class StrategyAdapter implements ReversiStrategy {
    */
   @Override
   public AxialCoord chooseMove(ReadonlyIReversi model, int who) {
+
     /*
     Disc d;
     if (who == 0) {
       d = Disc.WHITE;
     }
     else {d = Disc.BLACK;}
-    Coordinate c = this.strat.chooseMove(new ModelAdapter(), d);
+    Coordinate c = this.strat.chooseMove(new ModelAdapter(model), d);
     return this.translateAxialCoords(c.getQ(), c.getR(), model);
 
+
      */
+
     return null;
   }
 

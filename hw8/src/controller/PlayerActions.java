@@ -1,6 +1,8 @@
 package controller;
 
 import model.AxialCoord;
+import model.IReversi;
+import model.ReversiModel;
 import provider.controller.Player;
 import provider.model.Disc;
 
@@ -25,4 +27,8 @@ public interface PlayerActions {
   Player getTurn();
 
   int getBoardArrayLength();
+
+  IReversi getModel();
+
+
 }
