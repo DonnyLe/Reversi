@@ -1,6 +1,7 @@
 package adapters;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.AxialCoord;
@@ -112,6 +113,11 @@ public class ModelAdapter implements ReversiReadOnly {
     return this.model.checkMove(centerCoord.q, centerCoord.r, this.model.getTurn());
   }
 
+  @Override
+  public ArrayList<Coordinate> getPossibleMoves() {
+    return null;
+  }
+
 
   /**
    * Converts coordinates from center-origin to top left origin coordinates.
@@ -127,3 +133,6 @@ public class ModelAdapter implements ReversiReadOnly {
 
 
 }
+
+
+

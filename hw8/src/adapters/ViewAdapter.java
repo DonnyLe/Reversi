@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import controller.PlayerActions;
+import model.AxialCoord;
 import model.DiscState;
 import model.Hexagon;
 import model.ReadonlyIReversi;
@@ -21,13 +22,15 @@ import view.IView;
 
 public class ViewAdapter implements IView, ControllerFeatures {
 
+  private boolean active;
   private ReversiFrame view;
 
-  private ReversiReadOnly model;
 
   private ArrayList<PlayerActions> features = new ArrayList<>();
-  public ViewAdapter(ReadonlyIReversi model){
-    this.model = new ModelAdapter(model);
+  private AxialCoord selectedHexLocation;
+
+  public ViewAdapter(ReversiFrame view){
+    this.view = view;
   }
 
 
@@ -38,8 +41,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void render() {
-
-    this.view = new ReversiFrame(model);
+      this.view.setVisible(true);
   }
 
 
@@ -53,6 +55,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void addPlayerActionsListeners(PlayerActions playerActions) {
+
     features.add(playerActions);
     IBoardPanel p  = this.view.getBoardPanel();
     p.setController(this);
@@ -66,6 +69,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void startView() {
+    this.active = true;
 
 
   }
@@ -73,16 +77,32 @@ public class ViewAdapter implements IView, ControllerFeatures {
   @Override
   public void selectHexagon(int q, int r) {
 
+    this.selectedHexLocation = new AxialCoord(q, r);
+
 
   }
 
   @Override
   public void confirmMove() {
+    if(active) {
+      if (this.selectedHexLocation != null) {
+        for (PlayerActions f : this.features) {
+          f.move(this.selectedHexLocation);
+        }
+        this.selectedHexLocation = null;
+      }
+    }
 
   }
 
   @Override
   public void passTurn() {
+    if(active) {
+      for (PlayerActions f : this.features) {
+        f.pass();
+      }
+    }
+
 
   }
 
@@ -106,7 +126,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void updateView() {
-
+    this.view.repaint();
   }
 
   /**
@@ -117,6 +137,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
   @Override
   public void displayError(RuntimeException e) {
 
+      this.view.getBoardPanel().showInvalidMoveDialog(e.getMessage());
   }
 
   /**
@@ -132,7 +153,6 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void displayDraw() {
-
   }
 
   /**
@@ -140,6 +160,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void stopView() {
+    this.active = false;
 
   }
 
