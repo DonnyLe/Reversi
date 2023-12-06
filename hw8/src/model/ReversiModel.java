@@ -372,6 +372,39 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
     }
   }
 
+  /**
+   * Returns true if move is valid.
+   *
+   * @param q   q coord
+   * @param r   r coord
+   * @param who integer representing player
+   *
+   */
+  @Override
+  public boolean moveAllowedCheck2(int q, int r, int who) {
+    boolean allowed = true;
+    if (isOutOfBounds(q, r)) {
+      allowed = false;
+    }
+    if (this.board[q][r].getDiscOnHex() != DiscState.NONE) {
+      allowed = false;
+    }
+    ArrayList<int[]> validDirections = getListDirectionsToSearch(q, r, who);
+    if (validDirections.isEmpty()) {
+      allowed = false;
+    } else {
+      ArrayList<int[]> validStraightLines = findValidStraightLines(validDirections, q, r, who);
+      if (validStraightLines.isEmpty()) {
+        allowed = false;
+      }
+    }
+
+    if (who != this.getTurn()) {
+      allowed = false;
+    }
+    return allowed;
+  }
+
 
   /**
    * Function to allow player to pass. Players are forced to manually pass if there are no
@@ -528,6 +561,16 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
     copy.startGame(copyB, this.turn);
     return copy;
+  }
+
+  @Override
+  public Hexagon[][] copyBoard2(){
+    Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];
+    for (int i = 0; i < this.board.length; i++) {
+      copyB[i] = Arrays.copyOf(this.board[i], this.board[i].length);
+
+    }
+    return copyB;
   }
 
   /**

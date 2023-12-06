@@ -525,6 +525,16 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
     return copy;
   }
 
+  @Override
+  public Hexagon[][] copyBoard2() {
+    return new Hexagon[0][];
+  }
+
+  @Override
+  public boolean moveAllowedCheck2(int q, int r, int who) {
+    return false;
+  }
+
   /**
    * Adds the controller as an observer so that it can notify it.
    * @param controller the controller to be added

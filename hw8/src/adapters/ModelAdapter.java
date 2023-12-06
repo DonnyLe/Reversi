@@ -1,21 +1,23 @@
 package adapters;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.AxialCoord;
 import model.DiscState;
 import model.Hexagon;
 import model.ReadonlyIReversi;
+import model.ReversiModel;
 import provider.model.Cell;
 import provider.model.Coordinate;
 import provider.model.Disc;
 import provider.model.Reversi;
 import provider.model.ReversiReadOnly;
 
-public class ModelAdapter implements ReversiReadOnly {
-  ReadonlyIReversi model;
-  public ModelAdapter(ReadonlyIReversi model){
+public class ModelAdapter implements Reversi {
+  ReversiModel model;
+  public ModelAdapter(ReversiModel model){
     this.model = model;
   }
 
@@ -40,6 +42,58 @@ public class ModelAdapter implements ReversiReadOnly {
     if (state == DiscState.WHITE) {return Disc.WHITE;}
     else if (state == DiscState.BLACK) {return Disc.BLACK;}
     else {return Disc.EMPTY;}
+  }
+
+  /**
+   * Returns current color.
+   */
+  @Override
+  public Disc currentColor() {
+    if(this.model.getTurn() == 0) {return Disc.WHITE;}
+    else {return Disc.BLACK;}
+  }
+
+  /**
+   * Passes the turn to the next player.
+   */
+  @Override
+  public void passTurn() {
+
+    this.model.passTurn();
+  }
+
+  /**
+   * Attempts to make a move on the board by placing the current
+   * player's disc at the specified coordinate.
+   * The method validates the move, flips any captured opponent discs,
+   * and switches the turn to the next player.
+   *
+   * @param dest The target coordinate where the current player's disc should be placed.
+   * @throws IllegalArgumentException If the move is invalid, such as when the target
+   *                                  cell is already occupied or doesn't result in any opponent
+   *                                  disc captures.
+   */
+  @Override
+  public void makeMove(Coordinate dest) {
+
+    this.model.placeMove(dest.getQ(), dest.getR(), this.model.getTurn());
+  }
+
+  /**
+   * Places a disc at the specified cell coordinates.
+   *
+   * @param q The q-coordinate of the cell.
+   * @param r The r-coordinate of the cell.
+   * @param d The disc to be placed.
+   * @throws IllegalArgumentException If the cell doesn't exist in the grid.
+   */
+  @Override
+  public void placeDisc(int q, int r, Disc d) {
+
+    int turn;
+    if (d == Disc.WHITE) {turn = 0;}
+    else {turn = 1;}
+    this.model.placeMove(q, r, turn);
   }
 
   /**
@@ -87,6 +141,37 @@ public class ModelAdapter implements ReversiReadOnly {
   @Override
   public boolean isGameOver() {
     return this.model.isGameOver();
+  }
+
+  /**
+   * Creates a deep copy of the current game board.
+   *
+   * @return A {@link HashMap} representing a copy of the board. Each {@link Coordinate}.
+   * key is mapped to a {@link Cell} value.
+   */
+  @Override
+  public HashMap<Coordinate, Cell> createCopyOfBoard() {
+    return this.convertBoard(this.model.copyBoard2());
+  }
+
+  /**
+   * Calculates and returns a list of all possible moves for the current player.
+   *
+   * @return An {@link ArrayList} of {@link Coordinate} objects representing all possible moves.
+   * that the current player can make.
+   */
+  @Override
+  public ArrayList<Coordinate> getPossibleMoves() {
+    ArrayList<Coordinate> possibleCoords = new ArrayList<Coordinate>();
+    for (int q = 0; q < this.model.getBoardArrayLength(); q++) {
+      for (int r = 0; r < this.model.getBoardArrayLength(); r++) {
+        if(this.model.moveAllowedCheck2(q, r, this.model.getTurn())) {
+          possibleCoords.add(new Coordinate(q, r));
+        }
+      }
+    }
+    return possibleCoords;
+
   }
 
   /**

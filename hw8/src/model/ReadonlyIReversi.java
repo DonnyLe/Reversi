@@ -64,6 +64,10 @@ public interface ReadonlyIReversi {
    */
   ReversiModel copyBoard();
 
+  public Hexagon[][] copyBoard2();
+
+  public boolean moveAllowedCheck2(int q, int r, int who);
+
   /**
    * Checks the score increase of a given move.
    * @param q q coordinate of hex
