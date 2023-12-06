@@ -7,6 +7,12 @@ package model;
 public interface IReversi extends ReadonlyIReversi, ModelStatus {
 
   /**
+   * Starts the ReversiModel game and produces a 2D array representation of the board.
+   *
+   */
+  void startGame();
+
+  /**
    * Place a move based on rules of Reversi.
    *
    * @param q   q coord for current players move
@@ -15,13 +21,7 @@ public interface IReversi extends ReadonlyIReversi, ModelStatus {
    */
   void placeMove(int q, int r, int who);
 
-  /**
-   * Starts the ReversiModel game and produces a 2D array representation of the board based on the
-   * sideLen.
-   *
-   * @param sideLen side length of Hexagonal board
-   */
-  void startGame(int sideLen);
+
 
 
   /**

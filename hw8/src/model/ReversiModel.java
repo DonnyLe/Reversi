@@ -19,8 +19,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
   //origin or center of the hexagonal board is the (sideLen - 1, sideLen - 1)
 
   private Hexagon[][] board;
-
-
+  private final int sideLen;
   private int numSkips;
   private int turn;
   private final int numPlayers = 2;
@@ -32,28 +31,28 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
    */
-  public ReversiModel() {
+  public ReversiModel(int sideLen) {
     this.isGameStarted = false;
     this.board = new Hexagon[0][0];
     this.numSkips = 0;
     this.playerColors = new HashMap<>();
     DiscState[] colorList = DiscState.values();
+    this.sideLen = sideLen;
 
     for (int i = 0; i < this.numPlayers; i++) {
       this.playerColors.put(i, colorList[i]);
     }
+    initializeBoard();
   }
 
   /**
    * Starts the ReversiModel game and produces a 2D array representation of the board based on the
    * sideLen.
    *
-   * @param sideLen side length of Hexagonal board
    */
   @Override
-  public void startGame(int sideLen) {
+  public void startGame() {
     this.isGameStarted = true;
-    initializeBoard(sideLen);
 
   }
 
@@ -78,11 +77,10 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    * all unused spaces will be always null (INVARIANT). For each used space, they will be
    * initialized as hexagons with DiscState.NONE.
    *
-   * @param sideLen number of hexagons in the side length of the hexagonal board
    * @throws IllegalArgumentException if side length is less than 3
    */
-  private void initializeBoard(int sideLen) {
-    if (sideLen < 3) {
+  private void initializeBoard() {
+    if (this.sideLen < 3) {
       throw new IllegalArgumentException("Side length must be at least 3");
     }
     initalizeTopHalf(sideLen);
@@ -428,7 +426,6 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    */
   @Override
   public DiscState getDiscAt(int q, int r) {
-    gameStartedCheck();
 
     if (isOutOfBounds(q, r)) {
       throw new IllegalArgumentException("Chosen coordinates are out of bounds");
@@ -444,7 +441,6 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    */
   @Override
   public int getBoardArrayLength() {
-    gameStartedCheck();
     return this.board.length;
   }
 
@@ -455,8 +451,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    */
   @Override
   public int getSideLength() {
-    gameStartedCheck();
-    return (this.board.length + 1) / 2;
+    return this.sideLen;
   }
 
   /**
@@ -550,7 +545,7 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    * @return ReversiModel deep copy of the model
    */
   private ReversiModel copyBoard() {
-    ReversiModel copy = new ReversiModel();
+    ReversiModel copy = new ReversiModel(this.sideLen);
     Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];
     for (int i = 0; i < this.board.length; i++) {
       copyB[i] = Arrays.copyOf(this.board[i], this.board[i].length);
@@ -573,12 +568,17 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
   }
 
   /**
-   * Adds the controller as an observer so that it can notify it.
+   * Adds the controller as an observer so that it can notify it. In addition,
+   * by returning the integer representing the observer/player, the observer can know their
+   * color (0 is white, 1 is black)
+   *
    * @param controller the controller to be added
+   * @return the player's number in the model
    */
   @Override
-  public void addObserver(ModelObserver controller) {
+  public int addObserver(ModelObserver controller) {
     controllers.add(controller);
+    return this.controllers.size() - 1;
   }
 
   /**
@@ -586,8 +586,6 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
    */
   @Override
   public void notifyYourTurn() {
-    //System.out.println("Controller " + this.turn + " " + controllers.get(this.turn));
-
 
     if (!controllers.isEmpty()) {
       controllers.get(this.turn).yourTurn();

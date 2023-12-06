@@ -26,7 +26,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
   private ReversiFrame view;
 
 
-  private ArrayList<PlayerActions> features = new ArrayList<>();
+  private PlayerActions features;
   private AxialCoord selectedHexLocation;
 
   public ViewAdapter(ReversiFrame view){
@@ -56,7 +56,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
   @Override
   public void addPlayerActionsListeners(PlayerActions playerActions) {
 
-    features.add(playerActions);
+    features = playerActions;
     IBoardPanel p  = this.view.getBoardPanel();
     p.setController(this);
 
@@ -86,36 +86,33 @@ public class ViewAdapter implements IView, ControllerFeatures {
   public void confirmMove() {
     if(active) {
       if (this.selectedHexLocation != null) {
-        for (PlayerActions f : this.features) {
-          f.move(this.selectedHexLocation);
+        features.move(this.selectedHexLocation);
         }
         this.selectedHexLocation = null;
       }
     }
 
-  }
+
 
   @Override
   public void passTurn() {
     if(active) {
-      for (PlayerActions f : this.features) {
-        f.pass();
+        features.pass();
       }
-    }
+
 
 
   }
 
   @Override
   public Disc getPlayer() {
-    return null;
+    return features.getPlayer();
   }
 
   @Override
   public Player getTurn() {
-    return null;
+    return features.getTurn();
   }
-
   @Override
   public String getLog() {
     return null;

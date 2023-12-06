@@ -24,7 +24,7 @@ public class ReversiCreator {
    * @param args args
    */
   public static void main(String[] args) {
-    ReversiModel model = new ReversiModel();
+    ReversiModel model = new ReversiModel(4);
     int sideLength = 4;
 
 
@@ -48,9 +48,11 @@ public class ReversiCreator {
           sideLength = getInt(args[i]);
           sideLengthSearch = false;
           sideLengthFound = true;
+          model = new ReversiModel(sideLength);
         }
         if (args[i].equals("side-length")) {
           sideLengthSearch = true;
+
         }
         if (args[i].equals("human-player")) {
           IPlayer player = players[currentPlayer];
@@ -73,7 +75,7 @@ public class ReversiCreator {
     if (players[0] != null && players[1] != null ) {
       ReversiController c1 = new ReversiController(model, players[0], rv1);
       ReversiController c2 = new ReversiController(model, players[1], rv2);
-      model.startGame(sideLength);
+      model.startGame();
       rv1.render();
       rv2.render();
       model.init();

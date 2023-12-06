@@ -29,7 +29,14 @@ public class ReversiController implements PlayerActions, ModelObserver {
     this.model = model;
     this.player = player;
     this.view = view;
-    this.model.addObserver(this);
+    int playerNum = this.model.addObserver(this);
+    if(playerNum== 0) {
+      this.playerDisc = Disc.WHITE;
+    }
+    else {
+      this.playerDisc = Disc.BLACK;
+    }
+
     this.view.addPlayerActionsListeners(this);
     this.player.addFeatures(this);
   }
@@ -41,12 +48,6 @@ public class ReversiController implements PlayerActions, ModelObserver {
    */
   @Override
   public void yourTurn() {
-    if(this.model.getTurn() == 0) {
-      playerDisc = Disc.WHITE;
-    }
-    else {
-      playerDisc = Disc.BLACK;
-    }
 
 
     this.player.move();

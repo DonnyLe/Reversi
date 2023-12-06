@@ -77,8 +77,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
    */
   public void updateView() {
     revalidate();
+    this.repaint();
     this.reversiBoard.revalidate();
-
     this.reversiBoard.repaint();
   }
 

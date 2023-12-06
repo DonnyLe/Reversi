@@ -1,4 +1,3 @@
-package test;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,8 +29,8 @@ public class ReversiTests {
 
   @Test
   public void testVisualize() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(6);
+    ReversiModel m1 = new ReversiModel(6);
+    m1.startGame();
     ReversiTextualView v1 = new ReversiTextualView(m1);
 
 
@@ -48,8 +47,8 @@ public class ReversiTests {
                     + "    _ _ _ _ _ _ _     \n"
                     + "     _ _ _ _ _ _      \n");
 
-    ReversiModel m2 = new ReversiModel();
-    m2.startGame(4);
+    ReversiModel m2 = new ReversiModel(4);
+    m2.startGame();
     ReversiTextualView v2 = new ReversiTextualView(m2);
     System.out.print(v2.getString());
 
@@ -65,8 +64,8 @@ public class ReversiTests {
 
   @Test
   public void testMove() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
     m1.passTurn();
     m1.placeMove(2, 2, 1);
 
@@ -89,10 +88,10 @@ public class ReversiTests {
 
   @Test
   public void testScore() {
-    ReversiModel m1 = new ReversiModel();
+    ReversiModel m1 = new ReversiModel(4);
     ReversiTextualView v1 = new ReversiTextualView(m1);
 
-    m1.startGame(4);
+    m1.startGame();
     m1.passTurn();
     m1.placeMove(2, 2, 1);
     m1.placeMove(1, 2, 0);
@@ -104,8 +103,8 @@ public class ReversiTests {
 
   @Test
   public void testPassGameOver() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
 
     m1.passTurn();
     m1.passTurn();
@@ -115,8 +114,8 @@ public class ReversiTests {
 
   @Test
   public void testWrongTurn() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
             () -> m1.placeMove(2, 2, 1));
@@ -129,8 +128,8 @@ public class ReversiTests {
 
   @Test
   public void testCannotMoveWhileGameOver() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
 
     m1.passTurn();
     m1.passTurn();
@@ -146,7 +145,7 @@ public class ReversiTests {
 
   @Test
   public void testCannotMoveBeforeGameStarted() {
-    ReversiModel m1 = new ReversiModel();
+    ReversiModel m1 = new ReversiModel(4);
 
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
@@ -160,11 +159,11 @@ public class ReversiTests {
 
   @Test
   public void testInvalidSideLength() {
-    ReversiModel m1 = new ReversiModel();
+    ReversiModel m1 = new ReversiModel(2);
 
 
     Exception exception = Assert.assertThrows(IllegalArgumentException.class,
-            () -> m1.startGame(2));
+            () -> m1.startGame());
 
     String expectedMessage = "Side length must be at least 3";
     String actualMessage = exception.getMessage();
@@ -175,8 +174,8 @@ public class ReversiTests {
 
   @Test
   public void testOutOfBoundsMove() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
 
 
     Exception exception = Assert.assertThrows(IllegalArgumentException.class,
@@ -191,8 +190,8 @@ public class ReversiTests {
 
   @Test
   public void testInvalidInBoundsMove() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
 
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
@@ -209,8 +208,8 @@ public class ReversiTests {
 
   @Test
   public void testInvalidInBoundsMove2() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
             () -> m1.placeMove(6, 1, 0));
@@ -224,8 +223,8 @@ public class ReversiTests {
 
   @Test
   public void testInvalidMoveAlreadyFilledHex() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
 
     Exception exception = Assert.assertThrows(IllegalStateException.class,
             () -> m1.placeMove(3, 2, 0));
@@ -239,8 +238,8 @@ public class ReversiTests {
 
   @Test
   public void testTurns() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
     m1.passTurn(); //turn = 0
     m1.passTurn(); //turn = 1
     m1.passTurn(); //turn = 0
@@ -250,8 +249,8 @@ public class ReversiTests {
 
   @Test
   public void testMoveWithNoValidStraightLines() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
     Exception exception = Assert.assertThrows(IllegalStateException.class,
             () -> m1.placeMove(5, 3, 0));
     String expectedMessage = "Chosen move coordinates has no straights lines "
@@ -263,8 +262,8 @@ public class ReversiTests {
 
   @Test
   public void testMostCapturesStrategy() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
     MostCapturesStrategy strat = new MostCapturesStrategy();
 
     AxialCoord p = strat.chooseMove(m1, 0);
@@ -280,16 +279,16 @@ public class ReversiTests {
 
   @Test
   public void testAdditionalMethods() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
     Assert.assertEquals(m1.getSideLength(), 4);
     Assert.assertEquals(m1.getBoardArrayLength(), 7);
   }
 
   @Test
   public void testAvoidBeforeCornersStrategy() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(5);
+    ReversiModel m1 = new ReversiModel(5);
+    m1.startGame();
     AvoidBeforeCornersStrategy strat = new AvoidBeforeCornersStrategy();
 
     AxialCoord p = strat.chooseMove(m1, 0);
@@ -307,8 +306,8 @@ public class ReversiTests {
 
   @Test
   public void testCornersStrategy() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
     CornersStrategy strat = new CornersStrategy();
 
     ReversiTextualView v = new ReversiTextualView(m1);
@@ -326,8 +325,8 @@ public class ReversiTests {
 
   @Test
   public void testModularStrategy() {
-    ReversiModel m1 = new ReversiModel();
-    m1.startGame(4);
+    ReversiModel m1 = new ReversiModel(4);
+    m1.startGame();
     ArrayList<ReversiStrategy> strategies = new ArrayList<ReversiStrategy>();
     strategies.add(new CornersStrategy());
     strategies.add(new AvoidBeforeCornersStrategy());
@@ -381,8 +380,8 @@ public class ReversiTests {
 
   @Test
   public void testMock() {
-    MockModel m1 = new MockModel();
-    m1.startGame(4);
+    MockModel m1 = new MockModel(4);
+    m1.startGame();
     MostCapturesStrategy strat = new MostCapturesStrategy();
 
     ReversiTextualView v = new ReversiTextualView(m1);
@@ -399,14 +398,14 @@ public class ReversiTests {
 
   @Test
   public void testController() {
-    ReversiModel m1 = new ReversiModel();
+    ReversiModel m1 = new ReversiModel(4);
     MockView v1 = new MockView();
     MockView v2 = new MockView();
     HumanPlayer p1 = new HumanPlayer(m1);
     HumanPlayer p2 = new HumanPlayer(m1);
     ReversiController c1 = new ReversiController(m1, p1, v1);
     ReversiController c2 = new ReversiController(m1, p2, v2);
-    m1.startGame(4);
+    m1.startGame();
     m1.init();
 
     c1.move(new AxialCoord(4, 1));
@@ -462,14 +461,14 @@ public class ReversiTests {
 
   @Test
   public void testObserver() {
-    MockModel m1 = new MockModel();
+    MockModel m1 = new MockModel(4);
     MockView v1 = new MockView();
     MockView v2 = new MockView();
     HumanPlayer p1 = new HumanPlayer(m1);
     HumanPlayer p2 = new HumanPlayer(m1);
     ReversiController c1 = new ReversiController(m1, p1, v1);
     ReversiController c2 = new ReversiController(m1, p2, v2);
-    m1.startGame(4);
+    m1.startGame();
     m1.init();
 
     c1.move(new AxialCoord(4, 1));
@@ -513,7 +512,7 @@ public class ReversiTests {
 
   @Test
   public void testMachinePlayer() {
-    ReversiModel model = new ReversiModel();
+    ReversiModel model = new ReversiModel(4);
     ArrayList<ReversiStrategy> stratList = new ArrayList<>();
     stratList.add(new CornersStrategy());
     stratList.add(new AvoidBeforeCornersStrategy());
@@ -524,15 +523,15 @@ public class ReversiTests {
 
     MockPlayerActions mock1 = new MockPlayerActions(model, player1);
     MockPlayerActions mock2 = new MockPlayerActions(model, player2);
-    model.startGame(4);
+    model.startGame();
     model.init();
     ReversiTextualView view = new ReversiTextualView(model);
     view.render();
     String player1Actual = mock1.getLog();
     String player2Actual = mock2.getLog();
 
-    ReversiModel sameModel = new ReversiModel();
-    sameModel.startGame(4);
+    ReversiModel sameModel = new ReversiModel(4);
+    sameModel.startGame();
 
     ArrayList<ArrayList<AxialCoord>> chosenMoves = new ArrayList<>();
     chosenMoves.add(new ArrayList<AxialCoord>());

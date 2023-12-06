@@ -13,6 +13,7 @@ import controller.ModelObserver;
  * game uses Hexagons instead of square (for shape of board and shape of spaces).
  */
 public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
+  private final int sideLen;
   private boolean isGameStarted;
   //uses the axial coordinate system (see README for visual)
   //2D array is zero-indexed, using q and r from the axial coordinate system as inputs
@@ -34,9 +35,11 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
 
   /**
    * Default constructor for a ReversiModel. Initializes all fields.
+   * @param sideLen number of hexagons in the side length of the hexagonal board
    */
-  public MockModel() {
+  public MockModel(int sideLen) {
     this.isGameStarted = false;
+    this.sideLen = sideLen;
     this.board = new Hexagon[0][0];
     this.numSkips = 0;
     this.playerColors = new HashMap<>();
@@ -51,12 +54,11 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
    * Starts the ReversiModel game and produces a 2D array representation of the board based on the
    * sideLen.
    *
-   * @param sideLen side length of Hexagonal board
    */
   @Override
-  public void startGame(int sideLen) {
+  public void startGame() {
     this.isGameStarted = true;
-    initializeBoard(sideLen);
+    initializeBoard();
 
   }
 
@@ -73,10 +75,9 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
    * all unused spaces will be always null (INVARIANT). For each used space, they will be
    * initialized as hexagons with DiscState.NONE.
    *
-   * @param sideLen number of hexagons in the side length of the hexagonal board
    * @throws IllegalArgumentException if side length is less than 3
    */
-  private void initializeBoard(int sideLen) {
+  private void initializeBoard() {
     if (sideLen < 3) {
       throw new IllegalArgumentException("Side length must be at least 3");
     }
@@ -417,8 +418,7 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
    */
   @Override
   public int getSideLength() {
-    gameStartedCheck();
-    return (this.board.length + 1) / 2;
+    return this.sideLen;
   }
 
   /**
@@ -512,7 +512,7 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
    * @return ReversiModel deep copy of the model
    */
   private ReversiModel copyBoard() {
-    ReversiModel copy = new ReversiModel();
+    ReversiModel copy = new ReversiModel(this.sideLen);
     Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];
     for (int i = 0; i < this.board.length; i++) {
       copyB[i] = Arrays.copyOf(this.board[i], this.board[i].length);
@@ -536,11 +536,14 @@ public class MockModel implements IReversi, ReadonlyIReversi, ModelStatus {
 
   /**
    * Adds the controller as an observer so that it can notify it.
+   *
    * @param controller the controller to be added
+   * @return
    */
   @Override
-  public void addObserver(ModelObserver controller) {
+  public int addObserver(ModelObserver controller) {
     controllers.add(controller);
+    return 0;
   }
 
 

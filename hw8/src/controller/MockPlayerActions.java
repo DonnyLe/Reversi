@@ -4,6 +4,8 @@ package controller;
 import model.AxialCoord;
 import model.ReversiModel;
 import player.IPlayer;
+import provider.controller.Player;
+import provider.model.Disc;
 
 /**
  * Mock player actions for testing purposes.
@@ -102,6 +104,15 @@ public class MockPlayerActions implements PlayerActions, ModelObserver {
     this.model.passTurn();
   }
 
+  @Override
+  public Disc getPlayer() {
+    return null;
+  }
+
+  @Override
+  public Player getTurn() {
+    return null;
+  }
 
 
 }
