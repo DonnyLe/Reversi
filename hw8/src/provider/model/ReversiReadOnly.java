@@ -1,6 +1,5 @@
 package provider.model;
 
-import java.util.ArrayList;
 
 /**
  * An interface to create a version of Board in which you can only call observer.
