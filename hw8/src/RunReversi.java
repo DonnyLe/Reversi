@@ -31,8 +31,6 @@ public class RunReversi {
   public static void main(String[] args) {
 
     ReversiModel model = new ReversiModel(4);
-
-
     ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
 //    ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
 

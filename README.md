@@ -48,16 +48,22 @@ the Reversi rules).
 
 ## Quick Start:
 
-model.ReversiModel r = new model.ReversiModel(); //creates a model
-ReversiTextualView rtv = new ReversiTextualView(r); //creates a view
-ReversiGraphicsView rgv = new ReversiGraphicsView(r); //creates graphical view
+ReversiModel model = new ReversiModel(4);
 
-r.startGame(4); //starts the game where the hexagonal board has a side length of 4
-System.out.println(rtv.toString()); //prints the current state of the game
-r.placeMove(2, 2, 0); //does a valid move
-System.out.println(rtv.toString()); //prints the current state of the game
-rgv.render(); //renders the GUI view
-r.init(); starts gameplay
+ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
+ReversiFrame theirView = new ReversiFrame(new ModelAdapter(model));
+IView rv2 = new ViewAdapter(theirView);
+
+HumanPlayer player2 = new HumanPlayer(model);
+MachinePlayer mach = new MachinePlayer(model, new StrategyAdapter(new CaptureMost()));
+
+ReversiController c1 = new ReversiController(model, mach, rv1);
+ReversiController c2 = new ReversiController(model, player2, rv2);
+
+model.startGame();
+rv1.render();
+rv2.render();
+model.init();
 
 .
 .
@@ -211,9 +217,19 @@ After choosing player1, you must choose player2 using the same format as player1
 An example of running the game is "side-length 8 machine-player strategy3 strategy2 human".
 Another example would be "human machine-player strategy3" (side-length is 4 in this case as default).
 
-## Making another View work with our Model and Controller. 
-We were able to fully implement our provider's view (including the features that we did not have). 
-However, we did have to add more to 
+## Making Another View Work With our Model and Controller. 
+We were able to fully implement our provider's view (including the features that our view did not have).
+However, we had to add a lot of methods in the ReversiController class. All of these new methods are seen 
+in the ExtraFeaures interface and are only needed for the additional features that we did not have in 
+our view. We also modified some parts of our model to work with our provider's view (does not break any 
+functionality with our view). One change was we changed the input of startGame. Before, startGame would take 
+in a sideLength. However, we changed it so the constructor takes in a sideLength. This was because 
+after our provider's view is constructed, it tries to get the board array length of the model. However,
+in our old ReversiModel implementation, after the ReversiModel was constructed, it wouldn't have an array length (not untill
+startGame was called). We also modified the interface for IReversi based on the request of the people 
+we sent our code to. One of the methods, copyBoard, returned a ReversiModel. However, they didn't have 
+access to ReversiModel. To fix this, we simply removed it from the interface and made copyBoard private 
+since the only time it is called is by the checkMove method. 
 
 
 

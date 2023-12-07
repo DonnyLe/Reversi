@@ -157,22 +157,17 @@ public class ReversiTests {
     Assert.assertEquals(expectedMessage, actualMessage);
   }
 
-  /*
+
   @Test
   public void testInvalidSideLength() {
-    ReversiModel m1 = new ReversiModel(2);
-
-
     Exception exception = Assert.assertThrows(IllegalArgumentException.class,
-            () -> m1.startGame());
-
+            () ->  new ReversiModel(2));
     String expectedMessage = "Side length must be at least 3";
     String actualMessage = exception.getMessage();
-
     Assert.assertEquals(expectedMessage, actualMessage);
   }
 
-   */
+
 
 
   @Test
