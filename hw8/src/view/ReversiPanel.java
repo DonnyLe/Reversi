@@ -106,6 +106,7 @@ public class ReversiPanel extends JPanel {
   }
 
 
+
   @Override
   protected void paintComponent(Graphics g) {
 

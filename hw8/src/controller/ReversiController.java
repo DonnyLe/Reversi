@@ -131,11 +131,19 @@ public class ReversiController implements PlayerActions, ModelObserver {
     this.model.passTurn();
   }
 
+  /**
+   * Gets the Disc color associated with the current player.
+   * @return Disc color
+   */
   @Override
   public Disc getPlayer() {
     return this.playerDisc;
   }
 
+  /**
+   * Gets the Player for the current turn.
+   * @return Player
+   */
   @Override
   public Player getTurn() {
     return new PlayerAdapter(this.player, this.playerDisc);
@@ -151,6 +159,10 @@ public class ReversiController implements PlayerActions, ModelObserver {
     return this.model.getBoardArrayLength();
   }
 
+  /**
+   * Gets the model.
+   * @return IReversi model
+   */
   public IReversi getModel() {
     return this.model;
   }

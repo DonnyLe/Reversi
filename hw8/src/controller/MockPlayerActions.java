@@ -105,21 +105,37 @@ public class MockPlayerActions implements PlayerActions, ModelObserver {
     this.model.passTurn();
   }
 
+  /**
+   * Unused method.
+   * @return
+   */
   @Override
   public Disc getPlayer() {
     return null;
   }
 
+  /**
+   * Unused method.
+   * @return
+   */
   @Override
   public Player getTurn() {
     return null;
   }
 
+  /**
+   * Unused method.
+   * @return
+   */
   @Override
   public int getBoardArrayLength() {
     return 0;
   }
 
+  /**
+   * Unused method.
+   * @return
+   */
   @Override
   public IReversi getModel() {
     return null;

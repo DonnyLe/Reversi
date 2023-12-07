@@ -9,6 +9,9 @@ import provider.model.Coordinate;
 import provider.model.Disc;
 import strategy.ReversiStrategy;
 
+/**
+ * Adapter to turn their strategies into our strategies.
+ */
 public class StrategyAdapter implements ReversiStrategy {
 
   ReversiStratagy strat;

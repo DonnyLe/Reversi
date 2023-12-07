@@ -59,8 +59,20 @@ public interface ReadonlyIReversi {
 
 
 
+  /**
+   * Returns a copy of the 2darray board.
+   * @return 2darray board
+   */
   public Hexagon[][] copyBoard2();
 
+  /**
+   * Returns true if move is valid.
+   *
+   * @param q   q coord
+   * @param r   r coord
+   * @param who integer representing player
+   *
+   */
   public boolean moveAllowedCheck2(int q, int r, int who);
 
   /**

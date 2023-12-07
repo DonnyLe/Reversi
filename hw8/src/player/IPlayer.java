@@ -15,7 +15,6 @@ public interface IPlayer {
   /**
    * Passes the turn.
    */
-
   public void pass();
 
   /**
