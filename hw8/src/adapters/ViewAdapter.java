@@ -23,8 +23,11 @@ public class ViewAdapter implements IView, ControllerFeatures {
   private AxialCoord selectedHexLocation;
 
 
-
-  public ViewAdapter(ReversiFrame view){
+  /**
+   * Constructor for view.
+   * @param view view
+   */
+  public ViewAdapter(ReversiFrame view) {
     this.view = view;
   }
 
@@ -36,7 +39,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void render() {
-      this.view.setVisible(true);
+    this.view.setVisible(true);
   }
 
 
@@ -90,13 +93,14 @@ public class ViewAdapter implements IView, ControllerFeatures {
   @Override
   public void confirmMove() {
     System.out.println(this.selectedHexLocation.q + " " + this.selectedHexLocation.r);
-    if(active) {
+    if (active) {
       if (this.selectedHexLocation != null) {
-        features.move(this.translateAxialCoords(this.selectedHexLocation.q, this.selectedHexLocation.r));
-        }
-        this.selectedHexLocation = null;
+        features.move(this.translateAxialCoords(this.selectedHexLocation.q,
+                this.selectedHexLocation.r));
       }
+      this.selectedHexLocation = null;
     }
+  }
 
 
   /**
@@ -104,11 +108,9 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void passTurn() {
-    if(active) {
-        features.pass();
-      }
-
-
+    if (active) {
+      features.pass();
+    }
 
   }
 
@@ -158,7 +160,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
   @Override
   public void displayError(RuntimeException e) {
 
-      this.view.getBoardPanel().showInvalidMoveDialog(e.getMessage());
+    this.view.getBoardPanel().showInvalidMoveDialog(e.getMessage());
   }
 
   /**
@@ -167,6 +169,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
   @Override
   public void displayWin() {
 
+    //empty
   }
 
   /**
@@ -174,6 +177,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void displayDraw() {
+    //empty
   }
 
   /**

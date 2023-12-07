@@ -17,7 +17,13 @@ import provider.model.Reversi;
  */
 public class ModelAdapter implements Reversi {
   IReversi model;
-  public ModelAdapter(IReversi model){
+
+  /**
+   * Constructor for model adapter.
+   * @param model model
+   */
+  public ModelAdapter(IReversi model) {
+
     this.model = model;
   }
 
@@ -26,10 +32,10 @@ public class ModelAdapter implements Reversi {
    * @param board 2darray of reversi board
    * @return Hasmap of reversi board.
    */
-  public HashMap<Coordinate, Cell> convertBoard(Hexagon[][] board){
+  public HashMap<Coordinate, Cell> convertBoard(Hexagon[][] board) {
     HashMap<Coordinate, Cell> outBoard = new HashMap<>();
-    for (int q = 0; q < board.length; q++){
-      for (int r = 0; r < board[q].length; r++){
+    for (int q = 0; q < board.length; q++) {
+      for (int r = 0; r < board[q].length; r++) {
         outBoard.put(new Coordinate(q, r), new Cell(this.convertDisc(board[q][r].getDiscOnHex())));
       }
     }
@@ -43,10 +49,16 @@ public class ModelAdapter implements Reversi {
    * @param state DiscState enum
    * @return Disc enum
    */
-  public Disc convertDisc(DiscState state){
-    if (state == DiscState.WHITE) {return Disc.WHITE;}
-    else if (state == DiscState.BLACK) {return Disc.BLACK;}
-    else {return Disc.EMPTY;}
+  public Disc convertDisc(DiscState state) {
+    if (state == DiscState.WHITE) {
+      return Disc.WHITE;
+    }
+    else if (state == DiscState.BLACK) {
+      return Disc.BLACK;
+    }
+    else {
+      return Disc.EMPTY;
+    }
   }
 
   /**
@@ -54,8 +66,12 @@ public class ModelAdapter implements Reversi {
    */
   @Override
   public Disc currentColor() {
-    if(this.model.getTurn() == 0) {return Disc.WHITE;}
-    else {return Disc.BLACK;}
+    if (this.model.getTurn() == 0) {
+      return Disc.WHITE;
+    }
+    else {
+      return Disc.BLACK;
+    }
   }
 
   /**
@@ -96,8 +112,12 @@ public class ModelAdapter implements Reversi {
   public void placeDisc(int q, int r, Disc d) {
 
     int turn;
-    if (d == Disc.WHITE) {turn = 0;}
-    else {turn = 1;}
+    if (d == Disc.WHITE) {
+      turn = 0;
+    }
+    else {
+      turn = 1;
+    }
     this.model.placeMove(q, r, turn);
   }
 
@@ -152,7 +172,7 @@ public class ModelAdapter implements Reversi {
    * Creates a deep copy of the current game board.
    *
    * @return A {@link HashMap} representing a copy of the board. Each {@link Coordinate}.
-   * key is mapped to a {@link Cell} value.
+   *     key is mapped to a {@link Cell} value.
    */
   @Override
   public HashMap<Coordinate, Cell> createCopyOfBoard() {
@@ -163,14 +183,14 @@ public class ModelAdapter implements Reversi {
    * Calculates and returns a list of all possible moves for the current player.
    *
    * @return An {@link ArrayList} of {@link Coordinate} objects representing all possible moves.
-   * that the current player can make.
+   *     that the current player can make.
    */
   @Override
   public ArrayList<Coordinate> getPossibleMoves() {
     ArrayList<Coordinate> possibleCoords = new ArrayList<Coordinate>();
     for (int q = 0; q < this.model.getBoardArrayLength(); q++) {
       for (int r = 0; r < this.model.getBoardArrayLength(); r++) {
-        if(this.model.moveAllowedCheck2(q, r, this.model.getTurn())) {
+        if (this.model.moveAllowedCheck2(q, r, this.model.getTurn())) {
           //System.out.println(q + " " + r);
           possibleCoords.add(new Coordinate(q, r));
         }
@@ -183,7 +203,7 @@ public class ModelAdapter implements Reversi {
   /**
    * Returns the current score of a specified player.
    *
-   * @param player
+   * @param player Player
    * @return True if the game is over, otherwise false.
    */
   @Override
