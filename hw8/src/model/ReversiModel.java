@@ -558,6 +558,10 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
     return copy;
   }
 
+  /**
+   * Returns a copy of the 2darray board.
+   * @return 2darray board
+   */
   @Override
   public Hexagon[][] copyBoard2(){
     Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];

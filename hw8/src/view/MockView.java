@@ -127,6 +127,9 @@ public class MockView implements IView {
 
   }
 
+  /**
+   * Passes a message.
+   */
   @Override
   public void passMessage() {
 

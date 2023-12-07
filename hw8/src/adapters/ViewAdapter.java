@@ -1,25 +1,18 @@
 package adapters;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import controller.PlayerActions;
 import model.AxialCoord;
-import model.DiscState;
-import model.Hexagon;
-import model.ReadonlyIReversi;
-import model.ReversiModel;
 import provider.controller.ControllerFeatures;
 import provider.controller.Player;
-import provider.model.Cell;
-import provider.model.Coordinate;
 import provider.model.Disc;
-import provider.model.ReversiReadOnly;
-import provider.view.BoardPanel;
 import provider.view.IBoardPanel;
 import provider.view.ReversiFrame;
 import view.IView;
 
+/**
+ * Adapter that makes their views work with our controllers.
+ */
 public class ViewAdapter implements IView, ControllerFeatures {
 
   private boolean active;
@@ -76,6 +69,11 @@ public class ViewAdapter implements IView, ControllerFeatures {
 
   }
 
+  /**
+   * Updates the currently selected hexagon.
+   * @param q The column coordinate of the selected hexagon.
+   * @param r The row coordinate of the selected hexagon.
+   */
   @Override
   public void selectHexagon(int q, int r) {
 
@@ -85,6 +83,10 @@ public class ViewAdapter implements IView, ControllerFeatures {
 
   }
 
+
+  /**
+   * Confirms move at the currently selected hexagon.
+   */
   @Override
   public void confirmMove() {
     System.out.println(this.selectedHexLocation.q + " " + this.selectedHexLocation.r);
@@ -97,7 +99,9 @@ public class ViewAdapter implements IView, ControllerFeatures {
     }
 
 
-
+  /**
+   * Passes turn.
+   */
   @Override
   public void passTurn() {
     if(active) {
@@ -108,15 +112,28 @@ public class ViewAdapter implements IView, ControllerFeatures {
 
   }
 
+  /**
+   * Gets the Disc color associated with the current player.
+   * @return Disc color
+   */
   @Override
   public Disc getPlayer() {
     return features.getPlayer();
   }
 
+  /**
+   * Gets the player whose turn it is.
+   * @return Player
+   */
   @Override
   public Player getTurn() {
     return features.getTurn();
   }
+
+  /**
+   * Unused method.
+   * @return null
+   */
   @Override
   public String getLog() {
     return null;
@@ -178,6 +195,10 @@ public class ViewAdapter implements IView, ControllerFeatures {
 
   }
 
+
+  /**
+   * Passes a message in the view.
+   */
   @Override
   public void passMessage() {
     this.view.getBoardPanel().showInvalidMoveDialog("Invalid move");

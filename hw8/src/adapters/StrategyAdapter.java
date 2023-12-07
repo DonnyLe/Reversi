@@ -9,6 +9,9 @@ import provider.model.Coordinate;
 import provider.model.Disc;
 import strategy.ReversiStrategy;
 
+/**
+ * Adapter to turn their strategies into our strategies.
+ */
 public class StrategyAdapter implements ReversiStrategy {
 
   ReversiStratagy strat;
@@ -34,19 +37,6 @@ public class StrategyAdapter implements ReversiStrategy {
     else {d = Disc.BLACK;}
     Coordinate c = this.strat.chooseMove(new ModelAdapter((IReversi) model), d);
     return new AxialCoord(c.getQ(), c.getR());
-
-  }
-
-  /**
-   * Converts coordinates from center-origin to top left origin coordinates.
-   * @param q q coord
-   * @param r r coord
-   * @param model the model to base calculations on
-   * @return converted AxialCoord
-   */
-  private AxialCoord translateAxialCoords(int q, int r, ReadonlyIReversi model) {
-    int centerR = (int) Math.floor(model.getBoardArrayLength() / 2);
-    return new AxialCoord(q + centerR, r + centerR);
 
   }
 }

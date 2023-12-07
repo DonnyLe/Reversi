@@ -56,5 +56,8 @@ public interface IView {
    */
   void repaint();
 
+  /**
+   * Passes a message.
+   */
   void passMessage();
 }

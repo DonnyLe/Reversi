@@ -1,6 +1,5 @@
 package adapters;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,20 +7,25 @@ import model.AxialCoord;
 import model.DiscState;
 import model.Hexagon;
 import model.IReversi;
-import model.ReadonlyIReversi;
-import model.ReversiModel;
 import provider.model.Cell;
 import provider.model.Coordinate;
 import provider.model.Disc;
 import provider.model.Reversi;
-import provider.model.ReversiReadOnly;
 
+/**
+ * Model Adapter which takes in our implementation of the model and adapts it into their model.
+ */
 public class ModelAdapter implements Reversi {
   IReversi model;
   public ModelAdapter(IReversi model){
     this.model = model;
   }
 
+  /**
+   * Converts the board from our 2darray to their hashmap.
+   * @param board 2darray of reversi board
+   * @return Hasmap of reversi board.
+   */
   public HashMap<Coordinate, Cell> convertBoard(Hexagon[][] board){
     HashMap<Coordinate, Cell> outBoard = new HashMap<>();
     for (int q = 0; q < board.length; q++){
