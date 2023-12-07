@@ -115,6 +115,12 @@ Within the src directory, there are two packages, model, view, strategy, and com
 * MachinePlayer : class for AI/machine player, uses strategies to emit PlayerActions
 * MockMachinePlayer : mock class for testing (changes delay to allow for testing)
 
+5. player includes :
+* HumanPlayer : class for human player (empty because view emits PlayerActions)
+* IPlayer : interface for players
+* MachinePlayer : class for AI/machine player, uses strategies to emit PlayerActions
+* MockMachinePlayer : mock class for testing (changes delay to allow for testing)
+
 
 ## Changes for part 2
 We implemented the missing methods in the model that were

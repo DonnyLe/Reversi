@@ -1,17 +1,25 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import adapters.ModelAdapter;
+import adapters.StrategyAdapter;
+import adapters.ViewAdapter;
 import player.HumanPlayer;
 import player.IPlayer;
 import player.MachinePlayer;
 import controller.ReversiController;
 import model.ReadonlyIReversi;
 import model.ReversiModel;
+import provider.controller.aistrat.AvoidCorners;
+import provider.controller.aistrat.CaptureCorners;
+import provider.controller.aistrat.CaptureMost;
+import provider.view.ReversiFrame;
 import strategy.AvoidBeforeCornersStrategy;
 import strategy.CornersStrategy;
 import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import strategy.ReversiStrategy;
+import view.IView;
 import view.ReversiGraphicsView;
 
 
@@ -69,7 +77,7 @@ public class ReversiCreator {
       }
     }
     ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
-    ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
+    IView rv2 = new ViewAdapter(new ReversiFrame(new ModelAdapter(model)));
 
 
     if (players[0] != null && players[1] != null ) {
@@ -97,6 +105,11 @@ public class ReversiCreator {
     HashMap<String, ReversiStrategy> allStrats = new HashMap<>();
     allStrats.put("strategy2", new AvoidBeforeCornersStrategy());
     allStrats.put("strategy3", new CornersStrategy());
+    allStrats.put("providerStrategy1", new StrategyAdapter(new CaptureMost()));
+    allStrats.put("providerStrategy2", new StrategyAdapter(new AvoidCorners()));
+    allStrats.put("providerStrategy3", new StrategyAdapter(new CaptureCorners()));
+
+
 
     for (int i = startIndex + 1; i < i + 3 && i < args.length; i++) {
       if (allStrats.containsKey(args[i])) {

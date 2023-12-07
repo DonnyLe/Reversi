@@ -35,8 +35,6 @@ public class StrategyAdapter implements ReversiStrategy {
     Coordinate c = this.strat.chooseMove(new ModelAdapter((IReversi) model), d);
     return new AxialCoord(c.getQ(), c.getR());
 
-
-
   }
 
   /**
