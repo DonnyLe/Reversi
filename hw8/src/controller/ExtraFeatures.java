@@ -4,6 +4,9 @@ import model.IReversi;
 import provider.controller.Player;
 import provider.model.Disc;
 
+/**
+ * Extra features.
+ */
 public interface ExtraFeatures {
   /**
    * Gets the Disc color associated with the current player.

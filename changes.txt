@@ -1,0 +1,3 @@
+Changes:
+Removed the copyBoard method from the ReadOnlyIReversi interface because
+the return type was a ReversiModel.
