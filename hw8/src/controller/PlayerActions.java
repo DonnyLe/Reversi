@@ -8,7 +8,7 @@ import provider.model.Disc;
 /**
  * Player actions interface.
  */
-public interface PlayerActions {
+public interface PlayerActions extends ExtraFeatures{
 
   /**
    * Tells the model to move at given coordinates.
@@ -21,29 +21,6 @@ public interface PlayerActions {
    */
   void pass();
 
-  /**
-   * Gets the Disc color associated with the current player.
-   * @return Disc color
-   */
-  Disc getPlayer();
-
-  /**
-   * Gets the Player for the current turn.
-   * @return Player
-   */
-  Player getTurn();
-
-  /**
-   * Returns the length of the board array of the model.
-   * @return int board array length
-   */
-  int getBoardArrayLength();
-
-  /**
-   * Gets the model.
-   * @return IReversi model
-   */
-  IReversi getModel();
 
 
 }

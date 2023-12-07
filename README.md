@@ -115,11 +115,14 @@ Within the src directory, there are two packages, model, view, strategy, and com
 * MachinePlayer : class for AI/machine player, uses strategies to emit PlayerActions
 * MockMachinePlayer : mock class for testing (changes delay to allow for testing)
 
-5. player includes :
-* HumanPlayer : class for human player (empty because view emits PlayerActions)
-* IPlayer : interface for players
-* MachinePlayer : class for AI/machine player, uses strategies to emit PlayerActions
-* MockMachinePlayer : mock class for testing (changes delay to allow for testing)
+5. adapters includes :
+* ModelAdapter : converts IReversi (our model interface) into Reversi interface (provider's model interface)
+* PlayerAdapter : two-way adapter between IPlayer (our player interface) and Player (provider player 
+* interface)
+* StrategyAdapter : converts Stratagy (provider's strategy interface) to Strategy (our strategy interface)
+* ViewAdapter : converts ReversiFrame (provider's view concrete class) to IView (our view interface). Also 
+* implements ControllerFeatures (provider's controller features class) in order to use with ReversiFrame. 
+
 
 
 ## Changes for part 2
@@ -208,7 +211,9 @@ After choosing player1, you must choose player2 using the same format as player1
 An example of running the game is "side-length 8 machine-player strategy3 strategy2 human".
 Another example would be "human machine-player strategy3" (side-length is 4 in this case as default).
 
-
+## Making another View work with our Model and Controller. 
+We were able to fully implement our provider's view (including the features that we did not have). 
+However, we did have to add more to 
 
 
 
