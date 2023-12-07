@@ -168,7 +168,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void displayWin() {
-
+    stopView();
     //empty
   }
 
@@ -177,6 +177,7 @@ public class ViewAdapter implements IView, ControllerFeatures {
    */
   @Override
   public void displayDraw() {
+    stopView();
     //empty
   }
 

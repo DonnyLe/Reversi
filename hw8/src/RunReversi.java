@@ -72,12 +72,14 @@ public class RunReversi {
 
     HumanPlayer player1 = new HumanPlayer(model);
     HumanPlayer player2 = new HumanPlayer(model);
+
     MachinePlayer mach = new MachinePlayer(model, new StrategyAdapter(new CaptureMost()));
+    MachinePlayer mach1 = new MachinePlayer(model, new MostCapturesStrategy());
 
     IView rv2 = new ViewAdapter(theirView);
 
     ReversiController c1 = new ReversiController(model, mach, rv1);
-    ReversiController c2 = new ReversiController(model, player2, rv2);
+    ReversiController c2 = new ReversiController(model, mach1, rv2);
     model.startGame();
     rv1.render();
     rv2.render();

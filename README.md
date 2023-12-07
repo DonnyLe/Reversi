@@ -213,9 +213,10 @@ To add a machine player, type "machine-player" followed by "strategy3", space, a
 to make the strategy the machine-player uses a complete strategy (strategies 2 and 3 are incomplete).
 You would also want the strategies to be in highest to lowest order since the higher the strategy, 
 the better the strategy is (so you want to have that strategy be prioritized before using the lower strategy).
-After choosing player1, you must choose player2 using the same format as player1 (e.g machine-player strategy2).
-An example of running the game is "side-length 8 machine-player strategy3 strategy2 human".
-Another example would be "human machine-player strategy3" (side-length is 4 in this case as default).
+After choosing player1, you must choose player2 which uses the provider's view and their strategy (if 
+a machine player is chosen). To add a provider's strategy to player 2, use the word "providerStrategy1" up to 
+3. The provider strategies could also be used by player 1 (who is not using the provider's view), and 
+our strategy implementation can be used by player 2. Player 2 could also be a "human-player."
 
 ## Making Another View Work With our Model and Controller. 
 We were able to fully implement our provider's view (including the features that our view did not have).
