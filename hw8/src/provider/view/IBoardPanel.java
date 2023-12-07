@@ -4,6 +4,9 @@ import provider.controller.ControllerFeatures;
 import provider.model.Coordinate;
 import provider.model.ReversiReadOnly;
 
+/**
+ * Board panel interface.
+ */
 public interface IBoardPanel {
 
   /**
