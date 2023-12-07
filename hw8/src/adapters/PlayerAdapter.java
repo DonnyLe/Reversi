@@ -20,8 +20,8 @@ public class PlayerAdapter implements Player, IPlayer {
    * @param playerDisc The color associated with eh player.
    */
   public PlayerAdapter(IPlayer player, Disc playerDisc) {
-      this.player = player;
-      this.playerDisc = playerDisc;
+    this.player = player;
+    this.playerDisc = playerDisc;
 
   }
 
@@ -30,7 +30,7 @@ public class PlayerAdapter implements Player, IPlayer {
    */
   @Override
   public void move() {
-      player.move();
+    player.move();
   }
 
   /**
@@ -49,7 +49,7 @@ public class PlayerAdapter implements Player, IPlayer {
    */
   @Override
   public void addFeatures(PlayerActions feature) {
-      player.addFeatures(feature);
+    player.addFeatures(feature);
   }
 
   /**
@@ -61,7 +61,7 @@ public class PlayerAdapter implements Player, IPlayer {
    */
   @Override
   public void makeAMove(Reversi model, Coordinate move) {
-      return;
+    return;
   }
 
   /**

@@ -15,10 +15,16 @@ import strategy.ReversiStrategy;
 public class StrategyAdapter implements ReversiStrategy {
 
   ReversiStratagy strat;
-  public StrategyAdapter(ReversiStratagy strat){
+
+  /**
+   * Constructor for strategy adapter.
+   * @param strat Strategy
+   */
+  public StrategyAdapter(ReversiStratagy strat) {
     this.strat = strat;
 
   }
+
   /**
    * Chooses an AxialCoord on the board according to the strategy of the implementation.
    *
@@ -34,7 +40,9 @@ public class StrategyAdapter implements ReversiStrategy {
     if (who == 0) {
       d = Disc.WHITE;
     }
-    else {d = Disc.BLACK;}
+    else {
+      d = Disc.BLACK;
+    }
     Coordinate c = this.strat.chooseMove(new ModelAdapter((IReversi) model), d);
     return new AxialCoord(c.getQ(), c.getR());
 

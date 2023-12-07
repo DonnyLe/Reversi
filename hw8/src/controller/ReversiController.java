@@ -3,7 +3,6 @@ package controller;
 import adapters.PlayerAdapter;
 import model.AxialCoord;
 import model.IReversi;
-import model.ReversiModel;
 import player.HumanPlayer;
 import player.IPlayer;
 import provider.controller.Player;
@@ -31,7 +30,7 @@ public class ReversiController implements PlayerActions, ModelObserver {
     this.player = player;
     this.view = view;
     int playerNum = this.model.addObserver(this);
-    if(playerNum== 0) {
+    if (playerNum == 0) {
       this.playerDisc = Disc.WHITE;
     }
     else {

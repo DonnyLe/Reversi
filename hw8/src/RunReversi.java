@@ -3,13 +3,11 @@ import java.util.ArrayList;
 import adapters.ModelAdapter;
 import adapters.StrategyAdapter;
 import adapters.ViewAdapter;
-import model.IReversi;
 import player.HumanPlayer;
 import player.MachinePlayer;
 import controller.ReversiController;
 import model.ReversiModel;
 import provider.controller.aistrat.CaptureMost;
-import provider.model.Reversi;
 import provider.view.ReversiFrame;
 import strategy.AvoidBeforeCornersStrategy;
 import strategy.CornersStrategy;
@@ -32,7 +30,7 @@ public class RunReversi {
 
     ReversiModel model = new ReversiModel(4);
     ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
-//    ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
+    //ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
 
 
     /*
