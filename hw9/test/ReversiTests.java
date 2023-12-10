@@ -588,17 +588,115 @@ public class ReversiTests {
   }
 
   @Test
-  public void testSquare() {
+  public void testSquareModel() {
     SquareModel sm = new SquareModel();
     sm.startGame(8);
     SquareReversiTextualView sv = new SquareReversiTextualView(sm);
     System.out.println(sv.getString());
+    Assert.assertEquals(sv.getString(),
+            "________\n" +
+            "________\n" +
+            "________\n" +
+            "___XO___\n" +
+            "___OX___\n" +
+            "________\n" +
+            "________\n" +
+            "________\n");
 
     sm.placeMove(3, 2, 0);
     System.out.println(sv.getString());
 
+    Assert.assertEquals(sv.getString(),
+                    "________\n" +
+                    "________\n" +
+                    "___O____\n" +
+                    "___OO___\n" +
+                    "___OX___\n" +
+                    "________\n" +
+                    "________\n" +
+                    "________\n");
+
     sm.placeMove(2, 2, 1);
     System.out.println(sv.getString());
+    Assert.assertEquals(sv.getString(),
+            "________\n" +
+                    "________\n" +
+                    "__XO____\n" +
+                    "___XO___\n" +
+                    "___OX___\n" +
+                    "________\n" +
+                    "________\n" +
+                    "________\n");
+  }
+
+  @Test
+  public void testSquareStrat() {
+    SquareModel sm = new SquareModel();
+    sm.startGame(8);
+    SquareReversiTextualView sv = new SquareReversiTextualView(sm);
+    MostCapturesStrategy strat1 = new MostCapturesStrategy();
+    AvoidBeforeCornersStrategy strat2 = new AvoidBeforeCornersStrategy();
+    CornersStrategy strat3 = new CornersStrategy();
+    ArrayList<ReversiStrategy> strats = new ArrayList<>();
+    strats.add(strat3);
+    strats.add(strat2);
+    strats.add(strat1);
+    ModularStrategy modstrat = new ModularStrategy(strats);
+
+    AxialCoord coord = modstrat.chooseMove(sm, 0);
+    sm.placeMove(coord.q, coord.r, 0);
+    sv.render();
+    Assert.assertEquals(coord.r, 2);
+    Assert.assertEquals(coord.q, 3);
+
+    coord = modstrat.chooseMove(sm, 1);
+    sm.placeMove(coord.q, coord.r, 1);
+    sv.render();
+    Assert.assertEquals(coord.r, 2);
+    Assert.assertEquals(coord.q, 2);
+
+    coord = modstrat.chooseMove(sm, 0);
+    sm.placeMove(coord.q, coord.r, 0);
+    sv.render();
+    Assert.assertEquals(coord.r, 3);
+    Assert.assertEquals(coord.q, 2);
+
+    coord = modstrat.chooseMove(sm, 1);
+    sm.placeMove(coord.q, coord.r, 1);
+    sv.render();
+    Assert.assertEquals(coord.r, 2);
+    Assert.assertEquals(coord.q, 4);
+
+    coord = modstrat.chooseMove(sm, 0);
+    sm.placeMove(coord.q, coord.r, 0);
+    sv.render();
+    Assert.assertEquals(coord.r, 2);
+    Assert.assertEquals(coord.q, 5);
+
+    coord = modstrat.chooseMove(sm, 1);
+    sm.placeMove(coord.q, coord.r, 1);
+    sv.render();
+    Assert.assertEquals(coord.r, 4);
+    Assert.assertEquals(coord.q, 2);
+
+    coord = modstrat.chooseMove(sm, 0);
+    sm.placeMove(coord.q, coord.r, 0);
+    sv.render();
+    Assert.assertEquals(coord.r, 5);
+    Assert.assertEquals(coord.q, 2);
+
+    sm.placeMove(6, 2, 1);
+    sv.render();
+
+    sm.placeMove(3, 1, 0);
+    sv.render();
+
+    coord = modstrat.chooseMove(sm, 1);
+    sm.placeMove(coord.q, coord.r, 1);
+    sv.render();
+    Assert.assertEquals(coord.r, 0);
+    Assert.assertEquals(coord.q, 2);
+
   }
 }
 

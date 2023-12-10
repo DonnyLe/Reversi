@@ -34,6 +34,16 @@ public class MockView implements IView {
     features.add(playerActions);
   }
 
+  @Override
+  public void notifyMove() {
+
+  }
+
+  @Override
+  public void notifyPass() {
+
+  }
+
   /**
    * Mock input.
    * @param coord coordinate
