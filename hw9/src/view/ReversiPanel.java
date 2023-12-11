@@ -31,7 +31,7 @@ import model.ReadonlyIReversi;
 /**
  * JPanel object that is passed into ReversiGraphicsView. Displays the main board.
  */
-public class ReversiPanel extends JPanel {
+public class ReversiPanel extends JPanel implements IPanel {
   private static final double CIRCLE_RADIUS = 0.2;
   private final ArrayList<HexagonImage> hexImageList;
   private final ReadonlyIReversi model;
@@ -68,8 +68,9 @@ public class ReversiPanel extends JPanel {
   }
 
   /**
-   * Passes message.
+   * Message for passing move
    */
+  @Override
   public void passMessage() {
     int delay = 2000;
     this.passMessage.setVisible(true);
@@ -88,7 +89,8 @@ public class ReversiPanel extends JPanel {
   /**
    * Initializes hex image list.
    */
-  public void initializeHexImageList() {
+  @Override
+  public void initializeShapeImageList() {
     initializeMiddleRow();
     initializeAllRowsExceptMiddle();
     this.setBackground(Color.DARK_GRAY);
@@ -291,11 +293,13 @@ public class ReversiPanel extends JPanel {
     return ret;
   }
 
+  @Override
   public void stopView() {
     this.active = false;
 
   }
 
+  @Override
   public void startView() {
     this.active = true;
   }

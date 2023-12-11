@@ -55,7 +55,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
   public void render() {
     this.setBackground(Color.DARK_GRAY);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.reversiBoard.initializeHexImageList();
+    this.reversiBoard.initializeShapeImageList();
 
     KeyboardListener keyboardListener = new KeyboardListener();
     HashMap<Character, Runnable> controls = new HashMap<Character, Runnable>();
