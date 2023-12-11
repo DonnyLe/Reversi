@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import model.SquareModel;
 import player.HumanPlayer;
 import player.MachinePlayer;
 import controller.ReversiController;
@@ -10,6 +11,7 @@ import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import strategy.ReversiStrategy;
 import view.ReversiGraphicsView;
+import view.SquareReversiGraphicsView;
 
 
 /**
@@ -22,10 +24,10 @@ public class RunReversi {
    */
   public static void main(String[] args) {
 
-    ReversiModel model = new ReversiModel();
+    SquareModel model = new SquareModel();
 
-    ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
-    ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
+   SquareReversiGraphicsView  rv1 = new SquareReversiGraphicsView(model);
+    SquareReversiGraphicsView rv2 = new SquareReversiGraphicsView(model);
     ArrayList<ReversiStrategy> strategies = new ArrayList<>();
     strategies.add(new CornersStrategy());
     strategies.add(new AvoidBeforeCornersStrategy());
@@ -42,7 +44,7 @@ public class RunReversi {
     ReversiController c1 = new ReversiController(model, player1, rv1);
     ReversiController c2 = new ReversiController(model, mplayer2, rv2);
 
-    model.startGame(4);
+    model.startGame(8);
     rv1.render();
     rv2.render();
     model.init();

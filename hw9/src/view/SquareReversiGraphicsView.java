@@ -13,6 +13,7 @@ import javax.swing.*;
 import commands.MoveCommand;
 import commands.PassCommand;
 import controller.PlayerActions;
+import model.AxialCoord;
 import model.ReadonlyIReversi;
 
 /**
@@ -53,7 +54,7 @@ public class SquareReversiGraphicsView extends JFrame implements IView {
   public void render() {
     this.setBackground(Color.DARK_GRAY);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.reversiBoard.initializeHexImageList();
+    this.reversiBoard.initializeShapeImageList();
 
     KeyboardListener keyboardListener = new KeyboardListener();
     HashMap<Character, Runnable> controls = new HashMap<Character, Runnable>();
@@ -121,7 +122,9 @@ public class SquareReversiGraphicsView extends JFrame implements IView {
    */
   public void notifyMove() {
     for (PlayerActions f : features) {
-      f.move(this.reversiBoard.selectedHex.getAxialCoords());
+      f.move(new AxialCoord((int) this.reversiBoard.selectedSquare.getCoords().getX(),
+              (int) this.reversiBoard.selectedSquare.getCoords().getY()
+              ));
     }
   }
 
