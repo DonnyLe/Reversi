@@ -29,6 +29,11 @@ public interface IReversi extends ReadonlyIReversi, ModelStatus {
    * the player.
    */
   void passTurn();
+
+  /**
+   * Notifies the first player that it is there turn.
+   */
+  void init();
 }
 
 

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.text.IconView;
+
+import model.IReversi;
+import model.SquareModel;
 import player.HumanPlayer;
 import player.IPlayer;
 import player.MachinePlayer;
@@ -12,7 +16,9 @@ import strategy.CornersStrategy;
 import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import strategy.ReversiStrategy;
+import view.IView;
 import view.ReversiGraphicsView;
+import view.SquareReversiGraphicsView;
 
 
 /**
@@ -24,23 +30,19 @@ public class ReversiCreator {
    * @param args args
    */
   public static void main(String[] args) {
-    ReversiModel model = new ReversiModel();
+    IReversi model = new ReversiModel();
     int sideLength = 4;
 
 
     boolean sideLengthSearch = false;
     boolean sideLengthFound = false;
-
+    boolean squareModel = false;
     IPlayer player1 = null;
     IPlayer player2 = null;
     IPlayer[] players = new IPlayer[2];
     players[0] = player1;
     players[1] = player2;
     int currentPlayer = 0;
-
-
-
-
 
     for (int i = 0; i < args.length; i++) {
       if (currentPlayer < 2) {
@@ -52,6 +54,11 @@ public class ReversiCreator {
         if (args[i].equals("side-length")) {
           sideLengthSearch = true;
         }
+        if (args[i].equals("square-model")) {
+          model = new SquareModel();
+          squareModel = true;
+        }
+
         if (args[i].equals("human-player")) {
           IPlayer player = players[currentPlayer];
           player = new HumanPlayer(model);
@@ -66,8 +73,12 @@ public class ReversiCreator {
         }
       }
     }
-    ReversiGraphicsView rv1 = new ReversiGraphicsView(model);
-    ReversiGraphicsView rv2 = new ReversiGraphicsView(model);
+    IView rv1 = new ReversiGraphicsView(model);
+    IView rv2 = new ReversiGraphicsView(model);
+    if(squareModel) {
+       rv1 = new SquareReversiGraphicsView(model);
+       rv2 = new SquareReversiGraphicsView(model);
+    }
 
 
     if (players[0] != null && players[1] != null ) {
