@@ -68,7 +68,7 @@ public class ReversiPanel extends JPanel implements IPanel {
   }
 
   /**
-   * Message for passing move
+   * Message for passing move.
    */
   @Override
   public void passMessage() {
@@ -293,12 +293,18 @@ public class ReversiPanel extends JPanel implements IPanel {
     return ret;
   }
 
+  /**
+   * Stops view.
+   */
   @Override
   public void stopView() {
     this.active = false;
 
   }
 
+  /**
+   * Starts view.
+   */
   @Override
   public void startView() {
     this.active = true;
