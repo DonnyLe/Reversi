@@ -66,6 +66,9 @@ public class ReversiModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   }
 
+  /**
+   * Notifies first turn.
+   */
   public void init() {
     notifyYourTurn();
   }

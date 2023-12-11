@@ -58,6 +58,15 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   }
 
+  /**
+   * Helper function for initializing board. Side length must be at least 4 (since the initial
+   * state shown in assignment page requires a board with a side length of at least 4 for it
+   * to playable).
+   *
+   * @param sideLen number of squares in the side length of the hexagonal board
+   * @throws IllegalArgumentException if side length is less than 4
+   * @throws IllegalArgumentException id side length is odd
+   */
   private void initializeBoard(int sideLen) {
     if (sideLen < 4) {
       throw new IllegalArgumentException("Side length must be at least 4");
@@ -83,6 +92,10 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   }
 
+
+  /**
+   * Notifies first turn.
+   */
   public void init() {
     notifyYourTurn();
   }
@@ -167,6 +180,16 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     }
   }
 
+  /**
+   * Checks all adjacent hexagons at hexagon q, r for opposing players discs. Coordinates
+   * q and r uses a system where the origin, (0, 0), represents the top left item in
+   * the 2D board array.
+   *
+   * @param q   q coord for current players move
+   * @param r   r coord for current players move
+   * @param who integer representing current player
+   * @return returns a list of the directions that have opposing players discs.
+   */
   private ArrayList<int[]> getListDirectionsToSearch(int q, int r, int who) {
     int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, -1}, {-1, 1}, {1, 1}, {-1, -1}};
     Hexagon newHex = new Hexagon(this.playerColors.get(who));
@@ -187,6 +210,18 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     return res;
   }
 
+  /**
+   * Finds pairs of dx, dy that allow the player to flip pieces. Coordinates q and r uses a
+   * system where the origin, (0, 0), represents the top left item in the 2D board array.
+   *
+   * @param validDirections adjacent directions that have the opposite player's disc
+   *                        (return value of getListDirectionsToSearch)
+   * @param q               q coordinate of move
+   * @param r               r coordinate of move
+   * @param who             integer representing the player
+   * @return                a list of dx, dy pairs that point to directions where the player
+   *                        will be able to flip discs (therefore, the move is valid).
+   */
   private ArrayList<int[]> findValidStraightLines(ArrayList<int[]> validDirections,
                                                   int q, int r, int who) {
     Hexagon newHex = new Hexagon(this.playerColors.get(who));
@@ -210,6 +245,16 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     return validStraightLines;
   }
 
+  /**
+   * Flips discs in the directions where discs COULD be flipped. Coordinates q and r uses a
+   * system where the origin, (0, 0), represents the top left item in the 2D board array.
+   *
+   *
+   * @param q                  q coordinate of move
+   * @param r                  r coordinate of move
+   * @param validStraightLines directions where discs could be flipped
+   * @param who                integer representing the player.
+   */
   private void flipDiscs(int q, int r, ArrayList<int[]> validStraightLines, int who) {
     Hexagon newHex = new Hexagon(this.playerColors.get(who));
     this.board[q][r] = newHex;
@@ -258,12 +303,19 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   }
 
+  /**
+   * Adds the controller as an observer so that it can notify it.
+   * @param controller the controller to be added
+   */
   @Override
   public void addObserver(ModelObserver controller) {
 
     controllers.add(controller);
   }
 
+  /**
+   * Sends a notification to the controller for the current player that it is their turn.
+   */
   @Override
   public void notifyYourTurn() {
 
@@ -273,6 +325,9 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     }
   }
 
+  /**
+   * Sends a notification to all subscribed controllers to update their views.
+   */
   @Override
   public void notifyUpdateView() {
 
@@ -281,6 +336,10 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     }
   }
 
+  /**
+   * Determines the winner and sends a notification to its controller, or sends a notification to
+   * both in case of a draw.
+   */
   @Override
   public void notifyGameOver() {
 
@@ -321,6 +380,11 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     return this.board[q][r].getDiscOnHex();
   }
 
+  /**
+   * Throws IllegalState exception if game is not started. Helper function is called
+   * by other public methods to make sure those methods are not running when the game
+   * has not been started.
+   */
   private void gameStartedCheck() {
     if (!isGameStarted) {
       throw new IllegalStateException("Game not started! Cannot make move");
@@ -439,6 +503,11 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     return copy.getScore(who) - this.getScore(who);
   }
 
+  /**
+   * Returns a copy of the model.
+   *
+   * @return ReversiModel deep copy of the model
+   */
   private SquareModel copyBoard() {
     SquareModel copy = new SquareModel();
     Hexagon[][] copyB = new Hexagon[this.getBoardArrayLength()][this.getBoardArrayLength()];
@@ -461,6 +530,17 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
     }
   }
 
+
+  /**
+   * Checks if q and r coordinates are out of bounds (out of bounds for out of the 2D list bounds
+   * or q and r represent the coordinates of a null spot). Coordinates q and r use a
+   * system where the origin, (0, 0), represents the top left, item in the 2D board
+   * array. Used to preserve invariant of all unused spots are null.
+   *
+   * @param q q coord
+   * @param r r coord
+   * @return boolean returns true if q, r is out of bounds or a null spot, false otherwise
+   */
   private boolean isOutOfBounds(int q, int r) {
     //preserves variant, out of bounds of q, r is null,
     //therefore, placeMove cannot occur
