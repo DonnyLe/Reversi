@@ -4,13 +4,11 @@ import model.SquareModel;
 import player.HumanPlayer;
 import player.MachinePlayer;
 import controller.ReversiController;
-import model.ReversiModel;
 import strategy.AvoidBeforeCornersStrategy;
 import strategy.CornersStrategy;
 import strategy.ModularStrategy;
 import strategy.MostCapturesStrategy;
 import strategy.ReversiStrategy;
-import view.ReversiGraphicsView;
 import view.SquareReversiGraphicsView;
 
 
@@ -26,7 +24,7 @@ public class RunReversi {
 
     SquareModel model = new SquareModel();
 
-   SquareReversiGraphicsView  rv1 = new SquareReversiGraphicsView(model);
+    SquareReversiGraphicsView  rv1 = new SquareReversiGraphicsView(model);
     SquareReversiGraphicsView rv2 = new SquareReversiGraphicsView(model);
     ArrayList<ReversiStrategy> strategies = new ArrayList<>();
     strategies.add(new CornersStrategy());

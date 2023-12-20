@@ -1,7 +1,6 @@
 package commands;
 
 import view.IView;
-import view.ReversiGraphicsView;
 
 /**
  * Placeholder move command.

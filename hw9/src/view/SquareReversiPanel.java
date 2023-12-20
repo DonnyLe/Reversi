@@ -1,6 +1,12 @@
 package view;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
+import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -9,7 +15,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 import javax.swing.event.MouseInputAdapter;
 
 import model.DiscState;
@@ -80,8 +88,8 @@ public class SquareReversiPanel extends JPanel implements IPanel {
   @Override
   public void initializeShapeImageList() {
 
-    for(int x = 0; x < this.model.getSideLength(); x++) {
-      for(int y = 0; y < this.model.getSideLength(); y++) {
+    for (int x = 0; x < this.model.getSideLength(); x++) {
+      for (int y = 0; y < this.model.getSideLength(); y++) {
         SquareImage s = new SquareImage(1, new Point2D.Double(x, y), Color.lightGray);
         this.squareImageList.add(s);
       }
@@ -111,7 +119,8 @@ public class SquareReversiPanel extends JPanel implements IPanel {
     for (SquareImage square : this.squareImageList) {
       drawSquare(g2d, square);
       Point2D coord = square.getCoords();
-      drawDisc(g2d, square.getCenter(), this.model.getDiscAt((int) coord.getX(), (int) coord.getY()));
+      drawDisc(g2d, square.getCenter(), this.model.getDiscAt((int) coord.getX(),
+              (int) coord.getY()));
     }
 
   }
@@ -181,7 +190,6 @@ public class SquareReversiPanel extends JPanel implements IPanel {
             this.model.getBoardArrayLength());
     ret.scale(1, 1);
     ret.scale(preferred.getWidth() / getWidth(), preferred.getHeight() / getHeight());
-//    ret.translate(-getWidth() / 2., -getHeight() / 2.);
     return ret;
   }
 
@@ -197,7 +205,6 @@ public class SquareReversiPanel extends JPanel implements IPanel {
     AffineTransform ret = new AffineTransform();
     Dimension preferred = new Dimension(this.model.getBoardArrayLength() ,
             this.model.getBoardArrayLength() );
-//    ret.translate(getWidth() / 2., getHeight() / 2.);
     ret.scale(getWidth() / preferred.getWidth(), getHeight() / preferred.getHeight());
     ret.scale(1, 1);
     return ret;
@@ -222,7 +229,7 @@ public class SquareReversiPanel extends JPanel implements IPanel {
       boolean foundHex = false;
       Point physicalP = e.getPoint();
       Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
-      System.out.println(logicalP.getX()+ ", " + logicalP.getY());
+      System.out.println(logicalP.getX() + ", " + logicalP.getY());
 
       if (active) {
         for (SquareImage square : squareImageList) {
@@ -237,7 +244,8 @@ public class SquareReversiPanel extends JPanel implements IPanel {
             SquareReversiPanel.this.repaint();
 
             foundHex = true;
-          } else if (square.contains(logicalP) && SquareReversiPanel.this.selectedSquare == square) {
+          } else if (square.contains(logicalP) &&
+                  SquareReversiPanel.this.selectedSquare == square) {
             SquareReversiPanel.this.selectedSquare.setColor(Color.LIGHT_GRAY);
             SquareReversiPanel.this.selectedSquare = null;
             SquareReversiPanel.this.repaint();

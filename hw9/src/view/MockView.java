@@ -37,11 +37,13 @@ public class MockView implements IView {
   @Override
   public void notifyMove() {
 
+    //empty
   }
 
   @Override
   public void notifyPass() {
 
+    //empty
   }
 
   /**

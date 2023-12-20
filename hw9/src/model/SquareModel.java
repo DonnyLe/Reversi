@@ -7,6 +7,11 @@ import java.util.List;
 
 import controller.ModelObserver;
 
+/**
+ * `
+ * Model for Reversi game. Implements IReversi and follows rules for a standard Reversi game except
+ * game uses square instead of Hexagon (for shape of board and shape of spaces).
+ */
 public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   private boolean isGameStarted;
@@ -22,6 +27,9 @@ public class SquareModel implements IReversi, ModelStatus, ReadonlyIReversi {
 
   private List<ModelObserver> controllers = new ArrayList<>();
 
+  /**
+   * Default constructor for a SquareModel. Initializes all fields.
+   */
   public SquareModel() {
     this.isGameStarted = false;
     this.board = new Hexagon[0][0];

@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.text.IconView;
 
 import model.IReversi;
 import model.SquareModel;
@@ -75,9 +74,9 @@ public class ReversiCreator {
     }
     IView rv1 = new ReversiGraphicsView(model);
     IView rv2 = new ReversiGraphicsView(model);
-    if(squareModel) {
-       rv1 = new SquareReversiGraphicsView(model);
-       rv2 = new SquareReversiGraphicsView(model);
+    if (squareModel) {
+      rv1 = new SquareReversiGraphicsView(model);
+      rv2 = new SquareReversiGraphicsView(model);
     }
 
 
