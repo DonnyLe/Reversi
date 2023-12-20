@@ -37,7 +37,7 @@ public class MachinePlayer implements IPlayer {
    */
   @Override
   public void move() {
-    int delay = 1000;
+    int delay = 500;
     Timer timer = new Timer(delay, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
